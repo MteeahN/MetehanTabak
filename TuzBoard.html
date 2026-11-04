@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TuzBoard — Metehan Tabak</title>
+  <meta name="theme-color" content="#07080c">
+  <link rel="preload" href="assets/fonts/syne-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/dm-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <script>(function(d){d.classList.add('js');try{if(sessionStorage.getItem('mt_seen'))d.classList.add('pl-quick')}catch(e){}})(document.documentElement)</script>
+  <noscript><style>#preloader{display:none!important}.reveal{opacity:1!important;transform:none!important}</style></noscript>
+  <link rel="stylesheet" href="assets/css/MobileNav.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #080a0f;
+      --bg2: #0d1017;
+      --surface: rgba(255,255,255,0.03);
+      --surface-hover: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(255,255,255,0.14);
+      --accent: #ff8000;
+      --accent2: #FFB266;
+      --accent-glow: rgba(232,192,122,0.18);
+      --accent-glow-strong: rgba(232,192,122,0.35);
+      --text: #f0f0ee;
+      --text-muted: rgba(240,240,238,0.45);
+      --text-dim: rgba(240,240,238,0.25);
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+
+
+    /* ── CUSTOM CURSOR ── */
+    #cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width .2s, height .2s, background .2s, opacity .3s;
+      mix-blend-mode: normal;
+      opacity: 0;
+    }
+    #cursor-ring {
+      position: fixed;
+      top: 0; left: 0;
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(232,192,122,0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: all .08s linear, opacity .3s;
+      opacity: 0;
+    }
+
+    /* PRELOADER */
+    #preloader { position: fixed; inset: 0; background: var(--bg); z-index: 99999; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px; transition: opacity .6s ease, visibility .6s ease; }
+    #preloader.hidden { opacity: 0; visibility: hidden; }
+    .preloader-logo { font-family: var(--font-display); font-size: 40px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); }
+    .preloader-logo span { color: var(--accent); }
+    .preloader-bar-wrap { width: 200px; height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+    .preloader-bar { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); width: 0%; animation: preload 1.4s cubic-bezier(.4,0,.2,1) forwards; }
+    @keyframes preload { 0%{width:0%} 40%{width:60%} 80%{width:88%} 100%{width:100%} }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 clamp(24px,5vw,80px); height: 72px; display: flex; align-items: center; gap: 24px; transition: background .4s, backdrop-filter .4s; }
+    nav.scrolled { background: rgba(8,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav-logo { text-decoration: none; flex: 0 0 auto; display: flex; align-items: center; }
+    .nav-logo-img { height: 60px; width: auto; display: block; object-fit: contain; filter: brightness(1); transition: opacity .25s; }
+    .nav-logo:hover .nav-logo-img { opacity: 0.8; }
+    .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-muted); text-decoration: none; letter-spacing: 0.02em; transition: color .25s; position: relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--accent); transition:width .3s cubic-bezier(.4,0,.2,1); }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); border-radius: 2px; }
+
+    /* ══ HERO ══ */
+    #hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    /* subtle dark base */
+    .hero-art {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .hero-art::before {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        radial-gradient(ellipse 110% 70% at 50% 0%,   rgba(8,10,15,0.55) 0%, transparent 60%),
+        radial-gradient(ellipse 100% 50% at 50% 100%,  rgba(8,10,15,0.95) 0%, rgba(8,10,15,0.6) 40%, transparent 70%);
+    }
+    .hero-art::after {
+      content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: linear-gradient(to top,
+        var(--bg) 0%, rgba(8,10,15,0.96) 12%, rgba(8,10,15,0.80) 25%,
+        rgba(8,10,15,0.45) 45%, rgba(8,10,15,0.15) 65%, transparent 80%);
+    }
+    .hero-noise { position: absolute; inset: 0; z-index: 3;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background-size: 200px; pointer-events: none; }
+    .hero-grid { position: absolute; inset: 0; z-index: 3;
+      background-image: linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 75%);
+      pointer-events: none; }
+
+    /* content strip — flex row: text left, logo right */
+    .hero-content {
+      position: relative; z-index: 10; width: 100%;
+      padding: 0 clamp(28px,5vw,88px) clamp(52px,6vw,88px);
+      opacity: 0; animation: fadeUp .9s ease .25s forwards;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 0;
+      overflow: visible;
+    }
+    /* text sits on top of the logo bleed */
+    .hero-text {
+      flex: 1; min-width: 0;
+      position: relative; z-index: 2;
+    }
+
+    /* ── PARALLAX LOGO IMG ── */
+    #heroLogoImg {
+      flex-shrink: 0;
+      width: clamp(1000px, 52vw, 720px);
+      height: clamp(420px, 52vw, 720px);
+      object-fit: contain;
+      display: block;
+      margin-right: 40px;
+      opacity: 0;
+      will-change: transform;
+      position: relative; z-index: 1;
+      transition: opacity 0.7s ease;
+      pointer-events: none;
+    }
+    #heroLogoImg.loaded { opacity: 0.65; }
+    @media (max-width: 768px) { #heroLogoImg { display: none; } }
+    .hero-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 11px; color: rgba(255,255,255,.35); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 20px; }
+    .hero-breadcrumb a { color: rgba(255,255,255,.35); text-decoration: none; transition: color .2s; }
+    .hero-breadcrumb a:hover { color: var(--accent); }
+    .hero-breadcrumb-sep { opacity: .4; }
+    .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .hero-tag { padding: 4px 13px; background: rgba(232,192,122,0.1); border: 1px solid rgba(232,192,122,0.22); border-radius: 100px; font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: 0.07em; text-transform: uppercase; }
+    h1.hero-title { font-family: var(--font-display); font-size: clamp(52px, 9.5vw, 108px); font-weight: 800; line-height: .95; letter-spacing: -0.04em; color: #fff; margin-bottom: 20px; text-shadow: 0 4px 40px rgba(0,0,0,.5); }
+    h1.hero-title span { display: block; background: linear-gradient(90deg, var(--accent) 0%, #f0d89a 55%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-desc { font-size: clamp(14px, 1.6vw, 17px); color: rgba(255,255,255,.55); max-width: 560px; line-height: 1.75; font-weight: 300; margin-bottom: 36px; }
+    .hero-meta { display: flex; gap: 48px; flex-wrap: wrap; }
+    .meta-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); font-weight: 600; margin-bottom: 4px; }
+    .meta-value { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+    .hero-scroll { position: absolute; bottom: 32px; right: clamp(24px,5vw,80px); display: flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); opacity: 0; animation: fadeUp .8s ease 1s forwards; }
+    .scroll-line { width: 40px; height: 1px; background: rgba(255,255,255,.18); overflow: hidden; position: relative; }
+    .scroll-line::after { content:''; position:absolute; left:-100%; top:0; width:100%; height:100%; background:var(--accent); animation: lineSlide 2.2s ease 1.8s infinite; }
+    @keyframes lineSlide { 0%{left:-100%} 50%{left:0%} 100%{left:100%} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+    /* DIVIDER */
+    .section-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent); margin: 0 clamp(24px,5vw,80px); }
+
+    /* SECTION BASE */
+    .section-wrap { max-width: 1200px; margin: 0 auto; padding: 100px clamp(24px,5vw,80px); }
+    .section-label { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 16px; }
+    .section-label::before { content:''; display:block; width:24px; height:1px; background:var(--accent); }
+    .section-title { font-family: var(--font-display); font-size: clamp(28px,4.5vw,48px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: var(--text); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0,.2,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* OVERVIEW */
+    #overview { background: var(--bg); }
+    .overview-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: start; margin-top: 56px; }
+    .overview-body { font-size: 16px; color: var(--text-muted); line-height: 1.85; font-weight: 300; }
+    .overview-body p + p { margin-top: 18px; }
+    .overview-body strong { color: var(--text); font-weight: 500; }
+    .stat-card { padding: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; transition: all .3s; }
+    .stat-card:hover { background: var(--surface-hover); border-color: var(--border-hover); transform: translateX(4px); }
+    .stat-card-num { font-family: var(--font-display); font-size: 36px; font-weight: 800; letter-spacing: -0.04em; color: var(--text); line-height: 1; }
+    .stat-card-num span { color: var(--accent); }
+    .stat-card-label { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim); margin-top: 4px; font-weight: 600; }
+    .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* CHALLENGE / SOLUTION */
+    #challenge { background: var(--bg2); }
+    .cs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 56px; }
+    .cs-card { padding: 40px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; transition: all .4s; }
+    .cs-card:hover { background: var(--surface-hover); border-color: var(--border-hover); transform: translateY(-4px); }
+    .cs-icon { width:44px; height:44px; display:flex; align-items:center; justify-content:center; color:var(--accent); margin-bottom:20px; }
+    .cs-title { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-bottom: 16px; }
+    .cs-body { font-size: 15px; color: var(--text-muted); line-height: 1.8; font-weight: 300; }
+    .cs-list { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .cs-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-muted); }
+    .cs-item::before { content:''; display:block; width:5px; height:5px; border-radius:50%; background:var(--accent); margin-top:8px; flex-shrink:0; }
+
+        /* GALLERY */
+    #gallery { background: var(--bg); }
+
+    /* ── Gallery Layout ── */
+    .gallery-showcase { display: flex; flex-direction: column; gap: 32px; margin-top: 56px; }
+
+    /* Row wrappers */
+    .gallery-row { display: flex; gap: 24px; align-items: stretch; }
+
+    /* ── DEVICE LABEL ── */
+    .device-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 10px;
+    }
+    .device-label svg { opacity: .55; }
+
+    /* ── DESKTOP FRAME ── */
+    .device-desktop {
+      flex: 1; min-width: 0;
+      transition: transform .4s cubic-bezier(.4,0,.2,1);
+    }
+    .device-desktop:hover { transform: translateY(-5px); }
+
+    .browser-frame {
+      border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--border-hover);
+      background: #1a1d24;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04);
+      transition: box-shadow .4s, border-color .4s;
+    }
+    .device-desktop:hover .browser-frame {
+      box-shadow: 0 32px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(232,192,122,0.14);
+      border-color: rgba(232,192,122,0.2);
+    }
+    .browser-bar {
+      height: 36px; background: #141720;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; padding: 0 14px; gap: 7px; flex-shrink: 0;
+    }
+    .browser-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    }
+    .browser-dot:nth-child(1) { background: #ff5f57; }
+    .browser-dot:nth-child(2) { background: #febc2e; }
+    .browser-dot:nth-child(3) { background: #28c840; }
+    .browser-url {
+      flex: 1; height: 20px; background: rgba(255,255,255,0.05);
+      border-radius: 4px; margin: 0 10px; display: flex; align-items: center;
+      padding: 0 8px; gap: 6px;
+    }
+    .browser-url-lock { width: 8px; height: 8px; opacity: .4; }
+    .browser-url-text {
+      font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.02em;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .browser-screen {
+      width: 100%; aspect-ratio: 16/10; overflow: hidden;
+      position: relative; display: block;
+    }
+    .browser-screen img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top center;
+      display: block; transition: transform .6s cubic-bezier(.4,0,.2,1);
+    }
+    .device-desktop:hover .browser-screen img { transform: scale(1.03); }
+
+    /* ── MOBILE FRAME ── */
+    .device-mobile {
+      flex: 0 0 auto; width: 190px;
+      transition: transform .4s cubic-bezier(.4,0,.2,1);
+    }
+    .device-mobile:hover { transform: translateY(-5px); }
+
+    .phone-frame {
+      border-radius: 30px; overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.1);
+      background: #111318;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 1px rgba(255,255,255,0.04);
+      transition: box-shadow .4s, border-color .4s;
+      position: relative;
+    }
+    .device-mobile:hover .phone-frame {
+      box-shadow: 0 32px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 0 1px rgba(232,192,122,0.18);
+      border-color: rgba(232,192,122,0.25);
+    }
+    .phone-notch {
+      height: 28px; background: #111318;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 2; flex-shrink: 0;
+    }
+    .phone-notch-pill {
+      width: 72px; height: 12px; background: #0d1017; border-radius: 8px;
+    }
+    .phone-screen {
+      width: 100%; aspect-ratio: 9/19; overflow: hidden; display: block;
+      background: #0d1017;
+    }
+    .phone-screen img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top center;
+      display: block; transition: transform .6s cubic-bezier(.4,0,.2,1);
+    }
+    .device-mobile:hover .phone-screen img { transform: scale(1.03); }
+    .phone-home {
+      height: 24px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .phone-home-bar {
+      width: 52px; height: 4px; border-radius: 3px; background: rgba(255,255,255,0.18);
+    }
+
+    @media (max-width: 900px) {
+      .gallery-row { flex-direction: column; }
+      .device-mobile { width: 100%; max-width: 220px; margin: 0 auto; }
+    }
+    @media (max-width: 560px) {
+      .device-mobile { width: 180px; }
+    }
+
+    /* old classes kept for compatibility */
+    .gallery-grid { display: none; }
+    .gallery-item { display: none; }
+    .gallery-caption { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+    .gallery-sub { font-size: 12px; color: var(--text-dim); }
+
+    /* PROCESS */
+    #process { background: var(--bg2); }
+    .process-timeline { position: relative; margin-top: 64px; padding-left: 40px; }
+    .process-timeline::before { content:''; position:absolute; left:7px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom, transparent, var(--border) 10%, var(--border) 90%, transparent); }
+    .process-step { position: relative; padding-bottom: 56px; }
+    .process-step:last-child { padding-bottom: 0; }
+    .process-dot { position: absolute; left: -36px; top: 4px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg2); transition: all .3s; }
+    .process-step:hover .process-dot { background: var(--accent); box-shadow: 0 0 16px var(--accent-glow); }
+    .process-num { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+    .process-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-bottom: 10px; }
+    .process-body { font-size: 15px; color: var(--text-muted); line-height: 1.8; font-weight: 300; max-width: 600px; }
+    .process-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .ptag { padding: 3px 10px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; color: var(--text-dim); font-weight: 500; }
+
+    /* TECH */
+    #tech { background: var(--bg); }
+    .tech-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 48px; }
+    .tech-item { padding: 24px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; text-align: center; transition: all .3s cubic-bezier(.4,0,.2,1); display:flex; flex-direction:column; align-items:center; }
+    .tech-item:hover { background: var(--surface-hover); border-color: rgba(232,192,122,0.25); transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(232,192,122,0.1); }
+    .tech-icon { width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:var(--accent); margin:0 auto 10px auto; }
+    .tech-label { font-size: 12px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.02em; }
+    .tech-sub { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
+    /* RESULTS */
+    #results { background: var(--bg2); }
+    .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+    .result-card { padding: 36px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; text-align: center; transition: all .4s; position: relative; overflow: hidden; }
+    .result-card::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 0%, var(--accent-glow) 0%, transparent 70%); opacity:0; transition:opacity .4s; }
+    .result-card:hover { background: var(--surface-hover); border-color: rgba(232,192,122,0.2); transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+    .result-card:hover::before { opacity: 1; }
+    .result-num { font-family: var(--font-display); font-size: 52px; font-weight: 800; letter-spacing: -0.04em; color: var(--text); line-height: 1; position: relative; }
+    .result-num span { color: var(--accent); }
+    .result-label { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 8px; letter-spacing: 0.02em; position: relative; }
+    .result-desc { font-size: 12px; color: var(--text-dim); margin-top: 6px; position: relative; }
+
+    /* NEXT PROJECT */
+    #next { background: var(--bg); }
+    .next-inner { margin-top: 56px; }
+    .next-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 20px; }
+    .next-card { display: grid; grid-template-columns: 1.2fr 1fr; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: all .4s cubic-bezier(.4,0,.2,1); text-decoration: none; background: var(--surface); transform-style: preserve-3d; }
+    .next-card:hover { border-color: rgba(232,192,122,0.25); background: var(--surface-hover); transform: perspective(1200px) translateY(-8px); box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,192,122,0.1); }
+    .next-card-content { padding: 48px; display: flex; flex-direction: column; justify-content: space-between; }
+    .next-card-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--accent-glow); border: 1px solid rgba(232,192,122,0.25); border-radius: 100px; font-size: 10px; font-weight: 600; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+    .next-card-title { font-family: var(--font-display); font-size: clamp(22px,3.5vw,36px); font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 12px; }
+    .next-card-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; font-weight: 300; }
+    .next-card-bottom { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; }
+    .next-card-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .ntag { padding: 4px 10px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; color: var(--text-dim); }
+    .next-arrow { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; transition: gap .2s; }
+    .next-card:hover .next-arrow { gap: 14px; }
+    .next-card-visual { background: linear-gradient(135deg, rgba(44, 44, 44, 0.1) 100%, rgba(70,70,70,0.06) 0%); display: flex; align-items: center; justify-content: center; font-size: 80px; min-height: 240px; }
+    .next-card-visual-emoji { transition: transform .5s cubic-bezier(.4,0,.2,1); }
+    .next-card:hover .next-card-visual-emoji { transform: scale(1.1) rotate(-5deg); }
+    .next-card-img { max-width: 80%; height: auto; object-fit: contain; transition: transform .5s cubic-bezier(.4,0,.2,1); }
+    .next-card:hover .next-card-img { transform: scale(1.1); }
+
+    /* CTA */
+    #cta { background: var(--bg2); }
+    .cta-inner { text-align: center; max-width: 600px; margin: 0 auto; }
+    .cta-title { font-family: var(--font-display); font-size: clamp(28px,5vw,52px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: var(--text); margin-bottom: 16px; }
+    .cta-title span { background: linear-gradient(90deg, var(--accent) 0%, #f0d89a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .cta-desc { font-size: 17px; color: var(--text-muted); line-height: 1.7; font-weight: 300; margin-bottom: 40px; }
+    .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px; padding: 14px 30px; background: var(--accent); color: #080a0f; font-family: var(--font-body); font-size: 14px; font-weight: 600; letter-spacing: 0.01em; border-radius: 8px; border: none; text-decoration: none; transition: all .3s cubic-bezier(.4,0,.2,1); position: relative; overflow: hidden; }
+    .btn-primary::before { content:''; position:absolute; inset:0; background:rgba(255,255,255,0.15); opacity:0; transition:opacity .3s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow-strong); }
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 10px; padding: 14px 30px; background: transparent; color: var(--text); font-family: var(--font-body); font-size: 14px; font-weight: 500; border-radius: 8px; border: 1px solid var(--border-hover); text-decoration: none; transition: all .3s; }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.04); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 40px clamp(24px,5vw,80px); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .footer-logo { font-family: var(--font-display); font-size: 18px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); text-decoration: none; }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy { font-size: 13px; color: var(--text-dim); }
+    .footer-socials { display: flex; gap: 12px; }
+    .social-btn { width: 38px; height: 38px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-decoration: none; transition: all .3s; }
+    .social-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); transform: translateY(-2px); }
+
+    /* BACK TO TOP */
+    #btt { position: fixed; bottom: 32px; right: 32px; width: 44px; height: 44px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-decoration: none; font-size: 18px; transition: all .3s; opacity: 0; pointer-events: none; z-index: 100; transform: translateY(10px); }
+    #btt.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+    #btt:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(232,192,122,0.2); border-radius: 2px; }
+    ::selection { background: rgba(232,192,122,0.2); color: var(--text); }
+
+    /* ══ STICKY PROJECT BAR ══ */
+    #project-bar {
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      height: 52px;
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      padding: 0 clamp(20px,4vw,72px);
+      background: rgba(8,10,15,0.94);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      /* Tamamen viewport dışına çek */
+      transform: translateY(calc(-100% - 72px));
+      opacity: 0;
+      transition: transform 0.42s cubic-bezier(.4,0,.2,1), opacity 0.38s ease;
+      pointer-events: none;
+    }
+    #project-bar.visible {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Scroll progress bar */
+    #project-bar::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 2px;
+      width: var(--scroll-pct, 0%);
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      transition: width 0.1s linear;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .pbar-left {
+      display: flex; align-items: center; gap: 10px;
+      flex: 0 0 auto; min-width: 0;
+    }
+    .pbar-logo { width: 26px; height: 26px; object-fit: contain; border-radius: 6px; opacity: 0.85; }
+    .pbar-divider { width: 1px; height: 18px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
+    .pbar-name { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; white-space: nowrap; }
+
+    /* ── CENTERED pbar-nav ── */
+    .pbar-nav-wrap {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+    }
+    .pbar-nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 100%;
+    }
+    .pbar-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 11px; border-radius: 7px;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none; font-size: 11.5px; font-weight: 600;
+      letter-spacing: 0.01em; white-space: nowrap;
+      transition: color .22s, background .22s;
+      border: none; background: transparent;
+      position: relative;
+    }
+    .pbar-btn::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: 60%; height: 2px;
+      background: var(--accent);
+      border-radius: 2px 2px 0 0;
+      transition: transform .25s cubic-bezier(.4,0,.2,1), opacity .25s;
+      opacity: 0;
+    }
+    .pbar-btn svg { flex-shrink: 0; opacity: 0.6; transition: opacity .22s, color .22s; }
+    .pbar-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .pbar-btn:hover svg { opacity: 1; }
+    .pbar-btn.active { color: var(--accent); }
+    .pbar-btn.active::after { transform: translateX(-50%) scaleX(1); opacity: 1; }
+    .pbar-btn.active svg { opacity: 1; color: var(--accent); }
+
+    /* Mirror of pbar-left — nav'ı gerçekten ortalar */
+    .pbar-right { flex: 0 0 auto; visibility: hidden; display: flex; align-items: center; gap: 10px; }
+    .pbar-right .pbar-logo { width: 26px; height: 26px; }
+    .pbar-right .pbar-divider { width: 1px; height: 18px; }
+    .pbar-right .pbar-name { font-size: 13px; }
+
+    /* spacer to balance flex layout so brand doesn't shift nav */
+    .pbar-right { flex-shrink: 0; width: 0; }
+
+    /* RESPONSIVE */
+    @media(max-width:1024px) {
+      .overview-grid { grid-template-columns: 1fr; gap: 48px; }
+      .cs-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item.tall, .gallery-item.wide { grid-row: span 1; grid-column: span 1; }
+      .tech-grid { grid-template-columns: repeat(4, 1fr); }
+      .results-grid { grid-template-columns: 1fr 1fr; }
+      .next-card { grid-template-columns: 1fr; }
+      .next-card-visual { min-height: 160px; }
+    }
+    @media(max-width:768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .lang-switcher { display: flex; position: absolute; left: 50%; transform: translateX(-50%); }
+      .tech-grid { grid-template-columns: repeat(3, 1fr); }
+      .results-grid { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: 1fr; }
+      .hero-meta { gap: 24px; }
+      footer { flex-direction: column; align-items: flex-start; }
+      /* hide right logo on small screens */
+      .hero-logo-right { display: none; }
+      /* pbar: icon-only on mobile */
+      .pbar-btn span { display: none; }
+      .pbar-btn { padding: 7px 9px; gap: 0; }
+      .pbar-btn svg { width: 16px; height: 16px; }
+      .pbar-name { display: none; }
+      .pbar-divider { display: none; }
+      .pbar-right { display: none; }
+    }
+    @media(max-width:480px) {
+    }
+  
+    /* ── LANG SWITCHER ── */
+    .lang-switcher { display: flex; align-items: center; gap: 4px; flex: 0 0 auto; }
+    .nav-center { display: flex; flex: 1; align-items: center; justify-content: center; gap: 40px; }
+    .lang-btn { background: none; border: none; font-family: var(--font-body); font-size: 11px; font-weight: 700; color: var(--text-dim); cursor: pointer; letter-spacing: 0.08em; padding: 5px 9px; border-radius: 4px; transition: all .2s; text-transform: uppercase; }
+    .lang-btn.active { color: var(--accent); background: var(--accent-glow); }
+    .lang-btn:hover:not(.active) { color: var(--text-muted); }
+    .lang-sep { color: var(--border); font-size: 11px; user-select: none; }
+
+</style>
+  <link rel="stylesheet" href="assets/css/premium.css">
+</head>
+<body>
+
+<div id="preloader" aria-hidden="true">
+  <div class="pl-crown"><svg viewBox="0 0 700 609" focusable="false"><defs><path id="plCrownPath" d="M564 603.5C545.8 593.9 495.1 578.3 457.5 570.6C340.7 546.8 218.1 554.4 93.7 593.1C86.6 595.3 80.6 596.9 80.3 596.7C79.5 595.9 111.4 580.6 124 575.7C212.9 541.2 321.6 530.6 429 546C454.7 549.7 479.4 554.6 507 561.6C518.8 564.6 528.5 567 528.6 567C528.7 567 527.2 562.2 525.4 556.4C507.8 501 510.7 433.3 533 376C537.3 365 549.1 339.8 549.7 340.3C549.9 340.5 549.1 343.3 548 346.5C541.7 364.7 535.1 397 532.4 422.3C530.2 443.3 530.9 485.9 533.8 504.5C538.9 537.1 546.8 562.9 560.1 590.1C563.9 597.9 566.9 604.4 566.8 604.6C566.6 604.7 565.4 604.2 564 603.5ZM65.5 562C71.9 377.5 53.2 238 10.5 153.1C7.5 147 5 141.8 5 141.4C5 139.4 32.1 156.5 49.5 169.5C120.9 222.5 170.7 289.8 187 355.2C188.7 362.3 190 368.4 189.8 368.9C189.7 369.4 185 361.9 179.5 352.2C154.9 308.9 128 273.3 103.2 251.5C93.7 243.1 76.3 230.4 75.4 231.2C75.2 231.5 76.4 237.5 78 244.6C93.7 313 97.7 394.3 88.9 467.5C85 499.6 75.6 544.1 67.5 568L65 575.5L65.5 562ZM576.3 521C572.5 506.2 571.5 493.8 571.5 458.5C571.5 420.8 572.2 409.8 577.1 375.5C584.2 325.4 597.8 269.6 616.9 212.6C620.8 201.1 623.8 191.4 623.5 191.2C622.8 190.5 612.7 196.8 602.7 204.4C562.7 234.3 512.3 286.2 475.5 335.3C470.7 341.8 466.5 346.9 466.3 346.6C465.6 346 472.8 327.6 478 316.4C508.8 250.7 567.7 190.3 644 146.4C658.5 138.1 693.7 120.7 695 121.2C695.5 121.4 691.6 129.6 686.3 139.5C627 251.5 589.4 377.8 580 496.5C579.3 504.8 578.5 514.6 578.1 518.5L577.4 525.5L576.3 521ZM486.9 481.9C423.6 438.3 374.6 347.3 359 244.5C357.9 236.8 356.7 229 356.4 227.1C355.9 223.9 355.5 224.4 350.6 235.6C312.4 323.2 239.4 401.8 146.1 456C133.2 463.4 117.6 471.4 122 468.3C139.6 455.7 164.6 434.3 184.9 414.5C278.8 322.8 342.6 206.6 367.4 82C370.5 66.7 372.1 56.4 375.7 30.5C376.2 26.8 376.4 36.6 376.2 55.5C374.9 154.3 386.8 251.3 409.7 328C428.3 390.7 457.7 446.6 489.3 479.8C492.6 483.2 495.1 486.2 494.8 486.5C494.6 486.8 491 484.7 486.9 481.9Z"/><clipPath id="plClip"><use href="#plCrownPath"/></clipPath><linearGradient id="plGrad" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ff5a1f"/><stop offset=".45" stop-color="#ff8000"/><stop offset="1" stop-color="#ffd08a"/></linearGradient></defs><use href="#plCrownPath" fill="rgba(255,255,255,.09)"/><g clip-path="url(#plClip)"><rect class="pl-fill" x="0" y="0" width="700" height="609" fill="url(#plGrad)"/></g></svg></div>
+  <div class="pl-count"><span class="pl-num">0</span></div>
+</div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo"><img src="assets/img/LogoOrange.webp" alt="MT Logo" class="nav-logo-img" width="46" height="46"></a>
+  <div class="nav-center">
+    <ul class="nav-links">
+    <li><a href="index.html#about" data-i18n="nav.about">About</a></li>
+    <li><a href="index.html#projects" data-i18n="nav.projects">Projects</a></li>
+    <li><a href="index.html#skills" data-i18n="nav.skills">Skills</a></li>
+    <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
+  </ul>
+  </div>
+  <div class="lang-switcher" id="lang-switcher"><button class="lang-btn" data-lang="en">EN</button><span class="lang-sep">|</span><button class="lang-btn" data-lang="tr">TR</button></div>
+  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- STICKY PROJECT BAR -->
+<div id="project-bar">
+  <div class="pbar-left">
+    <img src="assets/img/TuzBoardLogo.webp" alt="TuzBoard logo" class="pbar-logo" onerror="this.style.display='none'">
+    <span class="pbar-divider"></span>
+    <span class="pbar-name">TuzBoard</span>
+  </div>
+  <div class="pbar-nav-wrap">
+    <nav class="pbar-nav">
+      <a href="#overview"  class="pbar-btn" data-section="overview">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="11" width="8" height="9" rx="1"/><rect x="3" y="15" width="7" height="6" rx="1"/></svg>
+        <span data-i18n="pbar.overview">Overview</span>
+      </a>
+      <a href="#gallery"   class="pbar-btn" data-section="gallery">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span data-i18n="pbar.gallery">Gallery</span>
+      </a>
+      <a href="#challenge" class="pbar-btn" data-section="challenge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span data-i18n="pbar.challenge">Challenge</span>
+      </a>
+      <a href="#process"   class="pbar-btn" data-section="process">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M9 11l3 3L22 4"/></svg>
+        <span data-i18n="pbar.process">Process</span>
+      </a>
+      <a href="#results"   class="pbar-btn" data-section="results">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-5 3 3 4-6"/></svg>
+        <span data-i18n="pbar.results">Results</span>
+      </a>
+    </nav>
+  </div>
+  <!-- Mirror of pbar-left for true centering (hidden) -->
+  <div class="pbar-right" aria-hidden="true">
+    <span class="pbar-logo"></span>
+    <span class="pbar-divider"></span>
+    <span class="pbar-name">TuzBoard</span>
+  </div>
+</div>
+
+<!-- Mobile Nav Overlay -->
+<div class="mob-overlay" id="mob-overlay"></div>
+
+<!-- Mobile Nav Panel -->
+<div class="mobile-nav" id="mobile-nav">
+  <!-- Header -->
+  <div class="mob-header">
+    <a href="index.html" class="mob-logo">MT<span>.</span></a>
+    <button class="mob-close" id="mobile-close" aria-label="Close menu">
+      <div class="mob-close-line"></div>
+      <div class="mob-close-line"></div>
+    </button>
+  </div>
+
+  <!-- Links -->
+  <nav class="mob-links">
+    <a href="index.html#about"    class="mob-link-item mobile-link">
+      <span class="mob-link-num">01</span>
+      <span class="mob-link-label" data-i18n="nav.about">About</span>
+      <span class="mob-link-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+    <a href="index.html#projects" class="mob-link-item mobile-link">
+      <span class="mob-link-num">02</span>
+      <span class="mob-link-label" data-i18n="nav.projects">Projects</span>
+      <span class="mob-link-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+    <a href="index.html#skills"   class="mob-link-item mobile-link">
+      <span class="mob-link-num">03</span>
+      <span class="mob-link-label" data-i18n="nav.skills">Skills</span>
+      <span class="mob-link-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+    <a href="index.html#contact"  class="mob-link-item mobile-link">
+      <span class="mob-link-num">04</span>
+      <span class="mob-link-label" data-i18n="nav.contact">Contact</span>
+      <span class="mob-link-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+    <a href="index.html#"         class="mob-link-item mobile-link">
+      <span class="mob-link-num">05</span>
+      <span class="mob-link-label" data-i18n="nav.cv">Download CV</span>
+      <span class="mob-link-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+  </nav>
+
+  <!-- Panel Footer -->
+  <div class="mob-footer">
+    <div class="mob-footer-top">
+      <div class="mob-socials">
+        <a href="https://github.com/MteeahN" class="mob-social-btn" title="GitHub">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/metehantabak/" class="mob-social-btn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://x.com/MeteVeyn" class="mob-social-btn" title="Twitter / X">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+      <div class="mob-lang">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="tr">TR</button>
+      </div>
+    </div>
+    <div class="mob-status">
+      <span class="mob-status-dot"></span>
+      <span data-i18n="hero.badge">Available for new projects</span>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero" style="--p1:221,212,81;--p2:58,120,140">
+  <!-- dark atmospheric base -->
+  <div class="hero-art"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-grid"></div>
+
+  <!-- content strip: text left + parallax logo right -->
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-breadcrumb">
+        <a href="index.html" data-i18n="breadcrumb.home">Home</a>
+        <span class="hero-breadcrumb-sep">›</span>
+        <a href="index.html#projects" data-i18n="breadcrumb.projects">Projects</a>
+        <span class="hero-breadcrumb-sep">›</span>
+        <span>TuzBoard</span>
+      </div>
+      <div class="hero-tags">
+        <span class="hero-tag" data-i18n="hero.tag1">Web App</span>
+        <span class="hero-tag" data-i18n="hero.tag2">Script</span>
+      </div>
+      <h1 class="hero-title">Tuz<span>Board</span></h1>
+      <p class="hero-desc" data-i18n="hero.desc">The Tuz Festivali Scoreboard System was developed as a web-based, synchronized spectator and administrator platform designed to deliver real-time match tracking, seamless score management, and an engaging on-site digital experience.</p>
+      <div class="hero-meta">
+        <div class="meta-item"><div class="meta-label" data-i18n="meta.year">Year</div><div class="meta-value">2025</div></div>
+        <div class="meta-item"><div class="meta-label" data-i18n="meta.platform">Platform</div><div class="meta-value">Web App</div></div>
+        <div class="meta-item"><div class="meta-label" data-i18n="meta.role">Role</div><div class="meta-value">Full-Stack Dev</div></div>
+        <div class="meta-item"><div class="meta-label" data-i18n="meta.duration">Duration</div><div class="meta-value">1 Week</div></div>
+      </div>
+    </div>
+
+    <img
+      id="heroLogoImg"
+      src="assets/img/TuzBoardLogo.webp"
+      alt="TuzBoard Logo"
+      onerror="this.style.display='none'"
+    >
+  </div>
+  <div class="hero-scroll"><span data-i18n="scroll.hint">Scroll to explore</span> <div class="scroll-line"></div></div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="section-wrap">
+    <div class="overview-grid">
+      <div>
+        <div class="section-label reveal" data-i18n="label.overview">Project Overview</div>
+        <h2 class="section-title reveal reveal-delay-1" data-i18n="overview.title">Powering Competition, One Score at a Time</h2>
+        <div class="overview-body reveal reveal-delay-2">
+          <p data-i18n-html="overview.p1">Delivering a <strong>real-time synchronized scoreboard system</strong> that ensures accurate match tracking and seamless coordination between administrator and spectator screens.</p>
+          <p data-i18n-html="overview.p2">Built to provide a <strong>reliable, high-visibility, and event-ready competition experience</strong> tailored for dynamic festival environments.</p>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="stat-row">
+          <div class="stat-card"><div class="stat-card-num"><span id="s1">0</span>+</div><div class="stat-card-label" data-i18n="stat.matches">Matches Managed</div></div>
+          <div class="stat-card"><div class="stat-card-num"><span id="s2">0</span>K+</div><div class="stat-card-label" data-i18n="stat.spectators">Live Spectators Reached</div></div>
+          <div class="stat-card"><div class="stat-card-num"><span id="s3">0</span></div><div class="stat-card-label" data-i18n="stat.sports">Supported Sports Modes</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-wrap">
+    <div class="gx-head">
+      <div>
+        <div class="section-label reveal" data-i18n="label.gallery">Visual Showcase</div>
+        <h2 class="section-title reveal reveal-delay-1" data-i18n="gallery.title">Crafted in every pixel.</h2>
+      </div>
+      <p class="gx-hint reveal reveal-delay-2"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg><span data-i18n="g.hint">Select a screen to view it full size.</span></p>
+    </div>
+    <div class="gx-stage">
+      <div class="gx-glow" aria-hidden="true"></div>
+      <figure class="gx-shot gx-desktop" data-lb="0" data-cursor="hand" tabindex="0" role="button">
+          <div class="gx-browser">
+            <div class="gx-bar"><span class="gx-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="gx-url">Tuz Board</span><span class="gx-bar-sp" aria-hidden="true"></span></div>
+            <div class="gx-screen"><img src="assets/img/Tuz Desktop.webp" alt="TuzBoard — Spectator Screen" loading="lazy" decoding="async"></div>
+          </div>
+          <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+        </figure>
+      <figure class="gx-shot gx-phone" data-lb="2" data-cursor="hand" tabindex="0" role="button" data-parallax="0.06">
+          <div class="gx-phone-frame">
+            <span class="gx-island" aria-hidden="true"></span>
+            <div class="gx-screen"><img src="assets/img/Tuz Mobile.webp" alt="Mobile — Football" loading="lazy" decoding="async"></div>
+          </div>
+          <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+        </figure>
+    </div>
+    <div class="gx-row">
+      <figure class="gx-shot gx-laptop reveal" data-lb="1" data-cursor="hand" tabindex="0" role="button">
+          <div class="gx-browser">
+            <div class="gx-bar"><span class="gx-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="gx-url">Tuz Board</span><span class="gx-bar-sp" aria-hidden="true"></span></div>
+            <div class="gx-screen"><img src="assets/img/Tuz Laptop.webp" alt="TuzBoard — Admin Panel" loading="lazy" decoding="async"></div>
+          </div>
+          <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+        </figure>
+      <div class="gx-index reveal reveal-delay-1">
+        <p class="gx-index-title" data-i18n="g.screens">Screens</p>
+        <button type="button" class="gx-item" data-lb="0">
+            <span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+            <span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d1">Desktop</span><span class="gx-item-n" data-i18n="g.n1">Spectator Screen</span></span>
+            <span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span>
+          </button>
+        <button type="button" class="gx-item" data-lb="1">
+            <span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20l-1.5-4h-17z"/></svg></span>
+            <span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d2">Laptop</span><span class="gx-item-n" data-i18n="g.n2">Admin Panel</span></span>
+            <span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span>
+          </button>
+        <button type="button" class="gx-item" data-lb="2">
+            <span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18.5h2"/></svg></span>
+            <span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d3">Mobile</span><span class="gx-item-n" data-i18n="g.n3">Football Menu</span></span>
+            <span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span>
+          </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CHALLENGE / SOLUTION -->
+<section id="challenge">
+  <div class="section-wrap">
+    <div class="section-label reveal" data-i18n="label.challenge">Problem & Solution</div>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n="challenge.heading">Guided by timeless values, towards a future rising through education.</h2>
+    <div class="cs-grid">
+      <div class="cs-card reveal reveal-delay-1">
+        <div class="cs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <div class="cs-title" data-i18n="challenge.title">The Challenge</div>
+        <div class="cs-body" data-i18n="challenge.body">The core challenge was transforming live match scoring into a stable, real-time, and error-free digital system that remains responsive under event pressure.</div>
+        <div class="cs-list" data-i18n-html="challenge.list">
+          <div class="cs-item">Ensuring instant data synchronization between the admin panel and spectator screen</div>
+          <div class="cs-item">Preventing score duplication or mismatch errors during rapid updates</div>
+          <div class="cs-item">Handling set-based scoring logic and configurable sport rules within one unified structure</div>
+          <div class="cs-item">Maintaining connection stability during live matches</div>
+          <div class="cs-item">Designing a high-visibility interface suitable for outdoor festival environments</div>
+          <div class="cs-item">Structuring a clean and scalable code architecture for future expansion</div>
+        </div>
+      </div>
+      <div class="cs-card reveal reveal-delay-2">
+        <div class="cs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div class="cs-title" data-i18n="solution.title">The Solution</div>
+        <div class="cs-body" data-i18n="solution.body">The result is a stable, synchronized, and festival-ready scoreboard system delivering accurate live tracking and a seamless competition experience.</div>
+        <div class="cs-list" data-i18n-html="solution.list">
+          <div class="cs-item">Built a custom real-time synchronization architecture for dual-screen communication</div>
+          <div class="cs-item">Developed a modular scoring engine supporting dynamic sport configurations</div>
+          <div class="cs-item">Added automatic reconnection and state recovery mechanisms</div>
+          <div class="cs-item">Designed a high-contrast, large-scale spectator UI for maximum readability</div>
+          <div class="cs-item">Created an intuitive admin control panel optimized for rapid score entry</div>
+          <div class="cs-item">Structured the project using modular, maintainable scripts and scalable backend architecture</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-wrap">
+    <div class="section-label reveal" data-i18n="label.process">Development Journey</div>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n="process.title">6 months of structured development and continuous iteration.</h2>
+    <div class="process-timeline">
+      <div class="process-step reveal">
+        <div class="process-dot"></div>
+        <div class="process-num" data-i18n="phase.num.01">Phase 01</div>
+        <div class="process-title" data-i18n="p01.title">System Architecture & Core Synchronization</div>
+        <div class="process-body" data-i18n="p01.body">The first phase focused on building the foundational real-time communication structure between the admin and spectator interfaces. Core score handling logic and match state management were implemented to ensure accurate data flow and consistent synchronization.</div>
+        <div class="process-tags" data-i18n-html="p01.tags"><span class="ptag">Real-Time Communication Setup</span><span class="ptag">Match State Management</span><span class="ptag">Core Scoring Engine</span></div>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-dot"></div>
+        <div class="process-num" data-i18n="phase.num.02">Phase 02</div>
+        <div class="process-title" data-i18n="p02.title">Sport Logic & Administrative Controls</div>
+        <div class="process-body" data-i18n="p02.body">Once synchronization was stable, dynamic sport configurations and rule-based scoring systems were developed. The admin panel was refined to support rapid score entry, set control, and structured match flow management.</div>
+        <div class="process-tags" data-i18n-html="p02.tags"><span class="ptag">Modular Sport Configuration</span><span class="ptag">Set & Tie-Break Logic</span><span class="ptag">Admin Control Panel System</span></div>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-dot"></div>
+        <div class="process-num" data-i18n="phase.num.03">Phase 03</div>
+        <div class="process-title" data-i18n="p03.title">UI Optimization & Stability Enhancements</div>
+        <div class="process-body" data-i18n="p03.body">The final phase focused on visual clarity, performance stability, and architectural refinement. The spectator interface was optimized for high visibility, while reconnection logic and performance improvements ensured smooth operation during live festival conditions.</div>
+        <div class="process-tags" data-i18n-html="p03.tags"><span class="ptag">High-Visibility UI Design</span><span class="ptag">Reconnection & State Recovery</span><span class="ptag">Performance Optimization & Code Refactoring</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TECH STACK -->
+<section id="tech">
+  <div class="section-wrap">
+    <div class="section-label reveal" data-i18n="label.tech">Technology Stack</div>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n="tech.title">Built with the right tools.</h2>
+    <div class="tech-grid reveal reveal-delay-2">
+      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/><path d="M8 13h3M8 17h5"/></svg></div><div class="tech-label">JavaScript</div><div class="tech-sub">Backend</div></div>
+      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M5 3l1.5 15L12 20l5.5-2L19 3H5z"/><path d="M8.5 7.5h7l-.5 5L12 13.5l-2.5-.5L9 10h6"/></svg></div><div class="tech-label">HTML5 · CSS3 · JS</div><div class="tech-sub">Frontend</div></div>
+      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M10 9c-1-2-3-3-5-2a5 5 0 0 0 0 10c2 1 4 0 5-2"/><path d="M14 10h5M16.5 8v4"/><path d="M17 14h4M19 12v4"/></svg></div><div class="tech-label">WebSocket</div><div class="tech-sub">Real-Time Communication Logic</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="section-wrap">
+    <div class="section-label reveal" data-i18n="label.results">Outcomes</div>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n="results.title">Numbers that reflect performance, reliability, and real-time stability.</h2>
+    <div class="results-grid">
+      <div class="result-card reveal">
+        <div class="result-num"><span id="r1">0</span></div>
+        <div class="result-label" data-i18n="r1.label">Fully Synchronized Interfaces</div>
+        <div class="result-desc" data-i18n="r1.desc">Admin & Spectator Panels</div>
+      </div>
+      <div class="result-card reveal reveal-delay-1">
+        <div class="result-num"><span id="r2">0</span>s</div>
+        <div class="result-label" data-i18n="r2.label">Average Update Latency</div>
+        <div class="result-desc" data-i18n="r2.desc">All scholarship processes fully centralized</div>
+      </div>
+      <div class="result-card reveal reveal-delay-2">
+        <div class="result-num"><span id="r3">0</span>%</div>
+        <div class="result-label" data-i18n="r3.label">State Consistency</div>
+        <div class="result-desc" data-i18n="r3.desc">No score mismatch after validation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- NEXT PROJECT -->
+<section id="next">
+  <div class="section-wrap">
+    <div class="section-label reveal" data-i18n="label.next">Continue Exploring</div>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n="next.title">Next up.</h2>
+    <div class="next-inner reveal reveal-delay-2">
+      <div class="next-label" data-i18n="next.label">Next Project</div>
+      <a href="HareketleGelisim.html" class="next-card">
+        <div class="next-card-content">
+          <div class="next-card-top">
+            <div class="next-card-badge" data-i18n-html="next.badge"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>Web</div>
+            <div class="next-card-title" data-i18n="next.card.title">Hareketle Gelisim</div>
+            <div class="next-card-desc" data-i18n="next.card.desc">A modern, responsive, and performance-focused institutional website designed to present training programs, strengthen digital presence, and streamline communication with students and parents.</div>
+          </div>
+          <div class="next-card-bottom">
+            <div class="next-card-tags"><span class="ntag">Web Platform</span><span class="ntag">Asp.Net</span></div>
+            <div class="next-arrow"><span data-i18n="btn.viewproject">View Project</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+        <div class="next-card-visual">
+          <img src="assets/img/HareketLogoPng.webp" alt="Hareketle Gelisim Project Logo" class="next-card-img" loading="lazy" decoding="async" />
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="section-wrap">
+    <div class="cta-inner">
+      <div class="section-label reveal" style="justify-content:center" data-i18n="label.cta">Start a Project</div>
+      <h2 class="cta-title reveal reveal-delay-1" data-i18n-html="cta.title">Have an idea?<br><span>Let's build it.</span></h2>
+      <p class="cta-desc reveal reveal-delay-2" data-i18n="cta.desc">Whether it's a web platform, a brand's social media, or something that doesn't quite have a name yet — I'd love to hear about it.</p>
+      <div class="cta-btns reveal reveal-delay-3">
+        <a href="index.html#contact" class="btn-primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span data-i18n="btn.getintouch">Get In Touch</span></a>
+        <a href="index.html#projects" class="btn-secondary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>All Projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-mark" aria-hidden="true">Metehan Tabak</div>
+  <a href="index.html" class="footer-logo">MT<span>.</span></a>
+  <div class="footer-copy" data-i18n="footer.copy">© 2026 Metehan Tabak.</div>
+  <div class="footer-socials">
+    <a href="https://github.com/MteeahN" class="social-btn" title="GitHub" aria-label="GitHub" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg></a>
+    <a href="https://www.linkedin.com/in/metehantabak/" class="social-btn" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    <a href="https://x.com/MeteVeyn" class="social-btn" title="X (Twitter)" aria-label="X (Twitter)" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+  </div>
+</footer>
+
+<a href="#" id="btt" title="Back to top">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+</a>
+
+<script src="assets/js/MobileNav.js"></script>
+<script>
+
+
+  // scroll events
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+    document.getElementById('btt').classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // scroll reveal
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // counter animation
+  function animateCount(el, target, duration=1600) {
+    let start = null;
+    (function step(ts) {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / duration, 1), ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target);
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = target;
+    })(performance.now());
+  }
+  new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => { if(e.isIntersecting) {
+      animateCount(document.getElementById('s1'), 150);
+      animateCount(document.getElementById('s2'), 2);
+      animateCount(document.getElementById('s3'), 4);
+      obs.disconnect();
+    }});
+  }, {threshold:0.5}).observe(document.getElementById('overview'));
+
+  new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => { if(e.isIntersecting) {
+      animateCount(document.getElementById('r1'), 2);
+      animateCount(document.getElementById('r2'), 1);
+      animateCount(document.getElementById('r3'), 100);
+      obs.disconnect();
+    }});
+  }, {threshold:0.3}).observe(document.getElementById('results'));
+
+  // 3D tilt on cards
+  document.querySelectorAll('.gallery-item, .next-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r=card.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      card.style.transform=`perspective(1200px) rotateY(${x*6}deg) rotateX(${-y*6}deg) translateY(-6px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform=''; });
+  });
+
+  // smooth hash scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+    });
+  });
+
+  // ── HERO LOGO: fade-in + parallax ──
+  (function() {
+    const img     = document.getElementById('heroLogoImg');
+    const heroSec = document.getElementById('hero');
+    if (!img || !heroSec) return;
+
+    // fade in once image is ready
+    const reveal = () => img.classList.add('loaded');
+    if (img.complete && img.naturalWidth) reveal();
+    else img.addEventListener('load', reveal);
+
+    // parallax: logo scroll ile aşağı kayar
+    function onScroll() {
+      const scrollY  = window.scrollY;
+      const heroH    = heroSec.offsetHeight || 1;
+      const progress = Math.min(scrollY / heroH, 1);
+      const drift    = progress * 220;
+      const opacity  = 0.7 * (1 - progress * 0.7);
+      img.style.transform = 'translateY(' + drift + 'px)';
+      if (img.classList.contains('loaded')) img.style.opacity = opacity;
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // ── STICKY PROJECT BAR ──
+  (function() {
+    const bar      = document.getElementById('project-bar');
+    const hero     = document.getElementById('hero');
+    const sections = ['overview','gallery','challenge','process','results']
+      .map(id => document.getElementById(id)).filter(Boolean);
+    if (!bar || !hero) return;
+
+    // Bar'ı hero bitince göster
+    new IntersectionObserver(([entry]) => {
+      bar.classList.toggle('visible', !entry.isIntersecting);
+    }, { threshold: 0.05 }).observe(hero);
+
+    // Scroll progress
+    function updateProgress() {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(window.scrollY / docHeight * 100, 100) : 0;
+      bar.style.setProperty('--scroll-pct', pct + '%');
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+
+    // Scrollspy — sadece bir buton aktif
+    const btns = bar.querySelectorAll('[data-section]');
+    const secObs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const btn = bar.querySelector('[data-section="' + entry.target.id + '"]');
+        if (!btn) return;
+        if (entry.isIntersecting) {
+          btns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-25% 0px -65% 0px' });
+    sections.forEach(s => secObs.observe(s));
+
+    // Smooth scroll — sticky offset hesaba katılıyor (nav 72px + pbar 52px)
+    bar.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - (72 + 52 + 8);
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+  })();
+
+</script>
+
+<script>
+(function() {
+  var T = {
+  "en": {
+    "nav.about": "About",
+    "nav.projects": "Projects",
+    "nav.skills": "Skills",
+    "nav.contact": "Contact",
+    "nav.cv": "Download CV",
+    "nav.back": "Back",
+    "mobile.about": "About",
+    "mobile.projects": "Projects",
+    "mobile.skills": "Skills",
+    "mobile.contact": "Contact",
+    "breadcrumb.home": "Home",
+    "breadcrumb.projects": "Projects",
+    "label.overview": "Project Overview",
+    "label.gallery": "Visual Showcase",
+    "label.challenge": "Problem & Solution",
+    "label.process": "Development Journey",
+    "label.tech": "Technology Stack",
+    "label.results": "Outcomes",
+    "label.next": "Continue Exploring",
+    "label.cta": "Start a Project",
+    "label.expertise": "Expertise",
+    "label.selectedwork": "Selected Work",
+    "label.getintouch": "Get In Touch",
+    "pbar.overview": "Project Overview",
+    "pbar.gallery": "Visual Showcase",
+    "pbar.challenge": "Problem & Solution",
+    "pbar.process": "Development Journey",
+    "pbar.results": "Outcomes",
+    "scroll.hint": "Scroll to explore",
+    "footer.copy": "© 2026 Metehan Tabak.",
+    "cta.title": "Have an idea?<br><span>Let's build it.</span>",
+    "cta.desc": "Whether it's a web platform, a brand's social media, or something that doesn't quite have a name yet — I'd love to hear about it.",
+    "meta.year": "Year",
+    "meta.platform": "Platform",
+    "meta.role": "Role",
+    "meta.duration": "Duration",
+    "next.label": "Next Project",
+    "next.label.featured": "Featured Project",
+    "btn.viewproject": "View Project",
+    "btn.getintouch": "Get In Touch",
+    "btn.viewall": "View All Projects",
+    "challenge.title": "The Challenge",
+    "solution.title": "The Solution",
+    "phase.num.01": "Phase 01",
+    "phase.num.02": "Phase 02",
+    "phase.num.03": "Phase 03",
+    "phase.num.04": "Phase 04",
+    "hero.tag1": "Web App",
+    "hero.tag2": "Script",
+    "page.title": "TuzBoard — Metehan Tabak",
+    "hero.desc": "The Tuz Festivali Scoreboard System was developed as a web-based, synchronized spectator and administrator platform designed to deliver real-time match tracking, seamless score management, and an engaging on-site digital experience.",
+    "overview.title": "Powering Competition, One Score at a Time",
+    "overview.p1": "Delivering a <strong>real-time synchronized scoreboard system</strong> that ensures accurate match tracking and seamless coordination between administrator and spectator screens.",
+    "overview.p2": "Built to provide a <strong>reliable, high-visibility, and event-ready competition experience</strong> tailored for dynamic festival environments.",
+    "stat.matches": "Matches Managed",
+    "stat.spectators": "Live Spectators Reached",
+    "stat.sports": "Supported Sports Modes",
+    "gallery.title": "Crafted in every pixel.",
+    "g.hint": "Select a screen to view it full size.",
+    "g.screens": "Screens",
+    "g.d1": "Desktop",
+    "g.n1": "Spectator Screen",
+    "g.d2": "Laptop",
+    "g.n2": "Admin Panel",
+    "g.d3": "Mobile",
+    "g.n3": "Football Menu",
+    "challenge.heading": "Guided by timeless values, towards a future rising through education.",
+    "challenge.body": "The core challenge was transforming live match scoring into a stable, real-time, and error-free digital system that remains responsive under event pressure.",
+    "challenge.list": "<div class=\"cs-item\">Ensuring instant data synchronization between the admin panel and spectator screen</div><div class=\"cs-item\">Preventing score duplication or mismatch errors during rapid updates</div><div class=\"cs-item\">Handling set-based scoring logic and configurable sport rules within one unified structure</div><div class=\"cs-item\">Maintaining connection stability during live matches</div><div class=\"cs-item\">Designing a high-visibility interface suitable for outdoor festival environments</div><div class=\"cs-item\">Structuring a clean and scalable code architecture for future expansion</div>",
+    "solution.body": "The result is a stable, synchronized, and festival-ready scoreboard system delivering accurate live tracking and a seamless competition experience.",
+    "solution.list": "<div class=\"cs-item\">Built a custom real-time synchronization architecture for dual-screen communication</div><div class=\"cs-item\">Developed a modular scoring engine supporting dynamic sport configurations</div><div class=\"cs-item\">Added automatic reconnection and state recovery mechanisms</div><div class=\"cs-item\">Designed a high-contrast, large-scale spectator UI for maximum readability</div><div class=\"cs-item\">Created an intuitive admin control panel optimized for rapid score entry</div><div class=\"cs-item\">Structured the project using modular, maintainable scripts and scalable backend architecture</div>",
+    "process.title": "6 months of structured development and continuous iteration.",
+    "p01.title": "System Architecture & Core Synchronization",
+    "p01.body": "The first phase focused on building the foundational real-time communication structure between the admin and spectator interfaces. Core score handling logic and match state management were implemented to ensure accurate data flow and consistent synchronization.",
+    "p01.tags": "<span class=\"ptag\">Real-Time Communication Setup</span><span class=\"ptag\">Match State Management</span><span class=\"ptag\">Core Scoring Engine</span>",
+    "p02.title": "Sport Logic & Administrative Controls",
+    "p02.body": "Once synchronization was stable, dynamic sport configurations and rule-based scoring systems were developed. The admin panel was refined to support rapid score entry, set control, and structured match flow management.",
+    "p02.tags": "<span class=\"ptag\">Modular Sport Configuration</span><span class=\"ptag\">Set & Tie-Break Logic</span><span class=\"ptag\">Admin Control Panel System</span>",
+    "p03.title": "UI Optimization & Stability Enhancements",
+    "p03.body": "The final phase focused on visual clarity, performance stability, and architectural refinement. The spectator interface was optimized for high visibility, while reconnection logic and performance improvements ensured smooth operation during live festival conditions.",
+    "p03.tags": "<span class=\"ptag\">High-Visibility UI Design</span><span class=\"ptag\">Reconnection & State Recovery</span><span class=\"ptag\">Performance Optimization & Code Refactoring</span>",
+    "tech.title": "Built with the right tools.",
+    "results.title": "Numbers that reflect performance, reliability, and real-time stability.",
+    "r1.label": "Fully Synchronized Interfaces",
+    "r1.desc": "Admin & Spectator Panels",
+    "r2.label": "Average Update Latency",
+    "r2.desc": "All scholarship processes fully centralized",
+    "r3.label": "State Consistency",
+    "r3.desc": "No score mismatch after validation",
+    "next.title": "Next up.",
+    "next.badge": "<svg width=\"8\" height=\"8\" viewBox=\"0 0 8 8\" fill=\"currentColor\"><circle cx=\"4\" cy=\"4\" r=\"4\"/></svg>Web",
+    "next.card.title": "Hareketle Gelisim",
+    "next.card.desc": "A modern, responsive, and performance-focused institutional website designed to present training programs, strengthen digital presence, and streamline communication with students and parents."
+  },
+  "tr": {
+    "nav.about": "Hakkımda",
+    "nav.projects": "Projeler",
+    "nav.skills": "Yetenekler",
+    "nav.contact": "İletişim",
+    "nav.cv": "CV İndir",
+    "nav.back": "Geri",
+    "mobile.about": "Hakkımda",
+    "mobile.projects": "Projeler",
+    "mobile.skills": "Yetenekler",
+    "mobile.contact": "İletişim",
+    "breadcrumb.home": "Ana Sayfa",
+    "breadcrumb.projects": "Projeler",
+    "label.overview": "Proje Genel Bakışı",
+    "label.gallery": "Görsel Sergi",
+    "label.challenge": "Sorun & Çözüm",
+    "label.process": "Geliştirme Süreci",
+    "label.tech": "Teknoloji Yığını",
+    "label.results": "Sonuçlar",
+    "label.next": "Keşfetmeye Devam Et",
+    "label.cta": "Proje Başlat",
+    "label.expertise": "Uzmanlık",
+    "label.selectedwork": "Seçili Çalışmalar",
+    "label.getintouch": "İletişime Geç",
+    "pbar.overview": "Proje Genel Bakışı",
+    "pbar.gallery": "Görsel Sergi",
+    "pbar.challenge": "Sorun & Çözüm",
+    "pbar.process": "Geliştirme Süreci",
+    "pbar.results": "Sonuçlar",
+    "scroll.hint": "Keşfetmek için kaydır",
+    "footer.copy": "© 2026 Metehan Tabak.",
+    "cta.title": "Bir fikrin mi var?<br><span>Hadi inşa edelim.</span>",
+    "cta.desc": "İster bir web platformu, ister bir markanın sosyal medyası, isterse henüz adı olmayan bir şey olsun — duymak isterim.",
+    "meta.year": "Yıl",
+    "meta.platform": "Platform",
+    "meta.role": "Rol",
+    "meta.duration": "Süre",
+    "next.label": "Sonraki Proje",
+    "next.label.featured": "Öne Çıkan Proje",
+    "btn.viewproject": "Projeyi Görüntüle",
+    "btn.getintouch": "İletişime Geç",
+    "btn.viewall": "Tüm Projeleri Gör",
+    "challenge.title": "Zorluk",
+    "solution.title": "Çözüm",
+    "phase.num.01": "Aşama 01",
+    "phase.num.02": "Aşama 02",
+    "phase.num.03": "Aşama 03",
+    "phase.num.04": "Aşama 04",
+    "hero.tag1": "Web Uygulaması",
+    "hero.tag2": "Script",
+    "page.title": "TuzBoard — Metehan Tabak",
+    "hero.desc": "Tuz Festivali Skor Takip Sistemi, gerçek zamanlı maç takibi, sorunsuz skor yönetimi ve etkileyici bir dijital saha deneyimi sunmak için tasarlanmış web tabanlı, senkronize bir seyirci ve yönetici platformu olarak geliştirildi.",
+    "overview.title": "Rekabeti Güçlendiriyoruz, Her Seferinde Bir Skor Artışıyla",
+    "overview.p1": "Yönetici ve seyirci ekranları arasında doğru maç takibi ve sorunsuz koordinasyon sağlayan <strong>gerçek zamanlı senkronize skor panosu sistemi</strong> sunulmaktadır.",
+    "overview.p2": "Dinamik festival ortamlarına özel, <strong>güvenilir, yüksek görünürlüklü ve etkinliğe hazır bir rekabet deneyimi</strong> sunmak üzere inşa edilmiştir.",
+    "stat.matches": "Yönetilen Maç",
+    "stat.spectators": "Canlı Seyirciye Ulaşıldı",
+    "stat.sports": "Desteklenen Spor Modu",
+    "gallery.title": "Her pikselde özenle tasarlandı.",
+    "g.hint": "Tam boyutta görmek için bir ekran seçin.",
+    "g.screens": "Ekranlar",
+    "g.d1": "Masaüstü",
+    "g.n1": "Seyirci Ekranı",
+    "g.d2": "Laptop",
+    "g.n2": "Yönetici Paneli",
+    "g.d3": "Mobil",
+    "g.n3": "Futbol Menüsü",
+    "challenge.heading": "Eğitim yoluyla yükselen bir geleceğe doğru, zamansız değerlerle.",
+    "challenge.body": "Temel zorluk, canlı maç skorlamasını etkinlik baskısı altında dahi duyarlı kalan kararlı, gerçek zamanlı ve hatasız bir dijital sisteme dönüştürmekti.",
+    "challenge.list": "<div class=\"cs-item\">Yönetici paneli ile seyirci ekranı arasında anlık veri senkronizasyonu sağlamak</div><div class=\"cs-item\">Hızlı güncellemeler sırasında skor çoğaltma veya uyumsuzluk hatalarını önlemek</div><div class=\"cs-item\">Set bazlı puanlama mantığını ve yapılandırılabilir spor kurallarını tek bir birleşik yapı içinde yönetmek</div><div class=\"cs-item\">Canlı maçlar sırasında bağlantı kararlılığını korumak</div><div class=\"cs-item\">Açık hava festival ortamlarına uygun yüksek görünürlüklü arayüz tasarlamak</div><div class=\"cs-item\">Gelecekteki genişleme için temiz ve ölçeklenebilir kod mimarisi oluşturmak</div>",
+    "solution.body": "Sonuç, doğru canlı takip ve sorunsuz bir rekabet deneyimi sunan kararlı, senkronize ve festivale hazır bir skor panosu sistemidir.",
+    "solution.list": "<div class=\"cs-item\">Çift ekran iletişimi için özel gerçek zamanlı senkronizasyon mimarisi geliştirildi</div><div class=\"cs-item\">Dinamik spor yapılandırmalarını destekleyen modüler puanlama motoru oluşturuldu</div><div class=\"cs-item\">Otomatik yeniden bağlanma ve durum kurtarma mekanizmaları eklendi</div><div class=\"cs-item\">Maksimum okunabilirlik için yüksek kontrastlı, büyük ölçekli seyirci arayüzü tasarlandı</div><div class=\"cs-item\">Hızlı skor girişi için optimize edilmiş sezgisel yönetici kontrol paneli oluşturuldu</div><div class=\"cs-item\">Proje, modüler, sürdürülebilir betikler ve ölçeklenebilir arka uç mimarisi kullanılarak yapılandırıldı</div>",
+    "process.title": "6 aylık yapılandırılmış geliştirme ve sürekli iterasyon.",
+    "p01.title": "Sistem Mimarisi & Temel Senkronizasyon",
+    "p01.body": "İlk aşama, yönetici ve seyirci arayüzleri arasındaki temel gerçek zamanlı iletişim yapısının oluşturulmasına odaklandı. Doğru veri akışı ve tutarlı senkronizasyon sağlamak için temel skor işleme mantığı ve maç durumu yönetimi hayata geçirildi.",
+    "p01.tags": "<span class=\"ptag\">Gerçek Zamanlı İletişim Kurulumu</span><span class=\"ptag\">Maç Durumu Yönetimi</span><span class=\"ptag\">Temel Puanlama Motoru</span>",
+    "p02.title": "Spor Mantığı & İdari Kontroller",
+    "p02.body": "Senkronizasyon stabil hale geldikten sonra dinamik spor yapılandırmaları ve kural tabanlı puanlama sistemleri geliştirildi. Yönetici paneli, hızlı skor girişini, set kontrolünü ve yapılandırılmış maç akış yönetimini destekleyecek şekilde iyileştirildi.",
+    "p02.tags": "<span class=\"ptag\">Modüler Spor Yapılandırması</span><span class=\"ptag\">Set & Tiebreak Mantığı</span><span class=\"ptag\">Yönetici Kontrol Paneli Sistemi</span>",
+    "p03.title": "Arayüz Optimizasyonu & Kararlılık Geliştirmeleri",
+    "p03.body": "Son aşama görsel netlik, performans kararlılığı ve mimari iyileştirmeye odaklandı. Seyirci arayüzü yüksek görünürlük için optimize edilirken yeniden bağlanma mantığı ve performans iyileştirmeleri canlı festival koşullarında sorunsuz işlem sağladı.",
+    "p03.tags": "<span class=\"ptag\">Yüksek Görünürlüklü Arayüz Tasarımı</span><span class=\"ptag\">Yeniden Bağlanma & Durum Kurtarma</span><span class=\"ptag\">Performans Optimizasyonu & Kod Yeniden Yapılandırması</span>",
+    "tech.title": "Doğru araçlarla inşa edildi.",
+    "results.title": "Performansı, güvenilirliği ve gerçek zamanlı kararlılığı yansıtan rakamlar.",
+    "r1.label": "Tam Senkronize Arayüz",
+    "r1.desc": "Yönetici & Seyirci Panelleri",
+    "r2.label": "Ortalama Güncelleme Gecikmesi",
+    "r2.desc": "Kesintisiz skor güncellemeleri",
+    "r3.label": "Durum Tutarlılığı",
+    "r3.desc": "Doğrulama sonrası skor uyumsuzluğu yok",
+    "next.title": "Sıradaki.",
+    "next.badge": "<svg width=\"8\" height=\"8\" viewBox=\"0 0 8 8\" fill=\"currentColor\"><circle cx=\"4\" cy=\"4\" r=\"4\"/></svg>Web",
+    "next.card.title": "Hareketle Gelişim",
+    "next.card.desc": "Eğitim programlarını tanıtmak, dijital varlığı güçlendirmek ve öğrenci ile velilerle iletişimi kolaylaştırmak için tasarlanmış modern, duyarlı ve performans odaklı kurumsal web sitesi."
+  }
+};
+  function apply(lang) {
+    lang = (lang === 'tr') ? 'tr' : 'en';
+    localStorage.setItem('mt_lang', lang);
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n');
+      if (T[lang] && T[lang][k] !== undefined) el.textContent = T[lang][k];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n-html');
+      if (T[lang] && T[lang][k] !== undefined) el.innerHTML = T[lang][k];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n-ph');
+      if (T[lang] && T[lang][k] !== undefined) el.placeholder = T[lang][k];
+    });
+    document.querySelectorAll('[data-i18n-title]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n-title');
+      if (T[lang] && T[lang][k] !== undefined) el.title = T[lang][k];
+    });
+    if (T[lang] && T[lang]['page.title']) document.title = T[lang]['page.title'];
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+  }
+  var saved = localStorage.getItem('mt_lang') || (navigator.language.startsWith('tr') ? 'tr' : 'en');
+  apply(saved);
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { apply(btn.getAttribute('data-lang')); });
+  });
+})();
+</script>
+
+<script src="assets/vendor/lenis/lenis.min.js" defer></script>
+<script src="assets/js/premium.js" defer></script>
+</body>
+</html>
