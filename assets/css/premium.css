@@ -902,3 +902,13 @@ footer { overflow: hidden; position: relative; }
 @media (hover: none) {
   .spot::after { display: none; }
 }
+
+/* ═══════════════════════════
+   PROJECT BAR — navbar ile aynı saydam cam görünüm
+   ═══════════════════════════ */
+#project-bar {
+  background: rgba(7,8,12,0.62) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.4) !important;
+          backdrop-filter: blur(18px) saturate(1.4) !important;
+  border-bottom-color: var(--line) !important;
+}

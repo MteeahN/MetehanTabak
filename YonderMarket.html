@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yonder Market — Metehan Tabak</title>
+  <meta name="description" content="Yonder Market — an ASP.NET Core MVC platform for buying and renting games, with a Windows Forms admin panel, MSSQL database and a 2026 redesign. Built by Metehan Tabak.">
   <meta name="theme-color" content="#07080c">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preload" href="assets/fonts/syne-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/dm-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <script>(function(d){d.classList.add('js');try{if(sessionStorage.getItem('mt_seen'))d.classList.add('pl-quick')}catch(e){}})(document.documentElement)</script>
@@ -47,7 +51,6 @@
       mix-blend-mode: normal;
       opacity: 0;
     }
-
     #cursor-ring {
       position: fixed;
       top: 0; left: 0;
@@ -84,7 +87,7 @@
     .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
     .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); border-radius: 2px; }
 
-        /* ══ HERO ══ */
+    /* ══ HERO ══ */
     #hero {
       position: relative;
       min-height: 92vh;
@@ -160,7 +163,7 @@
     .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
     .hero-tag { padding: 4px 13px; background: rgba(232,192,122,0.1); border: 1px solid rgba(232,192,122,0.22); border-radius: 100px; font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: 0.07em; text-transform: uppercase; }
     h1.hero-title { font-family: var(--font-display); font-size: clamp(52px, 9.5vw, 108px); font-weight: 800; line-height: .95; letter-spacing: -0.04em; color: #fff; margin-bottom: 20px; text-shadow: 0 4px 40px rgba(0,0,0,.5); }
-    h1.hero-title span { display: block; background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 80%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    h1.hero-title span { display: block; background: linear-gradient(90deg, var(--accent) 0%, #f0d89a 55%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .hero-desc { font-size: clamp(14px, 1.6vw, 17px); color: rgba(255,255,255,.55); max-width: 560px; line-height: 1.75; font-weight: 300; margin-bottom: 36px; }
     .hero-meta { display: flex; gap: 48px; flex-wrap: wrap; }
     .meta-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); font-weight: 600; margin-bottom: 4px; }
@@ -171,101 +174,6 @@
     @keyframes lineSlide { 0%{left:-100%} 50%{left:0%} 100%{left:100%} }
     @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
 
-
-    /* ══ STICKY PROJECT BAR ══ */
-    #project-bar {
-      position: fixed;
-      top: 72px; left: 0; right: 0;
-      height: 52px;
-      z-index: 900;
-      display: flex;
-      align-items: center;
-      padding: 0 clamp(20px,4vw,72px);
-      background: rgba(8,10,15,0.94);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      /* Tamamen viewport dışına çek */
-      transform: translateY(calc(-100% - 72px));
-      opacity: 0;
-      transition: transform 0.42s cubic-bezier(.4,0,.2,1), opacity 0.38s ease;
-      pointer-events: none;
-    }
-    #project-bar.visible {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    /* Scroll progress bar */
-    #project-bar::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      height: 2px;
-      width: var(--scroll-pct, 0%);
-      background: linear-gradient(90deg, var(--accent2), var(--accent));
-      transition: width 0.1s linear;
-      border-radius: 0 2px 2px 0;
-    }
-
-    .pbar-left {
-      display: flex; align-items: center; gap: 10px;
-      flex: 0 0 auto; min-width: 0;
-    }
-    .pbar-logo { width: 26px; height: 26px; object-fit: contain; border-radius: 6px; opacity: 0.85; }
-    .pbar-divider { width: 1px; height: 18px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
-    .pbar-name { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; white-space: nowrap; }
-
-    /* ── CENTERED pbar-nav ── */
-    .pbar-nav-wrap {
-      position: absolute;
-      top: 0; bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-    }
-    .pbar-nav {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      height: 100%;
-    }
-    .pbar-btn {
-      display: flex; align-items: center; gap: 6px;
-      padding: 5px 11px; border-radius: 7px;
-      color: rgba(255,255,255,0.4);
-      text-decoration: none; font-size: 11.5px; font-weight: 600;
-      letter-spacing: 0.01em; white-space: nowrap;
-      transition: color .22s, background .22s;
-      border: none; background: transparent; 
-      position: relative;
-    }
-    .pbar-btn::after {
-      content: '';
-      position: absolute;
-      bottom: -1px; left: 50%;
-      transform: translateX(-50%) scaleX(0);
-      width: 60%; height: 2px;
-      background: var(--accent);
-      border-radius: 2px 2px 0 0;
-      transition: transform .25s cubic-bezier(.4,0,.2,1), opacity .25s;
-      opacity: 0;
-    }
-    .pbar-btn svg { flex-shrink: 0; opacity: 0.6; transition: opacity .22s, color .22s; }
-    .pbar-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
-    .pbar-btn:hover svg { opacity: 1; }
-    .pbar-btn.active { color: var(--accent); }
-    .pbar-btn.active::after { transform: translateX(-50%) scaleX(1); opacity: 1; }
-    .pbar-btn.active svg { opacity: 1; color: var(--accent); }
-
-    /* Mirror of pbar-left — nav'ı gerçekten ortalar */
-    .pbar-right { flex: 0 0 auto; visibility: hidden; display: flex; align-items: center; gap: 10px; }
-    .pbar-right .pbar-logo { width: 26px; height: 26px; }
-    .pbar-right .pbar-divider { width: 1px; height: 18px; }
-    .pbar-right .pbar-name { font-size: 13px; }
-
     /* DIVIDER */
     .section-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent); margin: 0 clamp(24px,5vw,80px); }
 
@@ -274,7 +182,6 @@
     .section-label { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 16px; }
     .section-label::before { content:''; display:block; width:24px; height:1px; background:var(--accent); }
     .section-title { font-family: var(--font-display); font-size: clamp(28px,4.5vw,48px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: var(--text); }
-    .section-desc { font-size: 17px; color: var(--text-muted); margin-top: 16px; font-weight: 300; line-height: 1.8; }
 
     /* REVEAL */
     .reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0,.2,1); }
@@ -290,7 +197,6 @@
     .overview-body { font-size: 16px; color: var(--text-muted); line-height: 1.85; font-weight: 300; }
     .overview-body p + p { margin-top: 18px; }
     .overview-body strong { color: var(--text); font-weight: 500; }
-    .overview-stats { display: flex; flex-direction: column; gap: 2px; }
     .stat-card { padding: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; transition: all .3s; }
     .stat-card:hover { background: var(--surface-hover); border-color: var(--border-hover); transform: translateX(4px); }
     .stat-card-num { font-family: var(--font-display); font-size: 36px; font-weight: 800; letter-spacing: -0.04em; color: var(--text); line-height: 1; }
@@ -303,7 +209,7 @@
     .cs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 56px; }
     .cs-card { padding: 40px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; transition: all .4s; }
     .cs-card:hover { background: var(--surface-hover); border-color: var(--border-hover); transform: translateY(-4px); }
-    .cs-icon { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--accent); margin-bottom: 20px; }
+    .cs-icon { width:44px; height:44px; display:flex; align-items:center; justify-content:center; color:var(--accent); margin-bottom:20px; }
     .cs-title { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-bottom: 16px; }
     .cs-body { font-size: 15px; color: var(--text-muted); line-height: 1.8; font-weight: 300; }
     .cs-list { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
@@ -433,6 +339,7 @@
     .gallery-item { display: none; }
     .gallery-caption { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
     .gallery-sub { font-size: 12px; color: var(--text-dim); }
+
     /* PROCESS */
     #process { background: var(--bg2); }
     .process-timeline { position: relative; margin-top: 64px; padding-left: 40px; }
@@ -450,9 +357,9 @@
     /* TECH */
     #tech { background: var(--bg); }
     .tech-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 48px; }
-    .tech-item { padding: 24px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; text-align: center; transition: all .3s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column; align-items: center; }
+    .tech-item { padding: 24px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; text-align: center; transition: all .3s cubic-bezier(.4,0,.2,1); display:flex; flex-direction:column; align-items:center; }
     .tech-item:hover { background: var(--surface-hover); border-color: rgba(232,192,122,0.25); transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(232,192,122,0.1); }
-    .tech-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: var(--accent); margin: 0 auto 10px auto; }
+    .tech-icon { width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:var(--accent); margin:0 auto 10px auto; }
     .tech-label { font-size: 12px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.02em; }
     .tech-sub { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
 
@@ -468,28 +375,24 @@
     .result-label { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 8px; letter-spacing: 0.02em; position: relative; }
     .result-desc { font-size: 12px; color: var(--text-dim); margin-top: 6px; position: relative; }
 
-    /* NEXT */
+    /* NEXT PROJECT */
     #next { background: var(--bg); }
     .next-inner { margin-top: 56px; }
     .next-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 20px; }
     .next-card { display: grid; grid-template-columns: 1.2fr 1fr; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: all .4s cubic-bezier(.4,0,.2,1); text-decoration: none; background: var(--surface); transform-style: preserve-3d; }
     .next-card:hover { border-color: rgba(232,192,122,0.25); background: var(--surface-hover); transform: perspective(1200px) translateY(-8px); box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,192,122,0.1); }
     .next-card-content { padding: 48px; display: flex; flex-direction: column; justify-content: space-between; }
-    .next-card-top { }
     .next-card-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--accent-glow); border: 1px solid rgba(232,192,122,0.25); border-radius: 100px; font-size: 10px; font-weight: 600; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
     .next-card-title { font-family: var(--font-display); font-size: clamp(22px,3.5vw,36px); font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 12px; }
     .next-card-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; font-weight: 300; }
     .next-card-bottom { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; }
     .next-card-tags { display: flex; gap: 8px; flex-wrap: wrap; }
     .ntag { padding: 4px 10px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; color: var(--text-dim); }
-    .ntags { display: flex; gap: 8px; flex-wrap: wrap; }
     .next-arrow { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; transition: gap .2s; }
     .next-card:hover .next-arrow { gap: 14px; }
-    .next-card-visual { display: flex; align-items: center; justify-content: center; font-size: 80px; position: relative; overflow: hidden; min-height: 240px; }
+    .next-card-visual { background: linear-gradient(135deg, rgba(44, 44, 44, 0.1) 100%, rgba(70,70,70,0.06) 0%); display: flex; align-items: center; justify-content: center; font-size: 80px; min-height: 240px; }
     .next-card-visual-emoji { transition: transform .5s cubic-bezier(.4,0,.2,1); }
     .next-card:hover .next-card-visual-emoji { transform: scale(1.1) rotate(-5deg); }
-    .next-card-emoji { transition: transform .5s cubic-bezier(.4,0,.2,1); }
-    .next-card:hover .next-card-emoji { transform: scale(1.1) rotate(-5deg); }
     .next-card-img { max-width: 80%; height: auto; object-fit: contain; transition: transform .5s cubic-bezier(.4,0,.2,1); }
     .next-card:hover .next-card-img { transform: scale(1.1); }
 
@@ -513,7 +416,7 @@
     .footer-logo span { color: var(--accent); }
     .footer-copy { font-size: 13px; color: var(--text-dim); }
     .footer-socials { display: flex; gap: 12px; }
-    .social-btn { width: 38px; height: 38px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-decoration: none; font-size: 16px; transition: all .3s; }
+    .social-btn { width: 38px; height: 38px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-decoration: none; transition: all .3s; }
     .social-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); transform: translateY(-2px); }
 
     /* BACK TO TOP */
@@ -521,34 +424,130 @@
     #btt.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
     #btt:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
 
-    /* SCROLLBAR & SELECTION */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: rgba(232,192,122,0.2); border-radius: 2px; }
     ::selection { background: rgba(232,192,122,0.2); color: var(--text); }
 
+    /* ══ STICKY PROJECT BAR ══ */
+    #project-bar {
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      height: 52px;
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      padding: 0 clamp(20px,4vw,72px);
+      background: rgba(8,10,15,0.94);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      /* Tamamen viewport dışına çek */
+      transform: translateY(calc(-100% - 72px));
+      opacity: 0;
+      transition: transform 0.42s cubic-bezier(.4,0,.2,1), opacity 0.38s ease;
+      pointer-events: none;
+    }
+    #project-bar.visible {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Scroll progress bar */
+    #project-bar::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 2px;
+      width: var(--scroll-pct, 0%);
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      transition: width 0.1s linear;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .pbar-left {
+      display: flex; align-items: center; gap: 10px;
+      flex: 0 0 auto; min-width: 0;
+    }
+    .pbar-logo { width: 26px; height: 26px; object-fit: contain; border-radius: 6px; opacity: 0.85; }
+    .pbar-divider { width: 1px; height: 18px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
+    .pbar-name { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; white-space: nowrap; }
+
+    /* ── CENTERED pbar-nav ── */
+    .pbar-nav-wrap {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+    }
+    .pbar-nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 100%;
+    }
+    .pbar-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 11px; border-radius: 7px;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none; font-size: 11.5px; font-weight: 600;
+      letter-spacing: 0.01em; white-space: nowrap;
+      transition: color .22s, background .22s;
+      border: none; background: transparent;
+      position: relative;
+    }
+    .pbar-btn::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: 60%; height: 2px;
+      background: var(--accent);
+      border-radius: 2px 2px 0 0;
+      transition: transform .25s cubic-bezier(.4,0,.2,1), opacity .25s;
+      opacity: 0;
+    }
+    .pbar-btn svg { flex-shrink: 0; opacity: 0.6; transition: opacity .22s, color .22s; }
+    .pbar-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .pbar-btn:hover svg { opacity: 1; }
+    .pbar-btn.active { color: var(--accent); }
+    .pbar-btn.active::after { transform: translateX(-50%) scaleX(1); opacity: 1; }
+    .pbar-btn.active svg { opacity: 1; color: var(--accent); }
+
+    /* Mirror of pbar-left — nav'ı gerçekten ortalar */
+    .pbar-right { flex: 0 0 auto; visibility: hidden; display: flex; align-items: center; gap: 10px; }
+    .pbar-right .pbar-logo { width: 26px; height: 26px; }
+    .pbar-right .pbar-divider { width: 1px; height: 18px; }
+    .pbar-right .pbar-name { font-size: 13px; }
+
+    /* spacer to balance flex layout so brand doesn't shift nav */
+    .pbar-right { flex-shrink: 0; width: 0; }
+
     /* RESPONSIVE */
-    @media (max-width: 1024px) {
+    @media(max-width:1024px) {
       .overview-grid { grid-template-columns: 1fr; gap: 48px; }
       .cs-grid { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: 1fr; }
-      .gallery-item.tall { grid-row: span 1; }
-      .gallery-item.wide { grid-column: span 1; }
+      .gallery-item.tall, .gallery-item.wide { grid-row: span 1; grid-column: span 1; }
       .tech-grid { grid-template-columns: repeat(4, 1fr); }
       .results-grid { grid-template-columns: 1fr 1fr; }
       .next-card { grid-template-columns: 1fr; }
       .next-card-visual { min-height: 160px; }
     }
-    @media (max-width: 768px) {
+    @media(max-width:768px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .lang-switcher { display: flex; position: absolute; left: 50%; transform: translateX(-50%); }
-      .gallery-grid { grid-template-columns: 1fr; }
       .tech-grid { grid-template-columns: repeat(3, 1fr); }
       .results-grid { grid-template-columns: 1fr; }
       .stat-row { grid-template-columns: 1fr; }
       .hero-meta { gap: 24px; }
       footer { flex-direction: column; align-items: flex-start; }
+      /* hide right logo on small screens */
+      .hero-logo-right { display: none; }
       /* pbar: icon-only on mobile */
       .pbar-btn span { display: none; }
       .pbar-btn { padding: 7px 9px; gap: 0; }
@@ -557,13 +556,13 @@
       .pbar-divider { display: none; }
       .pbar-right { display: none; }
     }
-    @media (max-width: 480px) {
+    @media(max-width:480px) {
     }
   
     /* ── LANG SWITCHER ── */
     .lang-switcher { display: flex; align-items: center; gap: 4px; flex: 0 0 auto; }
     .nav-center { display: flex; flex: 1; align-items: center; justify-content: center; gap: 40px; }
-    .lang-btn { background: none; border: none; font-family: var(--font-body); font-size: 11px; font-weight: 700; color: var(--text-dim); letter-spacing: 0.08em; padding: 5px 9px; border-radius: 4px; transition: all .2s; text-transform: uppercase; }
+    .lang-btn { background: none; border: none; font-family: var(--font-body); font-size: 11px; font-weight: 700; color: var(--text-dim); cursor: pointer; letter-spacing: 0.08em; padding: 5px 9px; border-radius: 4px; transition: all .2s; text-transform: uppercase; }
     .lang-btn.active { color: var(--accent); background: var(--accent-glow); }
     .lang-btn:hover:not(.active) { color: var(--text-muted); }
     .lang-sep { color: var(--border); font-size: 11px; user-select: none; }
@@ -702,45 +701,36 @@
 </div>
 
 <!-- HERO -->
-<section id="hero" style="--p1:230,136,30;--p2:150,60,200">
-
+<section id="hero" style="--p1:255,128,0;--p2:150,60,200">
   <div class="hero-art"></div>
   <div class="hero-noise"></div>
   <div class="hero-grid"></div>
-
-  <!-- Content strip -->
   <div class="hero-content">
     <div class="hero-text">
-    <div class="hero-breadcrumb">
-      <a href="index.html" data-i18n="breadcrumb.home">Home</a>
-      <span class="hero-breadcrumb-sep">&#x203A;</span>
-      <a href="index.html#projects" data-i18n="breadcrumb.projects">Projects</a>
-      <span class="hero-breadcrumb-sep">&#x203A;</span>
-      <span>Yonder Market</span>
+      <div class="hero-breadcrumb">
+        <a href="index.html" data-i18n="breadcrumb.home">Home</a>
+        <span class="hero-breadcrumb-sep">›</span>
+        <a href="index.html#projects" data-i18n="breadcrumb.projects">Projects</a>
+        <span class="hero-breadcrumb-sep">›</span>
+        <span>Yonder Market</span>
+      </div>
+      <div class="hero-tags">
+        <span class="hero-tag">ASP.NET Core MVC</span>
+        <span class="hero-tag">Windows Forms</span>
+        <span class="hero-tag">MSSQL</span>
+      </div>
+      <h1 class="hero-title">Yonder<span>Market</span></h1>
+      <p class="hero-desc" data-i18n="hero.desc">Yonder Market is a secure ASP.NET Core MVC platform where users can buy games or rent them weekly or monthly, backed by an MSSQL database and a Windows Forms admin panel. In 2026 the storefront was redesigned and its code base refactored from top to bottom.</p>
+      <div class="hero-meta">
+        <div class="meta-item"><div class="meta-label" data-i18n="meta.year">Year</div><div class="meta-value">2024 – 2026</div></div>
+        <div class="meta-item"><div class="meta-label" data-i18n="meta.platform">Platform</div><div class="meta-value">Web / Windows</div></div>
+        <div class="meta-item"><div class="meta-label" data-i18n="meta.role">Role</div><div class="meta-value">Full-Stack Dev</div></div>
+        <div class="meta-item"><div class="meta-label" data-i18n="meta.stack">Stack</div><div class="meta-value">C# · EF Core</div></div>
+      </div>
     </div>
-    <div class="hero-tags">
-      <span class="hero-tag" data-i18n="hero.tag1">ASP.NET</span>
-      <span class="hero-tag" data-i18n="hero.tag2">Windows Forms</span>
-      <span class="hero-tag" data-i18n="hero.tag3">MSSQL</span>
-    </div>
-    <h1 class="hero-title">Yonder<span>Market</span></h1>
-    <p class="hero-desc" data-i18n="hero.desc">Yonder Market is a secure and scalable ASP.NET Core MVC–based digital platform that enables users to seamlessly buy and rent games within a dynamic, database-driven marketplace.</p>
-    <div class="hero-meta">
-      <div class="meta-item"><div class="meta-label" data-i18n="meta.year">Year</div><div class="meta-value">2024</div></div>
-      <div class="meta-item"><div class="meta-label" data-i18n="meta.platform">Platform</div><div class="meta-value">Web / Windows App</div></div>
-      <div class="meta-item"><div class="meta-label" data-i18n="meta.role">Role</div><div class="meta-value">Full-Stack Dev</div></div>
-      <div class="meta-item"><div class="meta-label" data-i18n="meta.duration">Duration</div><div class="meta-value">3 Months</div></div>
-    </div>
-    </div>
-    <img
-      id="heroLogoImg"
-      src="assets/img/YMLogo.webp"
-      alt="Yonder Market Logo"
-      onerror="this.style.display='none'"
-    >
-    <div class="hero-scroll"><span data-i18n="scroll.hint">Scroll to explore</span> <div class="scroll-line"></div></div>
-
+    <img id="heroLogoImg" src="assets/img/YMLogo.webp" alt="Yonder Market logo" onerror="this.style.display='none'">
   </div>
+  <div class="hero-scroll"><span data-i18n="scroll.hint">Scroll to explore</span> <div class="scroll-line"></div></div>
 </section>
 
 <div class="section-divider"></div>
@@ -751,18 +741,18 @@
     <div class="overview-grid">
       <div>
         <div class="section-label reveal" data-i18n="label.overview">Project Overview</div>
-        <h2 class="section-title reveal reveal-delay-1" data-i18n="overview.title">Scalable marketplace with desktop control.</h2>
+        <h2 class="section-title reveal reveal-delay-1" data-i18n="overview.title">A game marketplace with desktop control.</h2>
         <div class="overview-body reveal reveal-delay-2">
-          <p data-i18n="overview.body">Yonder Market (YM) — inspired by the initials of its founders <strong>Yasin & Metehan</strong> — is a full-featured <strong>ASP.NET Core MVC–based digital game sales and rental platform</strong> designed to deliver secure transactions, structured business logic, and a seamless user experience.</p>
-          <p data-i18n="overview.body2">The system operates on a <strong>dynamic, database-driven marketplace architecture</strong> that enables users to purchase and rent games while ensuring secure authentication, automated rental tracking, and optimized data integrity.</p>
-          <p data-i18n="overview.body3">In addition to the web platform, Yonder Market includes a dedicated <strong>Windows Forms–based desktop Admin Panel</strong>, developed for advanced inventory and system management directly from a computer environment.</p>
+          <p data-i18n-html="overview.p1">Yonder Market (YM) — named after the initials of its founders <strong>Yasin &amp; Metehan</strong> — is a full-featured <strong>digital game sales and rental platform</strong> built with ASP.NET Core MVC, Entity Framework Core and MSSQL.</p>
+          <p data-i18n-html="overview.p2">Members can buy a game, rent it weekly or monthly, keep a wishlist and manage active rentals from their profile; stock, discounts, sales reports and <strong>demand forecasts</strong> drive what the storefront shows. A dedicated <strong>Windows Forms admin panel</strong> manages inventory and finances from the desktop.</p>
+          <p data-i18n-html="overview.p3">The 2026 update rebuilt the storefront: a new home page with a campaign slider, <strong>live search</strong>, a single data-driven category page, a slide-in cart, redesigned sign-in pages and a much smaller, cleaner code base.</p>
         </div>
       </div>
-      <div class="overview-stats reveal reveal-delay-2">
+      <div class="reveal reveal-delay-2">
         <div class="stat-row">
-          <div class="stat-card"><div class="stat-card-num"><span id="s1">0</span>+</div><div class="stat-card-label" data-i18n="stat.01.sub">Games</div></div>
-          <div class="stat-card"><div class="stat-card-num"><span id="s2">0</span>+</div><div class="stat-card-label" data-i18n="stat.02.sub">Categories</div></div>
-          <div class="stat-card"><div class="stat-card-num">₺<span id="s3">0</span></div><div class="stat-card-label" data-i18n="stat.03.sub">Total Revenue Generated</div></div>
+          <div class="stat-card"><div class="stat-card-num"><span data-count="7">0</span></div><div class="stat-card-label" data-i18n="stat.1">Game categories</div></div>
+          <div class="stat-card"><div class="stat-card-num"><span data-count="2">0</span></div><div class="stat-card-label" data-i18n="stat.2">Rental plans: weekly &amp; monthly</div></div>
+          <div class="stat-card"><div class="stat-card-num"><span data-count="2">0</span></div><div class="stat-card-label" data-i18n="stat.3">Apps on one database</div></div>
         </div>
       </div>
     </div>
@@ -784,45 +774,33 @@
     <div class="gx-stage">
       <div class="gx-glow" aria-hidden="true"></div>
       <figure class="gx-shot gx-desktop" data-lb="0" data-cursor="hand" tabindex="0" role="button">
-          <div class="gx-browser">
-            <div class="gx-bar"><span class="gx-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="gx-url"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>yondermarket.com</span><span class="gx-bar-sp" aria-hidden="true"></span></div>
-            <div class="gx-screen"><img src="assets/img/YM Desktop.webp" alt="Yonder Market — Main Page" loading="lazy" decoding="async"></div>
-          </div>
-          <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-        </figure>
+        <div class="gx-browser">
+          <div class="gx-bar"><span class="gx-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="gx-url">yondermarket.com</span><span class="gx-bar-sp" aria-hidden="true"></span></div>
+          <div class="gx-screen"><img src="assets/img/YM Desktop.webp" alt="Yonder Market — Home page" loading="lazy" decoding="async"></div>
+        </div>
+        <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+      </figure>
       <figure class="gx-shot gx-phone" data-lb="2" data-cursor="hand" tabindex="0" role="button" data-parallax="0.06">
-          <div class="gx-phone-frame">
-            <span class="gx-island" aria-hidden="true"></span>
-            <div class="gx-screen"><img src="assets/img/YM Mobile.webp" alt="Mobil — Main Page" loading="lazy" decoding="async"></div>
-          </div>
-          <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-        </figure>
+        <div class="gx-phone-frame">
+          <span class="gx-island" aria-hidden="true"></span>
+          <div class="gx-screen"><img src="assets/img/YM Mobile.webp" alt="Yonder Market — Mobile home page" loading="lazy" decoding="async"></div>
+        </div>
+        <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+      </figure>
     </div>
     <div class="gx-row">
       <figure class="gx-shot gx-laptop reveal" data-lb="1" data-cursor="hand" tabindex="0" role="button">
-          <div class="gx-browser">
-            <div class="gx-bar"><span class="gx-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="gx-url"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>yondermarket.com/kategoriler/aksiyonmacera</span><span class="gx-bar-sp" aria-hidden="true"></span></div>
-            <div class="gx-screen"><img src="assets/img/YM Laptop.webp" alt="Yonder Market — Cart" loading="lazy" decoding="async"></div>
-          </div>
-          <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-        </figure>
+        <div class="gx-browser">
+          <div class="gx-bar"><span class="gx-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="gx-url">yondermarket.com/Oyun/AcikDunya</span><span class="gx-bar-sp" aria-hidden="true"></span></div>
+          <div class="gx-screen"><img src="assets/img/YM Laptop.webp" alt="Yonder Market — Category page" loading="lazy" decoding="async"></div>
+        </div>
+        <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+      </figure>
       <div class="gx-index reveal reveal-delay-1">
         <p class="gx-index-title" data-i18n="g.screens">Screens</p>
-        <button type="button" class="gx-item" data-lb="0">
-            <span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
-            <span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d1">Desktop</span><span class="gx-item-n" data-i18n="g.n1">Main Page</span><span class="gx-item-url">yondermarket.com</span></span>
-            <span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span>
-          </button>
-        <button type="button" class="gx-item" data-lb="1">
-            <span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20l-1.5-4h-17z"/></svg></span>
-            <span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d2">Laptop</span><span class="gx-item-n" data-i18n="g.n2">Cart</span><span class="gx-item-url">yondermarket.com/kategoriler/aksiyonmacera</span></span>
-            <span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span>
-          </button>
-        <button type="button" class="gx-item" data-lb="2">
-            <span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18.5h2"/></svg></span>
-            <span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d3">Mobile</span><span class="gx-item-n" data-i18n="g.n3">Main Page</span></span>
-            <span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span>
-          </button>
+        <button type="button" class="gx-item" data-lb="0"><span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d1">Desktop</span><span class="gx-item-n" data-i18n="g.n1">Home — campaign slider</span></span><span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span></button>
+        <button type="button" class="gx-item" data-lb="1"><span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20l-1.5-4h-17z"/></svg></span><span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d2">Laptop</span><span class="gx-item-n" data-i18n="g.n2">Category page — Open World</span></span><span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span></button>
+        <button type="button" class="gx-item" data-lb="2"><span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18.5h2"/></svg></span><span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d3">Mobile</span><span class="gx-item-n" data-i18n="g.n3">Home page</span></span><span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span></button>
       </div>
     </div>
   </div>
@@ -830,35 +808,23 @@
 
 <div class="section-divider"></div>
 
-<!-- CHALLENGE -->
+<!-- CHALLENGE / SOLUTION -->
 <section id="challenge">
   <div class="section-wrap">
     <div class="section-label reveal" data-i18n="label.challenge">Problem &amp; Solution</div>
     <h2 class="section-title reveal reveal-delay-1" data-i18n="challenge.heading">Hybrid platform. Consistent data flow.</h2>
     <div class="cs-grid">
       <div class="cs-card reveal reveal-delay-1">
-        <div class="cs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <div class="cs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div>
         <div class="cs-title" data-i18n="challenge.title">The Challenge</div>
-        <div class="cs-body" data-i18n="challenge.body">Developing a scalable digital game marketplace required solving multiple architectural and security challenges:</div>
-        <div class="cs-list" data-i18n-html="challenge.list">
-          <div class="cs-item">Secure multi-platform database communication</div>
-          <div class="cs-item">Real-time rental tracking & expiration control</div>
-          <div class="cs-item">Role-based authorization & protected admin access</div>
-          <div class="cs-item">Data consistency between web platform and desktop panel</div>
-          <div class="cs-item">Scalable architecture for future payment integration</div>
-        </div>
+        <div class="cs-body" data-i18n="challenge.body">A marketplace that sells and rents the same stock, managed from both the web and the desktop, needs strict data rules — and after the first release, the code itself had become hard to grow.</div>
+        <div class="cs-list" data-i18n-html="challenge.list"><div class="cs-item">Keeping stock, sales and rentals consistent between the web app and the desktop panel</div><div class="cs-item">Tracking rental periods and expirations automatically</div><div class="cs-item">Protecting member-only features such as the wishlist, checkout and profile</div><div class="cs-item">Eight near-identical category pages and duplicated queries for guest and member home pages</div><div class="cs-item">Finding a game quickly in a growing catalogue</div><div class="cs-item">A dated interface that didn't feel like a modern game store on mobile</div></div>
       </div>
       <div class="cs-card reveal reveal-delay-2">
-        <div class="cs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div class="cs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M2 13l10 5 10-5"/><path d="M2 18l10 5 10-5"/></svg></div>
         <div class="cs-title" data-i18n="solution.title">The Solution</div>
-        <div class="cs-body" data-i18n="solution.body">Yonder Market was structured using a modular and layered architecture to ensure performance and security:</div>
-        <div class="cs-list" data-i18n-html="solution.list">
-          <div class="cs-item">Implemented ASP.NET Core MVC layered architecture</div>
-          <div class="cs-item">Designed a centralized MSSQL relational database</div>
-          <div class="cs-item">Developed a custom rental & transaction management system</div>
-          <div class="cs-item">Built a Windows Forms admin tool integrated via secure database connection</div>
-          <div class="cs-item">Applied structured Architecture Planning, Security Planning & Data Modeling</div>
-        </div>
+        <div class="cs-body" data-i18n="solution.body">A layered MVC architecture on one relational database, refactored in 2026 around single sources of truth and reusable partials.</div>
+        <div class="cs-list" data-i18n-html="solution.list"><div class="cs-item">A centralised MSSQL schema with EF Core migrations, shared by the web app and the Windows Forms panel</div><div class="cs-item">Cookie authentication, sessions and server-side checks on every protected action</div><div class="cs-item">A category catalogue defined once in code and rendered by a single data-driven category view</div><div class="cs-item">One generic showcase query feeding both the guest and the member home page</div><div class="cs-item">A JSON search endpoint returning the six best matches as you type</div><div class="cs-item">New header, footer, cart panel and auth layout partials with a refreshed visual design</div></div>
       </div>
     </div>
   </div>
@@ -870,35 +836,42 @@
 <section id="process">
   <div class="section-wrap">
     <div class="section-label reveal" data-i18n="label.process">Development Journey</div>
-    <h2 class="section-title reveal reveal-delay-1" data-i18n="process.title">3 months from idea to code.</h2>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n="process.title">From a student project to a refactored platform.</h2>
     <div class="process-timeline">
       <div class="process-step reveal">
         <div class="process-dot"></div>
         <div class="process-num" data-i18n="phase.num.01">Phase 01</div>
-        <div class="process-title" data-i18n="p01.title">Architecture & Database Modeling</div>
-        <div class="process-body" data-i18n="p01.body">Defined system layers, entity relationships, and data normalization.</div>
-        <div class="process-tags" data-i18n-html="p01.tags"><span class="ptag">Architecture Design</span><span class="ptag">Security Planning</span></div>
+        <div class="process-title" data-i18n="p01.title">Architecture &amp; Database Modeling</div>
+        <div class="process-body" data-i18n="p01.body">We defined the system layers, the entities — games, members, sales status, active rentals, discounts, sales reports and demand forecasts — and their relationships, then normalised the schema in MSSQL.</div>
+        <div class="process-tags" data-i18n-html="p01.tags"><span class="ptag">Architecture Design</span><span class="ptag">Data Modeling</span><span class="ptag">Security Planning</span></div>
       </div>
       <div class="process-step reveal reveal-delay-1">
         <div class="process-dot"></div>
         <div class="process-num" data-i18n="phase.num.02">Phase 02</div>
         <div class="process-title" data-i18n="p02.title">Web Marketplace Development</div>
-        <div class="process-body" data-i18n="p02.body">Built authentication, product listing, cart, and rental logic systems.</div>
-        <div class="process-tags" data-i18n-html="p02.tags"><span class="ptag">Business Logic Structuring</span><span class="ptag">Session Management</span></div>
+        <div class="process-body" data-i18n="p02.body">We built registration and sign-in, the game catalogue, the cart and payment flow, weekly and monthly rentals, the wishlist and the member profile with active rentals on ASP.NET Core MVC and Entity Framework Core.</div>
+        <div class="process-tags" data-i18n-html="p02.tags"><span class="ptag">Business Logic</span><span class="ptag">Session Management</span><span class="ptag">EF Core</span></div>
       </div>
       <div class="process-step reveal reveal-delay-2">
         <div class="process-dot"></div>
         <div class="process-num" data-i18n="phase.num.03">Phase 03</div>
-        <div class="process-title" data-i18n="p03.title">Desktop Admin Panel Development</div>
-        <div class="process-body" data-i18n="p03.body">Developed Windows Forms application for inventory and financial control.</div>
-        <div class="process-tags" data-i18n-html="p03.tags"><span class="ptag">Inventory System Design</span><span class="ptag">Administrative Workflow Planning</span></div>
+        <div class="process-title" data-i18n="p03.title">Desktop Admin Panel</div>
+        <div class="process-body" data-i18n="p03.body">A Windows Forms application gave administrators full control of inventory, prices, discounts and financial reports directly from the desktop, working on the same database as the website.</div>
+        <div class="process-tags" data-i18n-html="p03.tags"><span class="ptag">Windows Forms</span><span class="ptag">Inventory System</span><span class="ptag">Reporting</span></div>
       </div>
       <div class="process-step reveal reveal-delay-3">
         <div class="process-dot"></div>
         <div class="process-num" data-i18n="phase.num.04">Phase 04</div>
-        <div class="process-title" data-i18n="p04.title">Integration & Optimization</div>
-        <div class="process-body" data-i18n="p04.body">Connected web and desktop systems to centralized database.</div>
-        <div class="process-tags" data-i18n-html="p04.tags"><span class="ptag">Query Optimization</span><span class="ptag">Performance Tuning</span><span class="ptag">Data Validation</span></div>
+        <div class="process-title" data-i18n="p04.title">Integration &amp; Optimization</div>
+        <div class="process-body" data-i18n="p04.body">We connected both applications to the central database, added sales-status tracking per game through migrations, tuned the queries behind the best-seller and most-rented lists, and validated data on both sides.</div>
+        <div class="process-tags" data-i18n-html="p04.tags"><span class="ptag">Query Optimization</span><span class="ptag">Migrations</span><span class="ptag">Data Validation</span></div>
+      </div>
+      <div class="process-step reveal reveal-delay-4">
+        <div class="process-dot"></div>
+        <div class="process-num" data-i18n="phase.num.05">Phase 05</div>
+        <div class="process-title" data-i18n="p05.title">2026 — Redesign &amp; Refactor</div>
+        <div class="process-body" data-i18n="p05.body">In 2026 I redesigned the storefront and cleaned up the code base. Eight category views became one, fed by a single category catalogue; the guest and member home pages now share one generic query; a live search API and a slide-in cart arrived; the layout was split into header, footer, cart and auth partials; and the sign-in pages got their own layout. Member-only actions now return a proper "unauthorized" response.</div>
+        <div class="process-tags" data-i18n-html="p05.tags"><span class="ptag">UI Redesign</span><span class="ptag">Refactoring</span><span class="ptag">Live Search API</span><span class="ptag">Partial Views</span></div>
       </div>
     </div>
   </div>
@@ -912,10 +885,11 @@
     <div class="section-label reveal" data-i18n="label.tech">Technology Stack</div>
     <h2 class="section-title reveal reveal-delay-1" data-i18n="tech.title">Modern full-stack architecture.</h2>
     <div class="tech-grid reveal reveal-delay-2">
-      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><circle cx="12" cy="12" r="2.5"/><ellipse cx="12" cy="12" rx="10" ry="3.5"/><ellipse cx="12" cy="12" rx="10" ry="3.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="3.5" transform="rotate(120 12 12)"/></svg></div><div class="tech-label">ASP.NET</div><div class="tech-sub">Backend</div></div>
-      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div class="tech-label">Windows Forms (C#)</div><div class="tech-sub">Backend</div></div>
-      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v5c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 10v5c0 1.66 3.58 3 8 3s8-1.34 8-3v-5"/><path d="M4 15v2c0 1.66 3.58 3 8 3s8-1.34 8-3v-2"/></svg></div><div class="tech-label">MSSQL</div><div class="tech-sub">Database</div></div>
-      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><div class="tech-label">HTML5 · CSS3 · JavaScript</div><div class="tech-sub">Frontend</div></div>
+      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M2 13l10 5 10-5"/><path d="M2 18l10 5 10-5"/></svg></div><div class="tech-label">ASP.NET Core MVC</div><div class="tech-sub" data-i18n="t1">Web platform</div></div>
+      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M8 7 3 12l5 5"/><path d="M16 7l5 5-5 5"/><path d="M13.5 4 10.5 20"/></svg></div><div class="tech-label">C# · EF Core</div><div class="tech-sub" data-i18n="t2">Business logic &amp; ORM</div></div>
+      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div><div class="tech-label">MSSQL</div><div class="tech-sub" data-i18n="t3">Relational database</div></div>
+      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg></div><div class="tech-label">Windows Forms</div><div class="tech-sub" data-i18n="t4">Desktop admin panel</div></div>
+      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M5 3l1.5 15L12 20l5.5-2L19 3H5z"/><path d="M8.5 7.5h7l-.5 5L12 13.5l-2.5-.5L9 10h6"/></svg></div><div class="tech-label">HTML · CSS · JS</div><div class="tech-sub" data-i18n="t5">Razor views &amp; live search</div></div>
     </div>
   </div>
 </section>
@@ -926,14 +900,11 @@
 <section id="results">
   <div class="section-wrap">
     <div class="section-label reveal" data-i18n="label.results">Outcomes</div>
-    <h2 class="section-title reveal reveal-delay-1" data-i18n="results.title">Real traction, real studios.</h2>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n="results.title">Leaner code, better storefront.</h2>
     <div class="results-grid">
-      <div class="result-card reveal"><div class="result-num"><span id="r1">0</span>+</div><div class="result-label"><span data-i18n="r1.label">Games Listed</span></div><div class="result-desc" data-i18n="r1.desc">Continuously expanding multi-category digital catalog</div></div>
-      <div class="result-card reveal reveal-delay-1"><div class="result-num"><span id="r2">0</span>+</div><div class="result-label"><span data-i18n="r2.label">Daily Rentals</span></div><div class="result-desc" data-i18n="r2.desc">Automated time-based rental system actively in use</div></div>
-      <div class="result-card reveal reveal-delay-2"><div class="result-num"><span id="r3">0</span>+</div><div class="result-label"><span data-i18n="r3.label">Registered Users</span></div><div class="result-desc" data-i18n="r3.desc">Secure identity-based authentication system</div></div>
-      <div class="result-card reveal reveal-delay-3"><div class="result-num"><span id="r4">0</span>+</div><div class="result-label"><span data-i18n="r4.label">Wishlist Additions</span></div><div class="result-desc" data-i18n="r4.desc">Active user engagement through wishlist tracking system</div></div>
-      <div class="result-card reveal reveal-delay-1"><div class="result-num"><span id="r5">0</span>%</div><div class="result-label"><span data-i18n="r5.label">Repeat User Rate</span></div><div class="result-desc" data-i18n="r5.desc">Returning customers</div></div>
-      <div class="result-card reveal reveal-delay-2"><div class="result-num"><span id="r6">0</span>K+</div><div class="result-label"><span data-i18n="r6.label">Cart Operations</span></div><div class="result-desc" data-i18n="r6.desc">Added / removed items</div></div>
+      <div class="result-card reveal"><div class="result-num"><span data-count="8">0</span> → 1</div><div class="result-label" data-i18n="r1.label">Category views</div><div class="result-desc" data-i18n="r1.desc">One data-driven page with in-category search</div></div>
+      <div class="result-card reveal reveal-delay-1"><div class="result-num"><span data-count="6">0</span></div><div class="result-label" data-i18n="r2.label">Live search suggestions</div><div class="result-desc" data-i18n="r2.desc">By title or category, as you type</div></div>
+      <div class="result-card reveal reveal-delay-2"><div class="result-num"><span data-count="1">0</span></div><div class="result-label" data-i18n="r3.label">Shared showcase query</div><div class="result-desc" data-i18n="r3.desc">Best sellers and most rented, for guests and members alike</div></div>
     </div>
   </div>
 </section>
@@ -944,32 +915,24 @@
 <section id="next">
   <div class="section-wrap">
     <div class="section-label reveal" data-i18n="label.next">Continue Exploring</div>
-    <h2 class="section-title reveal reveal-delay-1" data-i18n="next.title">Back to the beginning.</h2>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n="next.title">Next up.</h2>
     <div class="next-inner reveal reveal-delay-2">
-      <div class="next-label" data-i18n="next.label.featured">Featured Project</div>
-      <a href="ImaretVakfi.html" class="next-card">
+      <div class="next-label" data-i18n="next.label">Next Project</div>
+      <a href="TuzBoard.html" class="next-card">
         <div class="next-card-content">
           <div class="next-card-top">
-            <div class="next-card-badge">
-              <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
-              <span data-i18n="next.badge">Featured</span>
-            </div>
-            <div class="next-card-title" data-i18n="next.card.title">Imaret Vakfı</div>
-            <div class="next-card-desc" data-i18n="next.card.desc">An integrated ecosystem designed to streamline educational funding and community support, ensuring impactful delivery of aid to those who need it most.</div>
+            <div class="next-card-badge"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>Web App</div>
+            <div class="next-card-title">TuzBoard</div>
+            <div class="next-card-desc" data-i18n="next.card.desc">The live scoreboard of the Çankırı Salt Festival: a synchronized operator panel and TV screen for football, volleyball and Survivor.</div>
           </div>
           <div class="next-card-bottom">
-            <div class="ntags">
-              <span class="ntag">ASP.NET</span>
-              <span class="ntag">C#</span>
-              <span class="ntag">Web App</span>
-            </div>
+            <div class="next-card-tags"><span class="ntag">JavaScript</span><span class="ntag">Real-Time</span></div>
             <div class="next-arrow"><span data-i18n="btn.viewproject">View Project</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
         </div>
-        <div class="next-card-visual">
-          <img src="assets/img/ImaretLogoPng.webp" alt="Imaret Vakfı Project Logo" class="next-card-img" loading="lazy" decoding="async" />
-        </div>
+        <div class="next-card-visual"><img src="assets/img/TuzFestLogo.webp" alt="TuzFest Scoreboard logo" class="next-card-img" loading="lazy" decoding="async"></div>
       </a>
+
     </div>
   </div>
 </section>
@@ -982,16 +945,10 @@
     <div class="cta-inner">
       <div class="section-label reveal" style="justify-content:center" data-i18n="label.cta">Start a Project</div>
       <h2 class="cta-title reveal reveal-delay-1" data-i18n-html="cta.title">Have an idea?<br><span>Let's build it.</span></h2>
-      <p class="cta-desc reveal reveal-delay-2" data-i18n="cta.desc">Whether it's a web platform, a brand's social media, or something that doesn't quite have a name yet — I'd love to hear about it.</p>
+      <p class="cta-desc reveal reveal-delay-2" data-i18n="cta.desc">Whether it's a web platform, an interactive app, or something that doesn't quite have a name yet — I'd love to hear about it.</p>
       <div class="cta-btns reveal reveal-delay-3">
-        <a href="index.html#contact" class="btn-primary">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          <span data-i18n="btn.getintouch">Get In Touch</span>
-        </a>
-        <a href="index.html#projects" class="btn-secondary">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-          <span data-i18n="btn.allprojects">All Projects</span>
-        </a>
+        <a href="index.html#contact" class="btn-primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span data-i18n="btn.getintouch">Get In Touch</span></a>
+        <a href="index.html#projects" class="btn-secondary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span data-i18n="btn.allprojects">All Projects</span></a>
       </div>
     </div>
   </div>
@@ -1014,57 +971,78 @@
 
 <script src="assets/js/MobileNav.js"></script>
 <script>
-  
+
+
+  // scroll events
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
     document.getElementById('btt').classList.toggle('visible', window.scrollY > 400);
   });
 
+  // scroll reveal
   const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-  function animateCount(el, target, suffix = '', duration = 1600) {
+  // counter animation
+  function animateCount(el, target, duration=1600) {
     let start = null;
-    (function step(ts) { if (!start) start = ts; const p = Math.min((ts - start) / duration, 1), ease = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.floor(ease * target) + suffix; if (p < 1) requestAnimationFrame(step); else el.textContent = target + suffix; })(performance.now());
+    (function step(ts) {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / duration, 1), ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target);
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = target;
+    })(performance.now());
   }
+  document.querySelectorAll('[data-count]').forEach(function (el) {
+    new IntersectionObserver(function (en, obs) {
+      if (en[0].isIntersecting) { animateCount(el, +el.getAttribute('data-count')); obs.disconnect(); }
+    }, { threshold: 0.5 }).observe(el);
+  });
 
-  const statsObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) {
-      animateCount(document.getElementById('s1'), 200);
-      animateCount(document.getElementById('s2'), 8);
-      animateCount(document.getElementById('s3'), 17840);
-      statsObs.disconnect();
-    }});
-  }, { threshold: 0.5 });
-  const ov = document.getElementById('overview'); if (ov) statsObs.observe(ov);
-
-  const resultObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) {
-      animateCount(document.getElementById('r1'), 200);
-      animateCount(document.getElementById('r2'), 20);
-      animateCount(document.getElementById('r3'), 100);
-      animateCount(document.getElementById('r4'), 350);
-      animateCount(document.getElementById('r5'), 65);
-      animateCount(document.getElementById('r6'), 1.2);
-      resultObs.disconnect();
-    }});
-  }, { threshold: 0.3 });
-  const res = document.getElementById('results'); if (res) resultObs.observe(res);
-
+  // 3D tilt on cards
   document.querySelectorAll('.gallery-item, .next-card').forEach(card => {
     card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect(), x = (e.clientX - rect.left) / rect.width - .5, y = (e.clientY - rect.top) / rect.height - .5;
-      card.style.transform = `perspective(1200px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateY(-6px)`;
+      const r=card.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      card.style.transform=`perspective(1200px) rotateY(${x*6}deg) rotateX(${-y*6}deg) translateY(-6px)`;
     });
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    card.addEventListener('mouseleave', () => { card.style.transform=''; });
   });
 
+  // smooth hash scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => { const t = document.querySelector(a.getAttribute('href')); if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); } });
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+    });
   });
+
+  // ── HERO LOGO: fade-in + parallax ──
+  (function() {
+    const img     = document.getElementById('heroLogoImg');
+    const heroSec = document.getElementById('hero');
+    if (!img || !heroSec) return;
+
+    // fade in once image is ready
+    const reveal = () => img.classList.add('loaded');
+    if (img.complete && img.naturalWidth) reveal();
+    else img.addEventListener('load', reveal);
+
+    // parallax: logo scroll ile aşağı kayar
+    function onScroll() {
+      const scrollY  = window.scrollY;
+      const heroH    = heroSec.offsetHeight || 1;
+      const progress = Math.min(scrollY / heroH, 1);
+      const drift    = progress * 220;
+      const opacity  = 0.7 * (1 - progress * 0.7);
+      img.style.transform = 'translateY(' + drift + 'px)';
+      if (img.classList.contains('loaded')) img.style.opacity = opacity;
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
 
   // ── STICKY PROJECT BAR ──
   (function() {
@@ -1113,250 +1091,125 @@
     });
   })();
 
-  // ── HERO LOGO: fade-in + parallax ──
-  (function() {
-    const img     = document.getElementById('heroLogoImg');
-    const heroSec = document.getElementById('hero');
-    if (!img || !heroSec) return;
-
-    // fade in once image is ready
-    const reveal = () => img.classList.add('loaded');
-    if (img.complete && img.naturalWidth) reveal();
-    else img.addEventListener('load', reveal);
-
-    // parallax: logo scroll ile aşağı kayar
-    function onScroll() {
-      const scrollY  = window.scrollY;
-      const heroH    = heroSec.offsetHeight || 1;
-      const progress = Math.min(scrollY / heroH, 1);
-      const drift    = progress * 220;
-      const opacity  = 0.7 * (1 - progress * 0.7);
-      img.style.transform = 'translateY(' + drift + 'px)';
-      if (img.classList.contains('loaded')) img.style.opacity = opacity;
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  })();
 </script>
 
 <script>
 (function() {
-  var T = {
-  "en": {
-    "nav.about": "About",
-    "nav.projects": "Projects",
-    "nav.skills": "Skills",
-    "nav.contact": "Contact",
-    "nav.cv": "Download CV",
-    "nav.back": "Back",
-    "mobile.about": "About",
-    "mobile.projects": "Projects",
-    "mobile.skills": "Skills",
-    "mobile.contact": "Contact",
-    "breadcrumb.home": "Home",
-    "breadcrumb.projects": "Projects",
-    "label.overview": "Project Overview",
-    "label.gallery": "Visual Showcase",
-    "label.challenge": "Problem & Solution",
-    "label.process": "Development Journey",
-    "label.tech": "Technology Stack",
-    "label.results": "Outcomes",
-    "label.next": "Continue Exploring",
-    "label.cta": "Start a Project",
-    "label.expertise": "Expertise",
-    "label.selectedwork": "Selected Work",
-    "label.getintouch": "Get In Touch",
-    "pbar.overview": "Project Overview",
-    "pbar.gallery": "Visual Showcase",
-    "pbar.challenge": "Problem & Solution",
-    "pbar.process": "Development Journey",
-    "pbar.results": "Outcomes",
-    "scroll.hint": "Scroll to explore",
-    "footer.copy": "© 2026 Metehan Tabak.",
-    "cta.title": "Have an idea?<br><span>Let's build it.</span>",
-    "cta.desc": "Whether it's a web platform, a brand's social media, or something that doesn't quite have a name yet — I'd love to hear about it.",
-    "meta.year": "Year",
-    "meta.platform": "Platform",
-    "meta.role": "Role",
-    "meta.duration": "Duration",
-    "next.label": "Next Project",
-    "next.label.featured": "Featured Project",
-    "btn.viewproject": "View Project",
-    "btn.getintouch": "Get In Touch",
-    "btn.viewall": "View All Projects",
-    "challenge.title": "The Challenge",
-    "solution.title": "The Solution",
-    "phase.num.01": "Phase 01",
-    "phase.num.02": "Phase 02",
-    "phase.num.03": "Phase 03",
-    "phase.num.04": "Phase 04",
-    "hero.tag1": "ASP.NET",
-    "hero.tag2": "Windows Forms",
-    "hero.tag3": "MSSQL",
-    "page.title": "Yonder Market — Metehan Tabak",
-    "hero.desc": "Yonder Market is a secure and scalable ASP.NET Core MVC–based digital platform that enables users to seamlessly buy and rent games within a dynamic, database-driven marketplace.",
-    "overview.title": "Scalable marketplace with desktop control.",
-    "gallery.title": "Seamless by design.",
-    "g.hint": "Select a screen to view it full size.",
-    "g.screens": "Screens",
-    "g.d1": "Desktop",
-    "g.n1": "Main Page",
-    "g.d2": "Laptop",
-    "g.n2": "Cart",
-    "g.d3": "Mobile",
-    "g.n3": "Main Page",
-    "challenge.heading": "Hybrid platform. Consistent data flow.",
-    "challenge.list": "<div class=\"cs-item\">Secure multi-platform database communication</div><div class=\"cs-item\">Real-time rental tracking & expiration control</div><div class=\"cs-item\">Role-based authorization & protected admin access</div><div class=\"cs-item\">Data consistency between web platform and desktop panel</div><div class=\"cs-item\">Scalable architecture for future payment integration</div>",
-    "solution.list": "<div class=\"cs-item\">Designed a centralized MSSQL relational database</div><div class=\"cs-item\">Developed a custom rental & transaction management system</div><div class=\"cs-item\">Built a Windows Forms admin tool integrated via secure database connection</div><div class=\"cs-item\">Applied structured Architecture Planning, Security Planning & Data Modeling</div>",
-    "process.title": "3 months from idea to code.",
-    "p01.title": "Architecture & Database Modeling",
-    "p01.body": "Defined system layers, entity relationships, and data normalization.",
-    "p01.tags": "<span class=\"ptag\">Architecture Design</span><span class=\"ptag\">Security Planning</span>",
-    "p02.title": "Web Marketplace Development",
-    "p02.body": "Built authentication, product listing, cart, and rental logic systems.",
-    "p02.tags": "<span class=\"ptag\">Business Logic Structuring</span><span class=\"ptag\">Session Management</span>",
-    "p03.title": "Desktop Admin Panel Development",
-    "p03.body": "Developed Windows Forms application for inventory and financial control.",
-    "p03.tags": "<span class=\"ptag\">Inventory System Design</span><span class=\"ptag\">Administrative Workflow Planning</span>",
-    "p04.title": "Integration & Optimization",
-    "p04.body": "Connected web and desktop systems to centralized database.",
-    "p04.tags": "<span class=\"ptag\">Query Optimization</span><span class=\"ptag\">Performance Tuning</span><span class=\"ptag\">Data Validation</span>",
-    "tech.title": "Modern full-stack architecture.",
-    "results.title": "Real traction, real studios.",
-    "r1.label": "Games Listed",
-    "r1.desc": "Continuously expanding multi-category digital catalog",
-    "r2.label": "Daily Rentals",
-    "r2.desc": "Automated time-based rental system actively in use",
-    "r3.label": "Registered Users",
-    "r3.desc": "Secure identity-based authentication system",
-    "r4.label": "Wishlist Additions",
-    "r4.desc": "Active user engagement through wishlist tracking system",
-    "r5.label": "Repeat User Rate",
-    "r5.desc": "Returning customers",
-    "r6.label": "Cart Operations",
-    "r6.desc": "Added / removed items",
-    "next.title": "Back to the beginning.",
-    "next.card.title": "Imaret Vakfı",
-    "next.card.desc": "An integrated ecosystem designed to streamline educational funding and community support, ensuring impactful delivery of aid to those who need it most.",
-    "btn.allprojects": "All Projects",
-    "next.badge": "Featured",
-    "challenge.body": "Developing a scalable digital game marketplace required solving multiple architectural and security challenges:",
-    "solution.body": "Yonder Market was structured using a modular and layered architecture to ensure performance and security:",
-    "overview.body": "Yonder Market (YM) — inspired by the initials of its founders Yasin & Metehan — is a full-featured ASP.NET Core MVC–based digital game sales and rental platform designed to deliver secure transactions, structured business logic, and a seamless user experience.",
-    "overview.body2": "The system operates on a dynamic, database-driven marketplace architecture that enables users to purchase and rent games while ensuring secure authentication, automated rental tracking, and optimized data integrity.",
-    "overview.body3": "In addition to the web platform, Yonder Market includes a dedicated Windows Forms–based desktop Admin Panel, developed for advanced inventory and system management directly from a computer environment.",
-    "stat.01.sub": "Games",
-    "stat.02.sub": "Categories",
-    "stat.03.sub": "Total Revenue Generated",
-  },
-  "tr": {
-    "nav.about": "Hakkımda",
-    "nav.projects": "Projeler",
-    "nav.skills": "Yetenekler",
-    "nav.contact": "İletişim",
-    "nav.cv": "CV İndir",
-    "nav.back": "Geri",
-    "mobile.about": "Hakkımda",
-    "mobile.projects": "Projeler",
-    "mobile.skills": "Yetenekler",
-    "mobile.contact": "İletişim",
-    "breadcrumb.home": "Ana Sayfa",
-    "breadcrumb.projects": "Projeler",
-    "label.overview": "Proje Genel Bakışı",
-    "label.gallery": "Görsel Sergi",
-    "label.challenge": "Sorun & Çözüm",
-    "label.process": "Geliştirme Süreci",
-    "label.tech": "Teknoloji Yığını",
-    "label.results": "Sonuçlar",
-    "label.next": "Keşfetmeye Devam Et",
-    "label.cta": "Proje Başlat",
-    "label.expertise": "Uzmanlık",
-    "label.selectedwork": "Seçili Çalışmalar",
-    "label.getintouch": "İletişime Geç",
-    "pbar.overview": "Proje Genel Bakışı",
-    "pbar.gallery": "Görsel Sergi",
-    "pbar.challenge": "Sorun & Çözüm",
-    "pbar.process": "Geliştirme Süreci",
-    "pbar.results": "Sonuçlar",
-    "scroll.hint": "Keşfetmek için kaydır",
-    "footer.copy": "© 2026 Metehan Tabak.",
-    "cta.title": "Bir fikrin mi var?<br><span>Hadi inşa edelim.</span>",
-    "cta.desc": "İster bir web platformu, ister bir markanın sosyal medyası, isterse henüz adı olmayan bir şey olsun — duymak isterim.",
-    "meta.year": "Yıl",
-    "meta.platform": "Platform",
-    "meta.role": "Rol",
-    "meta.duration": "Süre",
-    "next.label": "Sonraki Proje",
-    "next.label.featured": "Öne Çıkan Proje",
-    "btn.viewproject": "Projeyi Görüntüle",
-    "btn.getintouch": "İletişime Geç",
-    "btn.viewall": "Tüm Projeleri Gör",
-    "challenge.title": "Zorluk",
-    "solution.title": "Çözüm",
-    "phase.num.01": "Aşama 01",
-    "phase.num.02": "Aşama 02",
-    "phase.num.03": "Aşama 03",
-    "phase.num.04": "Aşama 04",
-    "hero.tag1": "ASP.NET",
-    "hero.tag2": "Windows Forms",
-    "hero.tag3": "MSSQL",
-    "page.title": "Yonder Market — Metehan Tabak",
-    "hero.desc": "Yonder Market, kullanıcıların dinamik ve veritabanı odaklı bir pazarda oyunları sorunsuzca satın almasını ve kiralamasını sağlayan güvenli ve ölçeklenebilir ASP.NET Core MVC tabanlı bir dijital platformdur.",
-    "overview.title": "Masaüstü kontrolüyle ölçeklenebilir pazar yeri.",
-    "gallery.title": "Tasarım gereği kusursuz.",
-    "g.hint": "Tam boyutta görmek için bir ekran seçin.",
-    "g.screens": "Ekranlar",
-    "g.d1": "Masaüstü",
-    "g.n1": "Anasayfa",
-    "g.d2": "Laptop",
-    "g.n2": "Sepet",
-    "g.d3": "Mobil",
-    "g.n3": "Anasayfa",
-    "challenge.list": "<div class=\"cs-item\">Güvenli çok platformlu veritabanı iletişimi</div><div class=\"cs-item\">Gerçek zamanlı kiralama takibi ve bitiş tarihi kontrolü</div><div class=\"cs-item\">Rol tabanlı yetkilendirme ve korumalı yönetici erişimi</div><div class=\"cs-item\">Web platformu ve masaüstü panel arasında veri tutarlılığı</div><div class=\"cs-item\">Gelecekteki ödeme entegrasyonu için ölçeklenebilir mimari</div>",
-    "solution.list": "<div class=\"cs-item\">Merkezi MSSQL ilişkisel veritabanı tasarlandı</div><div class=\"cs-item\">Özel kiralama ve işlem yönetim sistemi geliştirildi</div><div class=\"cs-item\">Güvenli veritabanı bağlantısı ile entegre Windows Forms yönetici aracı oluşturuldu</div><div class=\"cs-item\">Yapılandırılmış Mimari Planlama, Güvenlik Planlaması ve Veri Modelleme uygulandı</div>",
-    "process.title": "Fikirden koda 3 ay.",
-    "p01.title": "Mimari & Veritabanı Modelleme",
-    "p01.body": "Sistem katmanları, varlık ilişkileri ve veri normalleştirmesi tanımlandı.",
-    "p01.tags": "<span class=\"ptag\">Mimari Tasarım</span><span class=\"ptag\">Güvenlik Planlaması</span>",
-    "p02.title": "Web Pazar Yeri Geliştirme",
-    "p02.body": "Kimlik doğrulama, ürün listeleme, sepet ve kiralama mantık sistemleri oluşturuldu.",
-    "p02.tags": "<span class=\"ptag\">İş Mantığı Yapılandırması</span><span class=\"ptag\">Oturum Yönetimi</span>",
-    "p03.title": "Masaüstü Yönetici Paneli Geliştirme",
-    "p03.body": "Envanter ve finansal kontrol için Windows Forms uygulaması geliştirildi.",
-    "p03.tags": "<span class=\"ptag\">Envanter Sistemi Tasarımı</span><span class=\"ptag\">İdari İş Akışı Planlaması</span>",
-    "p04.title": "Entegrasyon & Optimizasyon",
-    "p04.body": "Web ve masaüstü sistemleri merkezi veritabanına bağlandı.",
-    "p04.tags": "<span class=\"ptag\">Sorgu Optimizasyonu</span><span class=\"ptag\">Performans Ayarlama</span><span class=\"ptag\">Veri Doğrulama</span>",
-    "tech.title": "Modern full-stack mimari.",
-    "results.title": "Gerçek büyüme, gerçek kullanıcılar.",
-    "r1.label": "Listelenen Oyun",
-    "r1.desc": "Sürekli genişleyen çok kategorili dijital katalog",
-    "r2.label": "Günlük Kiralama",
-    "r2.desc": "Aktif olarak kullanılan otomatik süreli kiralama sistemi",
-    "r3.label": "Kayıtlı Kullanıcı",
-    "r3.desc": "Güvenli kimlik tabanlı kimlik doğrulama sistemi",
-    "r4.label": "İstek Listesi Ekleme",
-    "r4.desc": "İstek listesi takip sistemi ile aktif kullanıcı etkileşimi",
-    "r5.label": "Tekrar Kullanıcı Oranı",
-    "r5.desc": "Geri dönen müşteriler",
-    "r6.label": "Sepet İşlemi",
-    "r6.desc": "Eklenen / çıkarılan ürünler",
-    "next.title": "Başa dön.",
-    "next.card.title": "İmaret Vakfı",
-    "next.card.desc": "Eğitim finansmanını ve toplum desteğini kolaylaştırmak için tasarlanmış, yardımın en çok ihtiyaç duyanlara ulaşmasını sağlayan entegre bir ekosistem.",
-    "btn.allprojects": "Tüm Projeler",
-    "next.badge": "Öne Çıkan",
-    "challenge.heading": "Hibrit platform. Tutarlı veri akışı.",
-    "challenge.body": "Ölçeklenebilir bir dijital oyun pazarı geliştirmek, birden fazla mimari ve güvenlik zorluğunu çözmeyi gerektirdi:",
-    "solution.body": "Yonder Market, performans ve güvenliği sağlamak amacıyla modüler ve katmanlı bir mimari kullanılarak yapılandırıldı:",
-    "overview.body": "Yonder Market (YM) — kuruculara ait baş harflerden ilham alarak — güvenli işlemler, yapılandırılmış iş mantığı ve sorunsuz bir kullanıcı deneyimi sunmak için tasarlanmış tam özellikli bir ASP.NET Core MVC tabanlı dijital oyun satış ve kiralama platformudur.",
-    "overview.body2": "Sistem, dinamik ve veritabanı odaklı bir pazar yeri mimarisi üzerinde çalışarak kullanıcıların oyunları satın almasını ve kiralamasını sağlarken güvenli kimlik doğrulama, otomatik kiralama takibi ve optimize edilmiş veri bütünlüğü sunar.",
-    "overview.body3": "Web platformuna ek olarak Yonder Market, bilgisayar ortamından doğrudan gelişmiş envanter ve sistem yönetimi için geliştirilen özel bir Windows Forms tabanlı masaüstü Yönetici Paneli içermektedir.",
-    "stat.01.sub": "Oyun",
-    "stat.02.sub": "Kategori",
-    "stat.03.sub": "Toplam Gelir",
-  }
-};
+  var T = { "en": {}, "tr": {
+    "nav.about":  "Hakkımda",
+    "nav.projects":  "Projeler",
+    "nav.skills":  "Yetenekler",
+    "nav.contact":  "İletişim",
+    "nav.cv":  "CV İndir",
+    "nav.back":  "Geri",
+    "mobile.about":  "Hakkımda",
+    "mobile.projects":  "Projeler",
+    "mobile.skills":  "Yetenekler",
+    "mobile.contact":  "İletişim",
+    "breadcrumb.home":  "Ana Sayfa",
+    "breadcrumb.projects":  "Projeler",
+    "label.overview":  "Proje Genel Bakışı",
+    "label.gallery":  "Görsel Sergi",
+    "label.challenge":  "Sorun \u0026 Çözüm",
+    "label.process":  "Geliştirme Süreci",
+    "label.tech":  "Teknoloji Yığını",
+    "label.results":  "Sonuçlar",
+    "label.next":  "Keşfetmeye Devam Et",
+    "label.cta":  "Proje Başlat",
+    "label.expertise":  "Uzmanlık",
+    "label.selectedwork":  "Seçili Çalışmalar",
+    "label.getintouch":  "İletişime Geç",
+    "pbar.overview":  "Proje Genel Bakışı",
+    "pbar.gallery":  "Görsel Sergi",
+    "pbar.challenge":  "Sorun \u0026 Çözüm",
+    "pbar.process":  "Geliştirme Süreci",
+    "pbar.results":  "Sonuçlar",
+    "scroll.hint":  "Keşfetmek için kaydır",
+    "footer.copy":  "© 2026 Metehan Tabak.",
+    "cta.title":  "Bir fikrin mi var?\u003cbr\u003e\u003cspan\u003eHadi inşa edelim.\u003c/span\u003e",
+    "cta.desc":  "İster bir web platformu, ister etkileşimli bir uygulama, isterse henüz adı olmayan bir şey olsun — duymak isterim.",
+    "meta.year":  "Yıl",
+    "meta.platform":  "Platform",
+    "meta.role":  "Rol",
+    "meta.duration":  "Süre",
+    "next.label":  "Sonraki Proje",
+    "next.label.featured":  "Öne Çıkan Proje",
+    "btn.viewproject":  "Projeyi Görüntüle",
+    "btn.getintouch":  "İletişime Geç",
+    "btn.viewall":  "Tüm Projeleri Gör",
+    "challenge.title":  "Zorluk",
+    "solution.title":  "Çözüm",
+    "phase.num.01":  "Aşama 01",
+    "phase.num.02":  "Aşama 02",
+    "phase.num.03":  "Aşama 03",
+    "phase.num.04":  "Aşama 04",
+    "hero.badge":  "Yeni projelere açığım",
+    "btn.allprojects":  "Tüm Projeler",
+    "meta.stack":  "Teknoloji",
+    "g.hint":  "Tam boyutta görmek için bir ekran seçin.",
+    "g.screens":  "Ekranlar",
+    "phase.num.05":  "Aşama 05",
+    "page.title":  "Yonder Market — Metehan Tabak",
+    "hero.desc":  "Yonder Market; kullanıcıların oyun satın alabildiği ya da haftalık veya aylık kiralayabildiği, MSSQL veritabanı ve Windows Forms yönetim paneliyle desteklenen güvenli bir ASP.NET Core MVC platformu. 2026\u0027da vitrin yeniden tasarlandı ve kod tabanı baştan sona yeniden düzenlendi.",
+    "overview.title":  "Masaüstünden yönetilen bir oyun pazaryeri.",
+    "overview.p1":  "Adını kurucuları \u003cstrong\u003eYasin \u0026 Metehan\u003c/strong\u003e\u0027ın baş harflerinden alan Yonder Market (YM), ASP.NET Core MVC, Entity Framework Core ve MSSQL ile geliştirilmiş, eksiksiz bir \u003cstrong\u003edijital oyun satış ve kiralama platformu\u003c/strong\u003e.",
+    "overview.p2":  "Üyeler oyun satın alabiliyor, haftalık ya da aylık kiralayabiliyor, istek listesi tutabiliyor ve aktif kiralamalarını profilinden yönetebiliyor; stok, indirimler, satış raporları ve \u003cstrong\u003etalep tahminleri\u003c/strong\u003e vitrinde neyin gösterileceğini belirliyor. Ayrı bir \u003cstrong\u003eWindows Forms yönetim paneli\u003c/strong\u003e envanteri ve finansı masaüstünden yönetiyor.",
+    "overview.p3":  "2026 güncellemesi vitrini yeniden inşa etti: kampanya slaytlı yeni ana sayfa, \u003cstrong\u003ecanlı arama\u003c/strong\u003e, veriyle beslenen tek bir kategori sayfası, kayan sepet paneli, yeniden tasarlanan giriş sayfaları ve çok daha küçük, temiz bir kod tabanı.",
+    "stat.1":  "Oyun kategorisi",
+    "stat.2":  "Kiralama planı: haftalık \u0026 aylık",
+    "stat.3":  "Tek veritabanında uygulama",
+    "gallery.title":  "Tasarımıyla kusursuz.",
+    "g.d1":  "Masaüstü",
+    "g.n1":  "Ana sayfa — kampanya slaytı",
+    "g.d2":  "Laptop",
+    "g.n2":  "Kategori sayfası — Açık Dünya",
+    "g.d3":  "Mobil",
+    "g.n3":  "Ana sayfa",
+    "challenge.heading":  "Hibrit platform. Tutarlı veri akışı.",
+    "challenge.body":  "Aynı stoğu hem satan hem kiralayan, hem webden hem masaüstünden yönetilen bir pazaryeri sıkı veri kuralları ister — üstelik ilk sürümden sonra kodun kendisi de büyütülmesi zor hale gelmişti.",
+    "challenge.list":  "\u003cdiv class=\"cs-item\"\u003eStok, satış ve kiralamaları web uygulaması ile masaüstü panel arasında tutarlı tutmak\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eKiralama sürelerini ve bitişlerini otomatik takip etmek\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eİstek listesi, ödeme ve profil gibi üyelere özel özellikleri korumak\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eNeredeyse aynı sekiz kategori sayfası ve misafir/üye ana sayfaları için tekrarlanan sorgular\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eBüyüyen katalogda oyunu hızlıca bulabilmek\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eMobilde modern bir oyun mağazası gibi hissettirmeyen eskimiş arayüz\u003c/div\u003e",
+    "solution.body":  "Tek bir ilişkisel veritabanı üzerinde katmanlı MVC mimarisi; 2026\u0027da tek kaynak ilkesi ve yeniden kullanılabilir partial\u0027lar etrafında yeniden düzenlendi.",
+    "solution.list":  "\u003cdiv class=\"cs-item\"\u003eWeb uygulaması ve Windows Forms panelinin paylaştığı, EF Core migration\u0027lı merkezi MSSQL şeması\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eÇerez tabanlı kimlik doğrulama, oturumlar ve korunan her işlemde sunucu tarafı kontrol\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eKodda bir kez tanımlanan kategori kataloğu ve onu çizen tek, veri odaklı kategori görünümü\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eMisafir ve üye ana sayfalarını besleyen tek bir generic vitrin sorgusu\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eYazdıkça en iyi altı sonucu döndüren JSON arama uç noktası\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eYenilenen görsel tasarımla yeni header, footer, sepet paneli ve giriş layout partial\u0027ları\u003c/div\u003e",
+    "process.title":  "Bir öğrenci projesinden yeniden düzenlenmiş bir platforma.",
+    "p01.title":  "Mimari \u0026 Veritabanı Modelleme",
+    "p01.body":  "Sistem katmanlarını ve varlıkları — oyunlar, üyeler, satış durumu, aktif kiralamalar, indirimler, satış raporları ve talep tahminleri — ile ilişkilerini tanımladık, ardından şemayı MSSQL\u0027de normalleştirdik.",
+    "p01.tags":  "\u003cspan class=\"ptag\"\u003eMimari Tasarım\u003c/span\u003e\u003cspan class=\"ptag\"\u003eVeri Modelleme\u003c/span\u003e\u003cspan class=\"ptag\"\u003eGüvenlik Planlaması\u003c/span\u003e",
+    "p02.title":  "Web Pazaryeri Geliştirme",
+    "p02.body":  "ASP.NET Core MVC ve Entity Framework Core üzerinde kayıt ve giriş, oyun kataloğu, sepet ve ödeme akışı, haftalık ve aylık kiralama, istek listesi ve aktif kiralamaları gösteren üye profilini geliştirdik.",
+    "p02.tags":  "\u003cspan class=\"ptag\"\u003eİş Mantığı\u003c/span\u003e\u003cspan class=\"ptag\"\u003eOturum Yönetimi\u003c/span\u003e\u003cspan class=\"ptag\"\u003eEF Core\u003c/span\u003e",
+    "p03.title":  "Masaüstü Yönetim Paneli",
+    "p03.body":  "Bir Windows Forms uygulaması, web sitesiyle aynı veritabanı üzerinde çalışarak yöneticilere envanter, fiyat, indirim ve finansal raporlar üzerinde masaüstünden tam kontrol sağladı.",
+    "p03.tags":  "\u003cspan class=\"ptag\"\u003eWindows Forms\u003c/span\u003e\u003cspan class=\"ptag\"\u003eEnvanter Sistemi\u003c/span\u003e\u003cspan class=\"ptag\"\u003eRaporlama\u003c/span\u003e",
+    "p04.title":  "Entegrasyon \u0026 Optimizasyon",
+    "p04.body":  "İki uygulamayı merkezi veritabanına bağladık, migration\u0027larla oyun bazında satış durumu takibini ekledik, en çok satan ve en çok kiralanan listelerinin sorgularını iyileştirdik ve verileri iki tarafta da doğruladık.",
+    "p04.tags":  "\u003cspan class=\"ptag\"\u003eSorgu Optimizasyonu\u003c/span\u003e\u003cspan class=\"ptag\"\u003eMigration\u0027lar\u003c/span\u003e\u003cspan class=\"ptag\"\u003eVeri Doğrulama\u003c/span\u003e",
+    "p05.title":  "2026 — Yeniden Tasarım \u0026 Yeniden Düzenleme",
+    "p05.body":  "2026\u0027da vitrini yeniden tasarladım ve kod tabanını temizledim. Sekiz kategori görünümü, tek bir kategori kataloğundan beslenen tek bir görünüme indi; misafir ve üye ana sayfaları artık tek bir generic sorguyu paylaşıyor; canlı arama API\u0027si ve kayan sepet paneli eklendi; layout header, footer, sepet ve giriş partial\u0027larına bölündü, giriş sayfaları kendi layout\u0027una kavuştu. Üyelere özel işlemler artık doğru bir \"yetkisiz\" yanıtı döndürüyor.",
+    "p05.tags":  "\u003cspan class=\"ptag\"\u003eArayüz Yenileme\u003c/span\u003e\u003cspan class=\"ptag\"\u003eYeniden Düzenleme\u003c/span\u003e\u003cspan class=\"ptag\"\u003eCanlı Arama API\u003c/span\u003e\u003cspan class=\"ptag\"\u003ePartial View\u0027lar\u003c/span\u003e",
+    "tech.title":  "Modern full-stack mimari.",
+    "t1":  "Web platformu",
+    "t2":  "İş mantığı \u0026 ORM",
+    "t3":  "İlişkisel veritabanı",
+    "t4":  "Masaüstü yönetim paneli",
+    "t5":  "Razor görünümleri \u0026 canlı arama",
+    "results.title":  "Daha yalın kod, daha iyi vitrin.",
+    "r1.label":  "Kategori görünümü",
+    "r1.desc":  "Kategori içi aramalı, veri odaklı tek sayfa",
+    "r2.label":  "Canlı arama önerisi",
+    "r2.desc":  "Yazdıkça, oyun adına veya kategoriye göre",
+    "r3.label":  "Ortak vitrin sorgusu",
+    "r3.desc":  "En çok satan ve en çok kiralananlar, misafir ve üyeler için",
+    "next.title":  "Sıradaki.",
+    "next.badge":  "E-Ticaret",
+    "next.card.desc":  "Çankırı Tuz Festivali\u0027nin canlı skorbordu: futbol, voleybol ve Survivor için senkronize operatör paneli ve TV ekranı."
+} };
+  // EN metinleri sayfanın kendisinden okunur (tek kaynak)
+  (function (en) {
+    document.querySelectorAll('[data-i18n]').forEach(function (el) { var k = el.getAttribute('data-i18n'); if (en[k] === undefined) en[k] = el.textContent; });
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) { var k = el.getAttribute('data-i18n-html'); if (en[k] === undefined) en[k] = el.innerHTML; });
+    document.querySelectorAll('[data-i18n-title]').forEach(function (el) { var k = el.getAttribute('data-i18n-title'); if (en[k] === undefined) en[k] = el.title; });
+    en['page.title'] = document.title;
+  })(T.en);
   function apply(lang) {
     lang = (lang === 'tr') ? 'tr' : 'en';
     localStorage.setItem('mt_lang', lang);

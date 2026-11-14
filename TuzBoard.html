@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TuzBoard — Metehan Tabak</title>
+  <meta name="description" content="TuzBoard — the live scoreboard system of the Çankırı Salt Festival: a synchronized admin panel and TV spectator screen for football, volleyball and Survivor matches. Built by Metehan Tabak.">
   <meta name="theme-color" content="#07080c">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preload" href="assets/fonts/syne-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/dm-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <script>(function(d){d.classList.add('js');try{if(sessionStorage.getItem('mt_seen'))d.classList.add('pl-quick')}catch(e){}})(document.documentElement)</script>
@@ -590,7 +594,7 @@
 <!-- STICKY PROJECT BAR -->
 <div id="project-bar">
   <div class="pbar-left">
-    <img src="assets/img/TuzBoardLogo.webp" alt="TuzBoard logo" class="pbar-logo" onerror="this.style.display='none'">
+    <img src="assets/img/TuzFestLogo.webp" alt="TuzBoard logo" class="pbar-logo" onerror="this.style.display='none'">
     <span class="pbar-divider"></span>
     <span class="pbar-name">TuzBoard</span>
   </div>
@@ -697,13 +701,10 @@
 </div>
 
 <!-- HERO -->
-<section id="hero" style="--p1:221,212,81;--p2:58,120,140">
-  <!-- dark atmospheric base -->
+<section id="hero" style="--p1:214,228,248;--p2:70,110,190">
   <div class="hero-art"></div>
   <div class="hero-noise"></div>
   <div class="hero-grid"></div>
-
-  <!-- content strip: text left + parallax logo right -->
   <div class="hero-content">
     <div class="hero-text">
       <div class="hero-breadcrumb">
@@ -715,24 +716,19 @@
       </div>
       <div class="hero-tags">
         <span class="hero-tag" data-i18n="hero.tag1">Web App</span>
-        <span class="hero-tag" data-i18n="hero.tag2">Script</span>
+        <span class="hero-tag" data-i18n="hero.tag2">Real-Time</span>
+        <span class="hero-tag" data-i18n="hero.tag3">Live Event</span>
       </div>
       <h1 class="hero-title">Tuz<span>Board</span></h1>
-      <p class="hero-desc" data-i18n="hero.desc">The Tuz Festivali Scoreboard System was developed as a web-based, synchronized spectator and administrator platform designed to deliver real-time match tracking, seamless score management, and an engaging on-site digital experience.</p>
+      <p class="hero-desc" data-i18n="hero.desc">The official scoreboard of the Çankırı Salt Festival (TuzFest) sports tournaments: an operator panel and a TV spectator screen that stay perfectly in sync. First built in a week for 2025, then rebuilt from the ground up for 2026 with a new design, a shared core and three sports.</p>
       <div class="hero-meta">
-        <div class="meta-item"><div class="meta-label" data-i18n="meta.year">Year</div><div class="meta-value">2025</div></div>
+        <div class="meta-item"><div class="meta-label" data-i18n="meta.year">Year</div><div class="meta-value">2025 – 2026</div></div>
         <div class="meta-item"><div class="meta-label" data-i18n="meta.platform">Platform</div><div class="meta-value">Web App</div></div>
         <div class="meta-item"><div class="meta-label" data-i18n="meta.role">Role</div><div class="meta-value">Full-Stack Dev</div></div>
-        <div class="meta-item"><div class="meta-label" data-i18n="meta.duration">Duration</div><div class="meta-value">1 Week</div></div>
+        <div class="meta-item"><div class="meta-label" data-i18n="meta.stack">Stack</div><div class="meta-value">JS · Canvas</div></div>
       </div>
     </div>
-
-    <img
-      id="heroLogoImg"
-      src="assets/img/TuzBoardLogo.webp"
-      alt="TuzBoard Logo"
-      onerror="this.style.display='none'"
-    >
+    <img id="heroLogoImg" src="assets/img/TuzFestLogo.webp" alt="TuzFest Scoreboard logo" onerror="this.style.display='none'">
   </div>
   <div class="hero-scroll"><span data-i18n="scroll.hint">Scroll to explore</span> <div class="scroll-line"></div></div>
 </section>
@@ -745,17 +741,18 @@
     <div class="overview-grid">
       <div>
         <div class="section-label reveal" data-i18n="label.overview">Project Overview</div>
-        <h2 class="section-title reveal reveal-delay-1" data-i18n="overview.title">Powering Competition, One Score at a Time</h2>
+        <h2 class="section-title reveal reveal-delay-1" data-i18n="overview.title">Powering competition, one score at a time.</h2>
         <div class="overview-body reveal reveal-delay-2">
-          <p data-i18n-html="overview.p1">Delivering a <strong>real-time synchronized scoreboard system</strong> that ensures accurate match tracking and seamless coordination between administrator and spectator screens.</p>
-          <p data-i18n-html="overview.p2">Built to provide a <strong>reliable, high-visibility, and event-ready competition experience</strong> tailored for dynamic festival environments.</p>
+          <p data-i18n-html="overview.p1">TuzBoard runs the scoreboards of the festival's sports tournaments, organised with Çankırı Municipality. An operator updates the match from a <strong>management panel</strong> on a laptop, and a <strong>spectator screen</strong> on a large TV shows the score, the clock, sets or rounds to the crowd — instantly.</p>
+          <p data-i18n-html="overview.p2">The 2026 version is a complete rewrite. Both screens now share one core file for state, synchronisation, icons, effects and quality control; the visual identity was redesigned around a <strong>"salt cave" theme</strong> — night blue, salt crystals and amber light — and every sport got its own rules engine.</p>
+          <p data-i18n-html="overview.p3">It runs <strong>offline, straight from the files</strong>, with no server or installation — exactly what an outdoor festival stage needs.</p>
         </div>
       </div>
       <div class="reveal reveal-delay-2">
         <div class="stat-row">
-          <div class="stat-card"><div class="stat-card-num"><span id="s1">0</span>+</div><div class="stat-card-label" data-i18n="stat.matches">Matches Managed</div></div>
-          <div class="stat-card"><div class="stat-card-num"><span id="s2">0</span>K+</div><div class="stat-card-label" data-i18n="stat.spectators">Live Spectators Reached</div></div>
-          <div class="stat-card"><div class="stat-card-num"><span id="s3">0</span></div><div class="stat-card-label" data-i18n="stat.sports">Supported Sports Modes</div></div>
+          <div class="stat-card"><div class="stat-card-num"><span data-count="150">0</span>+</div><div class="stat-card-label" data-i18n="stat.matches">Matches Managed</div></div>
+          <div class="stat-card"><div class="stat-card-num"><span data-count="2">0</span>K+</div><div class="stat-card-label" data-i18n="stat.spectators">Live Spectators Reached</div></div>
+          <div class="stat-card"><div class="stat-card-num"><span data-count="3">0</span></div><div class="stat-card-label" data-i18n="stat.sports">Sports with their own rules</div></div>
         </div>
       </div>
     </div>
@@ -770,52 +767,40 @@
     <div class="gx-head">
       <div>
         <div class="section-label reveal" data-i18n="label.gallery">Visual Showcase</div>
-        <h2 class="section-title reveal reveal-delay-1" data-i18n="gallery.title">Crafted in every pixel.</h2>
+        <h2 class="section-title reveal reveal-delay-1" data-i18n="gallery.title">Readable from the back row.</h2>
       </div>
       <p class="gx-hint reveal reveal-delay-2"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg><span data-i18n="g.hint">Select a screen to view it full size.</span></p>
     </div>
     <div class="gx-stage">
       <div class="gx-glow" aria-hidden="true"></div>
       <figure class="gx-shot gx-desktop" data-lb="0" data-cursor="hand" tabindex="0" role="button">
-          <div class="gx-browser">
-            <div class="gx-bar"><span class="gx-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="gx-url">Tuz Board</span><span class="gx-bar-sp" aria-hidden="true"></span></div>
-            <div class="gx-screen"><img src="assets/img/Tuz Desktop.webp" alt="TuzBoard — Spectator Screen" loading="lazy" decoding="async"></div>
-          </div>
-          <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-        </figure>
+        <div class="gx-browser">
+          <div class="gx-bar"><span class="gx-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="gx-url">SeyirciSkorboard.html</span><span class="gx-bar-sp" aria-hidden="true"></span></div>
+          <div class="gx-screen"><img src="assets/img/Tuz Desktop.webp" alt="TuzBoard — Spectator screen, volleyball: Çankırı Spor 8 – 22 Tuzbörü" loading="lazy" decoding="async"></div>
+        </div>
+        <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+      </figure>
       <figure class="gx-shot gx-phone" data-lb="2" data-cursor="hand" tabindex="0" role="button" data-parallax="0.06">
-          <div class="gx-phone-frame">
-            <span class="gx-island" aria-hidden="true"></span>
-            <div class="gx-screen"><img src="assets/img/Tuz Mobile.webp" alt="Mobile — Football" loading="lazy" decoding="async"></div>
-          </div>
-          <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-        </figure>
+        <div class="gx-phone-frame">
+          <span class="gx-island" aria-hidden="true"></span>
+          <div class="gx-screen"><img src="assets/img/Tuz Mobile.webp" alt="TuzBoard — Management panel on mobile, volleyball" loading="lazy" decoding="async"></div>
+        </div>
+        <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+      </figure>
     </div>
     <div class="gx-row">
       <figure class="gx-shot gx-laptop reveal" data-lb="1" data-cursor="hand" tabindex="0" role="button">
-          <div class="gx-browser">
-            <div class="gx-bar"><span class="gx-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="gx-url">Tuz Board</span><span class="gx-bar-sp" aria-hidden="true"></span></div>
-            <div class="gx-screen"><img src="assets/img/Tuz Laptop.webp" alt="TuzBoard — Admin Panel" loading="lazy" decoding="async"></div>
-          </div>
-          <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-        </figure>
+        <div class="gx-browser">
+          <div class="gx-bar"><span class="gx-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="gx-url">YönetimSkorboard.html</span><span class="gx-bar-sp" aria-hidden="true"></span></div>
+          <div class="gx-screen"><img src="assets/img/Tuz Laptop.webp" alt="TuzBoard — Management panel, volleyball" loading="lazy" decoding="async"></div>
+        </div>
+        <span class="gx-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+      </figure>
       <div class="gx-index reveal reveal-delay-1">
         <p class="gx-index-title" data-i18n="g.screens">Screens</p>
-        <button type="button" class="gx-item" data-lb="0">
-            <span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
-            <span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d1">Desktop</span><span class="gx-item-n" data-i18n="g.n1">Spectator Screen</span></span>
-            <span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span>
-          </button>
-        <button type="button" class="gx-item" data-lb="1">
-            <span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20l-1.5-4h-17z"/></svg></span>
-            <span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d2">Laptop</span><span class="gx-item-n" data-i18n="g.n2">Admin Panel</span></span>
-            <span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span>
-          </button>
-        <button type="button" class="gx-item" data-lb="2">
-            <span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18.5h2"/></svg></span>
-            <span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d3">Mobile</span><span class="gx-item-n" data-i18n="g.n3">Football Menu</span></span>
-            <span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span>
-          </button>
+        <button type="button" class="gx-item" data-lb="0"><span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d1">TV</span><span class="gx-item-n" data-i18n="g.n1">Spectator screen — volleyball</span></span><span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span></button>
+        <button type="button" class="gx-item" data-lb="1"><span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20l-1.5-4h-17z"/></svg></span><span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d2">Laptop</span><span class="gx-item-n" data-i18n="g.n2">Management panel — volleyball</span></span><span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span></button>
+        <button type="button" class="gx-item" data-lb="2"><span class="gx-item-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18.5h2"/></svg></span><span class="gx-item-text"><span class="gx-item-d" data-i18n="g.d3">Mobile</span><span class="gx-item-n" data-i18n="g.n3">Panel with set control</span></span><span class="gx-item-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span></button>
       </div>
     </div>
   </div>
@@ -826,34 +811,20 @@
 <!-- CHALLENGE / SOLUTION -->
 <section id="challenge">
   <div class="section-wrap">
-    <div class="section-label reveal" data-i18n="label.challenge">Problem & Solution</div>
-    <h2 class="section-title reveal reveal-delay-1" data-i18n="challenge.heading">Guided by timeless values, towards a future rising through education.</h2>
+    <div class="section-label reveal" data-i18n="label.challenge">Problem &amp; Solution</div>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n="challenge.heading">Live sport leaves no room for a frozen screen.</h2>
     <div class="cs-grid">
       <div class="cs-card reveal reveal-delay-1">
-        <div class="cs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <div class="cs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.4 6.4L3 16"/><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></svg></div>
         <div class="cs-title" data-i18n="challenge.title">The Challenge</div>
-        <div class="cs-body" data-i18n="challenge.body">The core challenge was transforming live match scoring into a stable, real-time, and error-free digital system that remains responsive under event pressure.</div>
-        <div class="cs-list" data-i18n-html="challenge.list">
-          <div class="cs-item">Ensuring instant data synchronization between the admin panel and spectator screen</div>
-          <div class="cs-item">Preventing score duplication or mismatch errors during rapid updates</div>
-          <div class="cs-item">Handling set-based scoring logic and configurable sport rules within one unified structure</div>
-          <div class="cs-item">Maintaining connection stability during live matches</div>
-          <div class="cs-item">Designing a high-visibility interface suitable for outdoor festival environments</div>
-          <div class="cs-item">Structuring a clean and scalable code architecture for future expansion</div>
-        </div>
+        <div class="cs-body" data-i18n="challenge.body">Matches are scored live, under pressure, on whatever laptop and TV the venue has — often without internet. Every tap on the panel has to reach the crowd instantly and correctly.</div>
+        <div class="cs-list" data-i18n-html="challenge.list"><div class="cs-item">Instant sync between two windows or devices, even when opened as local files</div><div class="cs-item">Browsers that treat every local file as a separate origin and block normal messaging</div><div class="cs-item">Different rules per sport: halves and stoppage time, sets and tie-breaks, rounds and overtime</div><div class="cs-item">Recovering the exact match state after a refresh or a closed window</div><div class="cs-item">Rich animations on a 4K TV without dropping frames on a modest PC</div><div class="cs-item">Fast, mistake-proof score entry for operators, with a way to undo</div></div>
       </div>
       <div class="cs-card reveal reveal-delay-2">
-        <div class="cs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div class="cs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
         <div class="cs-title" data-i18n="solution.title">The Solution</div>
-        <div class="cs-body" data-i18n="solution.body">The result is a stable, synchronized, and festival-ready scoreboard system delivering accurate live tracking and a seamless competition experience.</div>
-        <div class="cs-list" data-i18n-html="solution.list">
-          <div class="cs-item">Built a custom real-time synchronization architecture for dual-screen communication</div>
-          <div class="cs-item">Developed a modular scoring engine supporting dynamic sport configurations</div>
-          <div class="cs-item">Added automatic reconnection and state recovery mechanisms</div>
-          <div class="cs-item">Designed a high-contrast, large-scale spectator UI for maximum readability</div>
-          <div class="cs-item">Created an intuitive admin control panel optimized for rapid score entry</div>
-          <div class="cs-item">Structured the project using modular, maintainable scripts and scalable backend architecture</div>
-        </div>
+        <div class="cs-body" data-i18n="solution.body">A shared core with a three-channel message bus, sport-specific state machines and an adaptive rendering pipeline.</div>
+        <div class="cs-list" data-i18n-html="solution.list"><div class="cs-item">BroadcastChannel for same-origin tabs, localStorage as backup and memory, postMessage between opener windows</div><div class="cs-item">A versioned match state with a sequence number and event IDs, so no update is applied twice</div><div class="cs-item">Football: two halves, adjustable length, ±1 min and stoppage time, penalty shootout with undo</div><div class="cs-item">Volleyball: best of 1 / 3 / 5, 2-point lead rule, tie-break in the last set — Survivor: round scoring with an overtime round</div><div class="cs-item">Automatic quality tiers driven by CPU, memory and a live FPS monitor, plus a fixed pixel budget for canvases</div><div class="cs-item">Keyboard shortcuts (Q/A, P/L, S), a draggable live preview and confirmations for destructive actions</div></div>
       </div>
     </div>
   </div>
@@ -865,28 +836,35 @@
 <section id="process">
   <div class="section-wrap">
     <div class="section-label reveal" data-i18n="label.process">Development Journey</div>
-    <h2 class="section-title reveal reveal-delay-1" data-i18n="process.title">6 months of structured development and continuous iteration.</h2>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n="process.title">Built in a week, rebuilt for the next festival.</h2>
     <div class="process-timeline">
       <div class="process-step reveal">
         <div class="process-dot"></div>
         <div class="process-num" data-i18n="phase.num.01">Phase 01</div>
-        <div class="process-title" data-i18n="p01.title">System Architecture & Core Synchronization</div>
-        <div class="process-body" data-i18n="p01.body">The first phase focused on building the foundational real-time communication structure between the admin and spectator interfaces. Core score handling logic and match state management were implemented to ensure accurate data flow and consistent synchronization.</div>
-        <div class="process-tags" data-i18n-html="p01.tags"><span class="ptag">Real-Time Communication Setup</span><span class="ptag">Match State Management</span><span class="ptag">Core Scoring Engine</span></div>
+        <div class="process-title" data-i18n="p01.title">2025 — First Version in One Week</div>
+        <div class="process-body" data-i18n="p01.body">The first TuzBoard was built in a week before the 2025 festival: an admin page and a spectator page that exchanged the score through BroadcastChannel and localStorage, with menus for each sport. It ran every match of the tournament and showed what the operators really needed.</div>
+        <div class="process-tags" data-i18n-html="p01.tags"><span class="ptag">Rapid Prototype</span><span class="ptag">Dual-Screen Sync</span><span class="ptag">Field Testing</span></div>
       </div>
       <div class="process-step reveal reveal-delay-1">
         <div class="process-dot"></div>
         <div class="process-num" data-i18n="phase.num.02">Phase 02</div>
-        <div class="process-title" data-i18n="p02.title">Sport Logic & Administrative Controls</div>
-        <div class="process-body" data-i18n="p02.body">Once synchronization was stable, dynamic sport configurations and rule-based scoring systems were developed. The admin panel was refined to support rapid score entry, set control, and structured match flow management.</div>
-        <div class="process-tags" data-i18n-html="p02.tags"><span class="ptag">Modular Sport Configuration</span><span class="ptag">Set & Tie-Break Logic</span><span class="ptag">Admin Control Panel System</span></div>
+        <div class="process-title" data-i18n="p02.title">A Shared Core &amp; a Three-Channel Bus</div>
+        <div class="process-body" data-i18n="p02.body">For 2026 I moved everything both screens share into one core file and one theme file. The new message bus combines BroadcastChannel, localStorage and window-to-window postMessage, so the screens find each other in every browser — including those that isolate local files — and resynchronise immediately after a refresh.</div>
+        <div class="process-tags" data-i18n-html="p02.tags"><span class="ptag">Shared Core</span><span class="ptag">Message Bus</span><span class="ptag">State Recovery</span></div>
       </div>
       <div class="process-step reveal reveal-delay-2">
         <div class="process-dot"></div>
         <div class="process-num" data-i18n="phase.num.03">Phase 03</div>
-        <div class="process-title" data-i18n="p03.title">UI Optimization & Stability Enhancements</div>
-        <div class="process-body" data-i18n="p03.body">The final phase focused on visual clarity, performance stability, and architectural refinement. The spectator interface was optimized for high visibility, while reconnection logic and performance improvements ensured smooth operation during live festival conditions.</div>
-        <div class="process-tags" data-i18n-html="p03.tags"><span class="ptag">High-Visibility UI Design</span><span class="ptag">Reconnection & State Recovery</span><span class="ptag">Performance Optimization & Code Refactoring</span></div>
+        <div class="process-title" data-i18n="p03.title">Sport Engines &amp; Operator Experience</div>
+        <div class="process-body" data-i18n="p03.body">Each sport became its own small state machine: a football clock with halves, extra minutes and penalties; volleyball sets with target points, the 2-point rule and tie-breaks; and round-based Survivor with an overtime round. The panel flows from sport → setup → match, with shortcuts, undo for penalties, a "correct" mode after the final whistle and a live preview of the TV screen.</div>
+        <div class="process-tags" data-i18n-html="p03.tags"><span class="ptag">State Machines</span><span class="ptag">Keyboard Shortcuts</span><span class="ptag">Live Preview</span></div>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-dot"></div>
+        <div class="process-num" data-i18n="phase.num.04">Phase 04</div>
+        <div class="process-title" data-i18n="p04.title">"Salt Cave" Design &amp; Performance</div>
+        <div class="process-body" data-i18n="p04.body">Finally I redesigned the screens: night-blue glass panels, floating salt crystals on canvas, light rays, animated score flips and a particle engine for goals, confetti and the "fire seal" Survivor point. To keep it smooth on any hardware, the app picks a quality tier from the device, watches the frame rate and steps down automatically if it drops below 45 fps.</div>
+        <div class="process-tags" data-i18n-html="p04.tags"><span class="ptag">Visual Redesign</span><span class="ptag">Canvas Particles</span><span class="ptag">Adaptive Quality</span></div>
       </div>
     </div>
   </div>
@@ -900,9 +878,11 @@
     <div class="section-label reveal" data-i18n="label.tech">Technology Stack</div>
     <h2 class="section-title reveal reveal-delay-1" data-i18n="tech.title">Built with the right tools.</h2>
     <div class="tech-grid reveal reveal-delay-2">
-      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/><path d="M8 13h3M8 17h5"/></svg></div><div class="tech-label">JavaScript</div><div class="tech-sub">Backend</div></div>
-      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M5 3l1.5 15L12 20l5.5-2L19 3H5z"/><path d="M8.5 7.5h7l-.5 5L12 13.5l-2.5-.5L9 10h6"/></svg></div><div class="tech-label">HTML5 · CSS3 · JS</div><div class="tech-sub">Frontend</div></div>
-      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M10 9c-1-2-3-3-5-2a5 5 0 0 0 0 10c2 1 4 0 5-2"/><path d="M14 10h5M16.5 8v4"/><path d="M17 14h4M19 12v4"/></svg></div><div class="tech-label">WebSocket</div><div class="tech-sub">Real-Time Communication Logic</div></div>
+      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M8 7 3 12l5 5"/><path d="M16 7l5 5-5 5"/><path d="M13.5 4 10.5 20"/></svg></div><div class="tech-label">JavaScript</div><div class="tech-sub" data-i18n="t1">Shared core &amp; sport engines</div></div>
+      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M5 3l1.5 15L12 20l5.5-2L19 3H5z"/><path d="M8.5 7.5h7l-.5 5L12 13.5l-2.5-.5L9 10h6"/></svg></div><div class="tech-label">HTML5 · CSS3</div><div class="tech-sub" data-i18n="t2">Shared theme</div></div>
+      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.4 6.4L3 16"/><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></svg></div><div class="tech-label">BroadcastChannel</div><div class="tech-sub" data-i18n="t3">+ postMessage &amp; storage events</div></div>
+      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M2 13l10 5 10-5"/><path d="M2 18l10 5 10-5"/></svg></div><div class="tech-label">Canvas 2D</div><div class="tech-sub" data-i18n="t4">Crystals &amp; particles</div></div>
+      <div class="tech-item"><div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M12 14l4-4"/><path d="M3.3 17a9 9 0 1 1 17.4 0"/></svg></div><div class="tech-label">FPS Monitor</div><div class="tech-sub" data-i18n="t5">Adaptive quality tiers</div></div>
     </div>
   </div>
 </section>
@@ -915,21 +895,9 @@
     <div class="section-label reveal" data-i18n="label.results">Outcomes</div>
     <h2 class="section-title reveal reveal-delay-1" data-i18n="results.title">Numbers that reflect performance, reliability, and real-time stability.</h2>
     <div class="results-grid">
-      <div class="result-card reveal">
-        <div class="result-num"><span id="r1">0</span></div>
-        <div class="result-label" data-i18n="r1.label">Fully Synchronized Interfaces</div>
-        <div class="result-desc" data-i18n="r1.desc">Admin & Spectator Panels</div>
-      </div>
-      <div class="result-card reveal reveal-delay-1">
-        <div class="result-num"><span id="r2">0</span>s</div>
-        <div class="result-label" data-i18n="r2.label">Average Update Latency</div>
-        <div class="result-desc" data-i18n="r2.desc">All scholarship processes fully centralized</div>
-      </div>
-      <div class="result-card reveal reveal-delay-2">
-        <div class="result-num"><span id="r3">0</span>%</div>
-        <div class="result-label" data-i18n="r3.label">State Consistency</div>
-        <div class="result-desc" data-i18n="r3.desc">No score mismatch after validation</div>
-      </div>
+      <div class="result-card reveal"><div class="result-num"><span data-count="3">0</span></div><div class="result-label" data-i18n="r1.label">Sync channels</div><div class="result-desc" data-i18n="r1.desc">The screens find each other in every browser</div></div>
+      <div class="result-card reveal reveal-delay-1"><div class="result-num"><span data-count="3">0</span></div><div class="result-label" data-i18n="r2.label">Quality tiers</div><div class="result-desc" data-i18n="r2.desc">Chosen automatically, adjusted by live frame rate</div></div>
+      <div class="result-card reveal reveal-delay-2"><div class="result-num"><span data-count="100">0</span>%</div><div class="result-label" data-i18n="r3.label">State Consistency</div><div class="result-desc" data-i18n="r3.desc">Sequenced updates, no score mismatch</div></div>
     </div>
   </div>
 </section>
@@ -940,25 +908,24 @@
 <section id="next">
   <div class="section-wrap">
     <div class="section-label reveal" data-i18n="label.next">Continue Exploring</div>
-    <h2 class="section-title reveal reveal-delay-1" data-i18n="next.title">Next up.</h2>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n="next.title">Back to the beginning.</h2>
     <div class="next-inner reveal reveal-delay-2">
-      <div class="next-label" data-i18n="next.label">Next Project</div>
-      <a href="HareketleGelisim.html" class="next-card">
+      <div class="next-label" data-i18n="next.label.featured">Featured Project</div>
+      <a href="ImaretVakfi.html" class="next-card">
         <div class="next-card-content">
           <div class="next-card-top">
-            <div class="next-card-badge" data-i18n-html="next.badge"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>Web</div>
-            <div class="next-card-title" data-i18n="next.card.title">Hareketle Gelisim</div>
-            <div class="next-card-desc" data-i18n="next.card.desc">A modern, responsive, and performance-focused institutional website designed to present training programs, strengthen digital presence, and streamline communication with students and parents.</div>
+            <div class="next-card-badge"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>Web</div>
+            <div class="next-card-title">İmaret Vakfı</div>
+            <div class="next-card-desc" data-i18n="next.card.desc">An integrated ecosystem designed to streamline educational funding and community support, ensuring impactful delivery of aid to those who need it most.</div>
           </div>
           <div class="next-card-bottom">
-            <div class="next-card-tags"><span class="ntag">Web Platform</span><span class="ntag">Asp.Net</span></div>
+            <div class="next-card-tags"><span class="ntag">ASP.NET</span><span class="ntag">C#</span></div>
             <div class="next-arrow"><span data-i18n="btn.viewproject">View Project</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
         </div>
-        <div class="next-card-visual">
-          <img src="assets/img/HareketLogoPng.webp" alt="Hareketle Gelisim Project Logo" class="next-card-img" loading="lazy" decoding="async" />
-        </div>
+        <div class="next-card-visual"><img src="assets/img/ImaretLogoPng.webp" alt="İmaret Vakfı logo" class="next-card-img" loading="lazy" decoding="async"></div>
       </a>
+
     </div>
   </div>
 </section>
@@ -971,10 +938,10 @@
     <div class="cta-inner">
       <div class="section-label reveal" style="justify-content:center" data-i18n="label.cta">Start a Project</div>
       <h2 class="cta-title reveal reveal-delay-1" data-i18n-html="cta.title">Have an idea?<br><span>Let's build it.</span></h2>
-      <p class="cta-desc reveal reveal-delay-2" data-i18n="cta.desc">Whether it's a web platform, a brand's social media, or something that doesn't quite have a name yet — I'd love to hear about it.</p>
+      <p class="cta-desc reveal reveal-delay-2" data-i18n="cta.desc">Whether it's a web platform, an interactive app, or something that doesn't quite have a name yet — I'd love to hear about it.</p>
       <div class="cta-btns reveal reveal-delay-3">
         <a href="index.html#contact" class="btn-primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span data-i18n="btn.getintouch">Get In Touch</span></a>
-        <a href="index.html#projects" class="btn-secondary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>All Projects</a>
+        <a href="index.html#projects" class="btn-secondary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span data-i18n="btn.allprojects">All Projects</span></a>
       </div>
     </div>
   </div>
@@ -1022,23 +989,11 @@
       else el.textContent = target;
     })(performance.now());
   }
-  new IntersectionObserver((entries, obs) => {
-    entries.forEach(e => { if(e.isIntersecting) {
-      animateCount(document.getElementById('s1'), 150);
-      animateCount(document.getElementById('s2'), 2);
-      animateCount(document.getElementById('s3'), 4);
-      obs.disconnect();
-    }});
-  }, {threshold:0.5}).observe(document.getElementById('overview'));
-
-  new IntersectionObserver((entries, obs) => {
-    entries.forEach(e => { if(e.isIntersecting) {
-      animateCount(document.getElementById('r1'), 2);
-      animateCount(document.getElementById('r2'), 1);
-      animateCount(document.getElementById('r3'), 100);
-      obs.disconnect();
-    }});
-  }, {threshold:0.3}).observe(document.getElementById('results'));
+  document.querySelectorAll('[data-count]').forEach(function (el) {
+    new IntersectionObserver(function (en, obs) {
+      if (en[0].isIntersecting) { animateCount(el, +el.getAttribute('data-count')); obs.disconnect(); }
+    }, { threshold: 0.5 }).observe(el);
+  });
 
   // 3D tilt on cards
   document.querySelectorAll('.gallery-item, .next-card').forEach(card => {
@@ -1133,198 +1088,121 @@
 
 <script>
 (function() {
-  var T = {
-  "en": {
-    "nav.about": "About",
-    "nav.projects": "Projects",
-    "nav.skills": "Skills",
-    "nav.contact": "Contact",
-    "nav.cv": "Download CV",
-    "nav.back": "Back",
-    "mobile.about": "About",
-    "mobile.projects": "Projects",
-    "mobile.skills": "Skills",
-    "mobile.contact": "Contact",
-    "breadcrumb.home": "Home",
-    "breadcrumb.projects": "Projects",
-    "label.overview": "Project Overview",
-    "label.gallery": "Visual Showcase",
-    "label.challenge": "Problem & Solution",
-    "label.process": "Development Journey",
-    "label.tech": "Technology Stack",
-    "label.results": "Outcomes",
-    "label.next": "Continue Exploring",
-    "label.cta": "Start a Project",
-    "label.expertise": "Expertise",
-    "label.selectedwork": "Selected Work",
-    "label.getintouch": "Get In Touch",
-    "pbar.overview": "Project Overview",
-    "pbar.gallery": "Visual Showcase",
-    "pbar.challenge": "Problem & Solution",
-    "pbar.process": "Development Journey",
-    "pbar.results": "Outcomes",
-    "scroll.hint": "Scroll to explore",
-    "footer.copy": "© 2026 Metehan Tabak.",
-    "cta.title": "Have an idea?<br><span>Let's build it.</span>",
-    "cta.desc": "Whether it's a web platform, a brand's social media, or something that doesn't quite have a name yet — I'd love to hear about it.",
-    "meta.year": "Year",
-    "meta.platform": "Platform",
-    "meta.role": "Role",
-    "meta.duration": "Duration",
-    "next.label": "Next Project",
-    "next.label.featured": "Featured Project",
-    "btn.viewproject": "View Project",
-    "btn.getintouch": "Get In Touch",
-    "btn.viewall": "View All Projects",
-    "challenge.title": "The Challenge",
-    "solution.title": "The Solution",
-    "phase.num.01": "Phase 01",
-    "phase.num.02": "Phase 02",
-    "phase.num.03": "Phase 03",
-    "phase.num.04": "Phase 04",
-    "hero.tag1": "Web App",
-    "hero.tag2": "Script",
-    "page.title": "TuzBoard — Metehan Tabak",
-    "hero.desc": "The Tuz Festivali Scoreboard System was developed as a web-based, synchronized spectator and administrator platform designed to deliver real-time match tracking, seamless score management, and an engaging on-site digital experience.",
-    "overview.title": "Powering Competition, One Score at a Time",
-    "overview.p1": "Delivering a <strong>real-time synchronized scoreboard system</strong> that ensures accurate match tracking and seamless coordination between administrator and spectator screens.",
-    "overview.p2": "Built to provide a <strong>reliable, high-visibility, and event-ready competition experience</strong> tailored for dynamic festival environments.",
-    "stat.matches": "Matches Managed",
-    "stat.spectators": "Live Spectators Reached",
-    "stat.sports": "Supported Sports Modes",
-    "gallery.title": "Crafted in every pixel.",
-    "g.hint": "Select a screen to view it full size.",
-    "g.screens": "Screens",
-    "g.d1": "Desktop",
-    "g.n1": "Spectator Screen",
-    "g.d2": "Laptop",
-    "g.n2": "Admin Panel",
-    "g.d3": "Mobile",
-    "g.n3": "Football Menu",
-    "challenge.heading": "Guided by timeless values, towards a future rising through education.",
-    "challenge.body": "The core challenge was transforming live match scoring into a stable, real-time, and error-free digital system that remains responsive under event pressure.",
-    "challenge.list": "<div class=\"cs-item\">Ensuring instant data synchronization between the admin panel and spectator screen</div><div class=\"cs-item\">Preventing score duplication or mismatch errors during rapid updates</div><div class=\"cs-item\">Handling set-based scoring logic and configurable sport rules within one unified structure</div><div class=\"cs-item\">Maintaining connection stability during live matches</div><div class=\"cs-item\">Designing a high-visibility interface suitable for outdoor festival environments</div><div class=\"cs-item\">Structuring a clean and scalable code architecture for future expansion</div>",
-    "solution.body": "The result is a stable, synchronized, and festival-ready scoreboard system delivering accurate live tracking and a seamless competition experience.",
-    "solution.list": "<div class=\"cs-item\">Built a custom real-time synchronization architecture for dual-screen communication</div><div class=\"cs-item\">Developed a modular scoring engine supporting dynamic sport configurations</div><div class=\"cs-item\">Added automatic reconnection and state recovery mechanisms</div><div class=\"cs-item\">Designed a high-contrast, large-scale spectator UI for maximum readability</div><div class=\"cs-item\">Created an intuitive admin control panel optimized for rapid score entry</div><div class=\"cs-item\">Structured the project using modular, maintainable scripts and scalable backend architecture</div>",
-    "process.title": "6 months of structured development and continuous iteration.",
-    "p01.title": "System Architecture & Core Synchronization",
-    "p01.body": "The first phase focused on building the foundational real-time communication structure between the admin and spectator interfaces. Core score handling logic and match state management were implemented to ensure accurate data flow and consistent synchronization.",
-    "p01.tags": "<span class=\"ptag\">Real-Time Communication Setup</span><span class=\"ptag\">Match State Management</span><span class=\"ptag\">Core Scoring Engine</span>",
-    "p02.title": "Sport Logic & Administrative Controls",
-    "p02.body": "Once synchronization was stable, dynamic sport configurations and rule-based scoring systems were developed. The admin panel was refined to support rapid score entry, set control, and structured match flow management.",
-    "p02.tags": "<span class=\"ptag\">Modular Sport Configuration</span><span class=\"ptag\">Set & Tie-Break Logic</span><span class=\"ptag\">Admin Control Panel System</span>",
-    "p03.title": "UI Optimization & Stability Enhancements",
-    "p03.body": "The final phase focused on visual clarity, performance stability, and architectural refinement. The spectator interface was optimized for high visibility, while reconnection logic and performance improvements ensured smooth operation during live festival conditions.",
-    "p03.tags": "<span class=\"ptag\">High-Visibility UI Design</span><span class=\"ptag\">Reconnection & State Recovery</span><span class=\"ptag\">Performance Optimization & Code Refactoring</span>",
-    "tech.title": "Built with the right tools.",
-    "results.title": "Numbers that reflect performance, reliability, and real-time stability.",
-    "r1.label": "Fully Synchronized Interfaces",
-    "r1.desc": "Admin & Spectator Panels",
-    "r2.label": "Average Update Latency",
-    "r2.desc": "All scholarship processes fully centralized",
-    "r3.label": "State Consistency",
-    "r3.desc": "No score mismatch after validation",
-    "next.title": "Next up.",
-    "next.badge": "<svg width=\"8\" height=\"8\" viewBox=\"0 0 8 8\" fill=\"currentColor\"><circle cx=\"4\" cy=\"4\" r=\"4\"/></svg>Web",
-    "next.card.title": "Hareketle Gelisim",
-    "next.card.desc": "A modern, responsive, and performance-focused institutional website designed to present training programs, strengthen digital presence, and streamline communication with students and parents."
-  },
-  "tr": {
-    "nav.about": "Hakkımda",
-    "nav.projects": "Projeler",
-    "nav.skills": "Yetenekler",
-    "nav.contact": "İletişim",
-    "nav.cv": "CV İndir",
-    "nav.back": "Geri",
-    "mobile.about": "Hakkımda",
-    "mobile.projects": "Projeler",
-    "mobile.skills": "Yetenekler",
-    "mobile.contact": "İletişim",
-    "breadcrumb.home": "Ana Sayfa",
-    "breadcrumb.projects": "Projeler",
-    "label.overview": "Proje Genel Bakışı",
-    "label.gallery": "Görsel Sergi",
-    "label.challenge": "Sorun & Çözüm",
-    "label.process": "Geliştirme Süreci",
-    "label.tech": "Teknoloji Yığını",
-    "label.results": "Sonuçlar",
-    "label.next": "Keşfetmeye Devam Et",
-    "label.cta": "Proje Başlat",
-    "label.expertise": "Uzmanlık",
-    "label.selectedwork": "Seçili Çalışmalar",
-    "label.getintouch": "İletişime Geç",
-    "pbar.overview": "Proje Genel Bakışı",
-    "pbar.gallery": "Görsel Sergi",
-    "pbar.challenge": "Sorun & Çözüm",
-    "pbar.process": "Geliştirme Süreci",
-    "pbar.results": "Sonuçlar",
-    "scroll.hint": "Keşfetmek için kaydır",
-    "footer.copy": "© 2026 Metehan Tabak.",
-    "cta.title": "Bir fikrin mi var?<br><span>Hadi inşa edelim.</span>",
-    "cta.desc": "İster bir web platformu, ister bir markanın sosyal medyası, isterse henüz adı olmayan bir şey olsun — duymak isterim.",
-    "meta.year": "Yıl",
-    "meta.platform": "Platform",
-    "meta.role": "Rol",
-    "meta.duration": "Süre",
-    "next.label": "Sonraki Proje",
-    "next.label.featured": "Öne Çıkan Proje",
-    "btn.viewproject": "Projeyi Görüntüle",
-    "btn.getintouch": "İletişime Geç",
-    "btn.viewall": "Tüm Projeleri Gör",
-    "challenge.title": "Zorluk",
-    "solution.title": "Çözüm",
-    "phase.num.01": "Aşama 01",
-    "phase.num.02": "Aşama 02",
-    "phase.num.03": "Aşama 03",
-    "phase.num.04": "Aşama 04",
-    "hero.tag1": "Web Uygulaması",
-    "hero.tag2": "Script",
-    "page.title": "TuzBoard — Metehan Tabak",
-    "hero.desc": "Tuz Festivali Skor Takip Sistemi, gerçek zamanlı maç takibi, sorunsuz skor yönetimi ve etkileyici bir dijital saha deneyimi sunmak için tasarlanmış web tabanlı, senkronize bir seyirci ve yönetici platformu olarak geliştirildi.",
-    "overview.title": "Rekabeti Güçlendiriyoruz, Her Seferinde Bir Skor Artışıyla",
-    "overview.p1": "Yönetici ve seyirci ekranları arasında doğru maç takibi ve sorunsuz koordinasyon sağlayan <strong>gerçek zamanlı senkronize skor panosu sistemi</strong> sunulmaktadır.",
-    "overview.p2": "Dinamik festival ortamlarına özel, <strong>güvenilir, yüksek görünürlüklü ve etkinliğe hazır bir rekabet deneyimi</strong> sunmak üzere inşa edilmiştir.",
-    "stat.matches": "Yönetilen Maç",
-    "stat.spectators": "Canlı Seyirciye Ulaşıldı",
-    "stat.sports": "Desteklenen Spor Modu",
-    "gallery.title": "Her pikselde özenle tasarlandı.",
-    "g.hint": "Tam boyutta görmek için bir ekran seçin.",
-    "g.screens": "Ekranlar",
-    "g.d1": "Masaüstü",
-    "g.n1": "Seyirci Ekranı",
-    "g.d2": "Laptop",
-    "g.n2": "Yönetici Paneli",
-    "g.d3": "Mobil",
-    "g.n3": "Futbol Menüsü",
-    "challenge.heading": "Eğitim yoluyla yükselen bir geleceğe doğru, zamansız değerlerle.",
-    "challenge.body": "Temel zorluk, canlı maç skorlamasını etkinlik baskısı altında dahi duyarlı kalan kararlı, gerçek zamanlı ve hatasız bir dijital sisteme dönüştürmekti.",
-    "challenge.list": "<div class=\"cs-item\">Yönetici paneli ile seyirci ekranı arasında anlık veri senkronizasyonu sağlamak</div><div class=\"cs-item\">Hızlı güncellemeler sırasında skor çoğaltma veya uyumsuzluk hatalarını önlemek</div><div class=\"cs-item\">Set bazlı puanlama mantığını ve yapılandırılabilir spor kurallarını tek bir birleşik yapı içinde yönetmek</div><div class=\"cs-item\">Canlı maçlar sırasında bağlantı kararlılığını korumak</div><div class=\"cs-item\">Açık hava festival ortamlarına uygun yüksek görünürlüklü arayüz tasarlamak</div><div class=\"cs-item\">Gelecekteki genişleme için temiz ve ölçeklenebilir kod mimarisi oluşturmak</div>",
-    "solution.body": "Sonuç, doğru canlı takip ve sorunsuz bir rekabet deneyimi sunan kararlı, senkronize ve festivale hazır bir skor panosu sistemidir.",
-    "solution.list": "<div class=\"cs-item\">Çift ekran iletişimi için özel gerçek zamanlı senkronizasyon mimarisi geliştirildi</div><div class=\"cs-item\">Dinamik spor yapılandırmalarını destekleyen modüler puanlama motoru oluşturuldu</div><div class=\"cs-item\">Otomatik yeniden bağlanma ve durum kurtarma mekanizmaları eklendi</div><div class=\"cs-item\">Maksimum okunabilirlik için yüksek kontrastlı, büyük ölçekli seyirci arayüzü tasarlandı</div><div class=\"cs-item\">Hızlı skor girişi için optimize edilmiş sezgisel yönetici kontrol paneli oluşturuldu</div><div class=\"cs-item\">Proje, modüler, sürdürülebilir betikler ve ölçeklenebilir arka uç mimarisi kullanılarak yapılandırıldı</div>",
-    "process.title": "6 aylık yapılandırılmış geliştirme ve sürekli iterasyon.",
-    "p01.title": "Sistem Mimarisi & Temel Senkronizasyon",
-    "p01.body": "İlk aşama, yönetici ve seyirci arayüzleri arasındaki temel gerçek zamanlı iletişim yapısının oluşturulmasına odaklandı. Doğru veri akışı ve tutarlı senkronizasyon sağlamak için temel skor işleme mantığı ve maç durumu yönetimi hayata geçirildi.",
-    "p01.tags": "<span class=\"ptag\">Gerçek Zamanlı İletişim Kurulumu</span><span class=\"ptag\">Maç Durumu Yönetimi</span><span class=\"ptag\">Temel Puanlama Motoru</span>",
-    "p02.title": "Spor Mantığı & İdari Kontroller",
-    "p02.body": "Senkronizasyon stabil hale geldikten sonra dinamik spor yapılandırmaları ve kural tabanlı puanlama sistemleri geliştirildi. Yönetici paneli, hızlı skor girişini, set kontrolünü ve yapılandırılmış maç akış yönetimini destekleyecek şekilde iyileştirildi.",
-    "p02.tags": "<span class=\"ptag\">Modüler Spor Yapılandırması</span><span class=\"ptag\">Set & Tiebreak Mantığı</span><span class=\"ptag\">Yönetici Kontrol Paneli Sistemi</span>",
-    "p03.title": "Arayüz Optimizasyonu & Kararlılık Geliştirmeleri",
-    "p03.body": "Son aşama görsel netlik, performans kararlılığı ve mimari iyileştirmeye odaklandı. Seyirci arayüzü yüksek görünürlük için optimize edilirken yeniden bağlanma mantığı ve performans iyileştirmeleri canlı festival koşullarında sorunsuz işlem sağladı.",
-    "p03.tags": "<span class=\"ptag\">Yüksek Görünürlüklü Arayüz Tasarımı</span><span class=\"ptag\">Yeniden Bağlanma & Durum Kurtarma</span><span class=\"ptag\">Performans Optimizasyonu & Kod Yeniden Yapılandırması</span>",
-    "tech.title": "Doğru araçlarla inşa edildi.",
-    "results.title": "Performansı, güvenilirliği ve gerçek zamanlı kararlılığı yansıtan rakamlar.",
-    "r1.label": "Tam Senkronize Arayüz",
-    "r1.desc": "Yönetici & Seyirci Panelleri",
-    "r2.label": "Ortalama Güncelleme Gecikmesi",
-    "r2.desc": "Kesintisiz skor güncellemeleri",
-    "r3.label": "Durum Tutarlılığı",
-    "r3.desc": "Doğrulama sonrası skor uyumsuzluğu yok",
-    "next.title": "Sıradaki.",
-    "next.badge": "<svg width=\"8\" height=\"8\" viewBox=\"0 0 8 8\" fill=\"currentColor\"><circle cx=\"4\" cy=\"4\" r=\"4\"/></svg>Web",
-    "next.card.title": "Hareketle Gelişim",
-    "next.card.desc": "Eğitim programlarını tanıtmak, dijital varlığı güçlendirmek ve öğrenci ile velilerle iletişimi kolaylaştırmak için tasarlanmış modern, duyarlı ve performans odaklı kurumsal web sitesi."
-  }
-};
+  var T = { "en": {}, "tr": {
+    "nav.about":  "Hakkımda",
+    "nav.projects":  "Projeler",
+    "nav.skills":  "Yetenekler",
+    "nav.contact":  "İletişim",
+    "nav.cv":  "CV İndir",
+    "nav.back":  "Geri",
+    "mobile.about":  "Hakkımda",
+    "mobile.projects":  "Projeler",
+    "mobile.skills":  "Yetenekler",
+    "mobile.contact":  "İletişim",
+    "breadcrumb.home":  "Ana Sayfa",
+    "breadcrumb.projects":  "Projeler",
+    "label.overview":  "Proje Genel Bakışı",
+    "label.gallery":  "Görsel Sergi",
+    "label.challenge":  "Sorun \u0026 Çözüm",
+    "label.process":  "Geliştirme Süreci",
+    "label.tech":  "Teknoloji Yığını",
+    "label.results":  "Sonuçlar",
+    "label.next":  "Keşfetmeye Devam Et",
+    "label.cta":  "Proje Başlat",
+    "label.expertise":  "Uzmanlık",
+    "label.selectedwork":  "Seçili Çalışmalar",
+    "label.getintouch":  "İletişime Geç",
+    "pbar.overview":  "Proje Genel Bakışı",
+    "pbar.gallery":  "Görsel Sergi",
+    "pbar.challenge":  "Sorun \u0026 Çözüm",
+    "pbar.process":  "Geliştirme Süreci",
+    "pbar.results":  "Sonuçlar",
+    "scroll.hint":  "Keşfetmek için kaydır",
+    "footer.copy":  "© 2026 Metehan Tabak.",
+    "cta.title":  "Bir fikrin mi var?\u003cbr\u003e\u003cspan\u003eHadi inşa edelim.\u003c/span\u003e",
+    "cta.desc":  "İster bir web platformu, ister etkileşimli bir uygulama, isterse henüz adı olmayan bir şey olsun — duymak isterim.",
+    "meta.year":  "Yıl",
+    "meta.platform":  "Platform",
+    "meta.role":  "Rol",
+    "meta.duration":  "Süre",
+    "next.label":  "Sonraki Proje",
+    "next.label.featured":  "Öne Çıkan Proje",
+    "btn.viewproject":  "Projeyi Görüntüle",
+    "btn.getintouch":  "İletişime Geç",
+    "btn.viewall":  "Tüm Projeleri Gör",
+    "challenge.title":  "Zorluk",
+    "solution.title":  "Çözüm",
+    "phase.num.01":  "Aşama 01",
+    "phase.num.02":  "Aşama 02",
+    "phase.num.03":  "Aşama 03",
+    "phase.num.04":  "Aşama 04",
+    "hero.badge":  "Yeni projelere açığım",
+    "btn.allprojects":  "Tüm Projeler",
+    "meta.stack":  "Teknoloji",
+    "g.hint":  "Tam boyutta görmek için bir ekran seçin.",
+    "g.screens":  "Ekranlar",
+    "phase.num.05":  "Aşama 05",
+    "page.title":  "TuzBoard — Metehan Tabak",
+    "hero.tag1":  "Web Uygulaması",
+    "hero.tag2":  "Gerçek Zamanlı",
+    "hero.tag3":  "Canlı Etkinlik",
+    "hero.desc":  "Çankırı Tuz Festivali (TuzFest) spor müsabakalarının resmi skorbordu: birbirleriyle kusursuz senkronize çalışan bir operatör paneli ve TV seyirci ekranı. 2025 için bir haftada geliştirildi, ardından 2026 için yeni tasarım, ortak çekirdek ve üç branşla baştan yazıldı.",
+    "overview.title":  "Rekabete güç veriyor, her skorda bir adım.",
+    "overview.p1":  "TuzBoard, Çankırı Belediyesi ile düzenlenen festival spor turnuvalarının skorbordlarını yönetiyor. Operatör maçı dizüstü bilgisayardaki \u003cstrong\u003eyönetim panelinden\u003c/strong\u003e güncelliyor; büyük bir TV\u0027deki \u003cstrong\u003eseyirci ekranı\u003c/strong\u003e skoru, süreyi, setleri ya da rauntları kalabalığa anında gösteriyor.",
+    "overview.p2":  "2026 sürümü tamamen yeniden yazıldı. İki ekran artık durum, senkronizasyon, ikonlar, efektler ve kalite kontrolü için tek bir çekirdek dosyayı paylaşıyor; görsel kimlik gece laciverti, tuz kristali ve kehribar ışıktan oluşan bir \u003cstrong\u003e\"tuz mağarası\" temasıyla\u003c/strong\u003e yeniden tasarlandı ve her branş kendi kural motorunu aldı.",
+    "overview.p3":  "Sunucu ya da kurulum olmadan, \u003cstrong\u003einternetsiz ve doğrudan dosyalardan\u003c/strong\u003e çalışıyor — açık hava festival sahnesinin tam ihtiyacı.",
+    "stat.matches":  "Yönetilen Maç",
+    "stat.spectators":  "Canlı Seyirciye Ulaşıldı",
+    "stat.sports":  "Kendi kuralları olan branş",
+    "gallery.title":  "En arka sıradan bile okunur.",
+    "g.d1":  "TV",
+    "g.n1":  "Seyirci ekranı — voleybol",
+    "g.d2":  "Laptop",
+    "g.n2":  "Yönetim paneli — voleybol",
+    "g.d3":  "Mobil",
+    "g.n3":  "Set kontrollü panel",
+    "challenge.heading":  "Canlı sporda donan bir ekrana yer yok.",
+    "challenge.body":  "Maçlar baskı altında, canlı olarak ve sahada ne varsa o dizüstü ve TV ile — çoğu zaman internetsiz — skorlanıyor. Paneldeki her dokunuşun seyirciye anında ve doğru ulaşması gerekiyor.",
+    "challenge.list":  "\u003cdiv class=\"cs-item\"\u003eYerel dosya olarak açıldığında bile iki pencere ya da cihaz arasında anlık senkronizasyon\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eHer yerel dosyayı ayrı köken sayıp normal mesajlaşmayı engelleyen tarayıcılar\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eBranşa göre farklı kurallar: devreler ve uzatma, setler ve tie-break, rauntlar ve uzatma raundu\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eSayfa yenilendiğinde ya da pencere kapandığında maç durumunu birebir geri getirmek\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eSıradan bir bilgisayarda kare düşürmeden 4K TV\u0027de zengin animasyonlar\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eOperatör için hızlı, hataya dayanıklı ve geri alınabilir skor girişi\u003c/div\u003e",
+    "solution.body":  "Üç kanallı mesaj yolu olan ortak bir çekirdek, branşa özel durum makineleri ve kendini ayarlayan bir çizim hattı.",
+    "solution.list":  "\u003cdiv class=\"cs-item\"\u003eAynı kökenli sekmeler için BroadcastChannel, yedek ve hafıza olarak localStorage, açan pencereler arasında postMessage\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eSıra numarası ve olay kimlikli sürümlü maç durumu; hiçbir güncelleme iki kez uygulanmaz\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eFutbol: iki devre, ayarlanabilir süre, ±1 dk ve uzatma, geri alınabilir penaltı atışları\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eVoleybol: 1 / 3 / 5 set, 2 sayı fark kuralı, son sette tie-break — Survivor: uzatma raundlu raunt puanlaması\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eİşlemci, bellek ve canlı FPS izleyicisine göre otomatik kalite kademeleri, canvas için sabit piksel bütçesi\u003c/div\u003e\u003cdiv class=\"cs-item\"\u003eKlavye kısayolları (Q/A, P/L, S), sürüklenebilir canlı önizleme ve kritik işlemler için onay pencereleri\u003c/div\u003e",
+    "process.title":  "Bir haftada kuruldu, sonraki festival için yeniden inşa edildi.",
+    "p01.title":  "2025 — Bir Haftada İlk Sürüm",
+    "p01.body":  "İlk TuzBoard, 2025 festivalinden önce bir haftada geliştirildi: skoru BroadcastChannel ve localStorage üzerinden paylaşan bir yönetim ve bir seyirci sayfası, her branş için menüler. Turnuvanın tüm maçlarını yönetti ve operatörlerin gerçekte neye ihtiyaç duyduğunu gösterdi.",
+    "p01.tags":  "\u003cspan class=\"ptag\"\u003eHızlı Prototip\u003c/span\u003e\u003cspan class=\"ptag\"\u003eÇift Ekran Senkronizasyonu\u003c/span\u003e\u003cspan class=\"ptag\"\u003eSaha Testi\u003c/span\u003e",
+    "p02.title":  "Ortak Çekirdek \u0026 Üç Kanallı Mesaj Yolu",
+    "p02.body":  "2026 için iki ekranın paylaştığı her şeyi tek bir çekirdek ve tek bir tema dosyasına taşıdım. Yeni mesaj yolu BroadcastChannel, localStorage ve pencereden pencereye postMessage\u0027ı birleştiriyor; böylece ekranlar yerel dosyaları izole eden tarayıcılar dahil her tarayıcıda birbirini buluyor ve yenilemeden hemen sonra yeniden eşitleniyor.",
+    "p02.tags":  "\u003cspan class=\"ptag\"\u003eOrtak Çekirdek\u003c/span\u003e\u003cspan class=\"ptag\"\u003eMesaj Yolu\u003c/span\u003e\u003cspan class=\"ptag\"\u003eDurum Kurtarma\u003c/span\u003e",
+    "p03.title":  "Branş Motorları \u0026 Operatör Deneyimi",
+    "p03.body":  "Her branş kendi küçük durum makinesine dönüştü: devreli, uzatmalı ve penaltılı futbol saati; hedef sayı, 2 sayı fark kuralı ve tie-break\u0027li voleybol setleri; uzatma raundlu Survivor. Panel branş → kurulum → maç akışıyla ilerliyor; kısayollar, penaltı geri alma, maç sonu \"düzelt\" modu ve TV ekranının canlı önizlemesi var.",
+    "p03.tags":  "\u003cspan class=\"ptag\"\u003eDurum Makineleri\u003c/span\u003e\u003cspan class=\"ptag\"\u003eKlavye Kısayolları\u003c/span\u003e\u003cspan class=\"ptag\"\u003eCanlı Önizleme\u003c/span\u003e",
+    "p04.title":  "\"Tuz Mağarası\" Tasarımı \u0026 Performans",
+    "p04.body":  "Son olarak ekranları yeniden tasarladım: gece laciverti cam paneller, canvas üzerinde süzülen tuz kristalleri, ışık hüzmeleri, animasyonlu skor geçişleri ve goller, konfeti ve Survivor\u0027daki \"ateş mührü\" puanı için bir parçacık motoru. Her donanımda akıcı kalması için uygulama cihaza göre bir kalite kademesi seçiyor, kare hızını izliyor ve 45 fps\u0027nin altına düşerse kendiliğinden bir kademe iniyor.",
+    "p04.tags":  "\u003cspan class=\"ptag\"\u003eGörsel Yeniden Tasarım\u003c/span\u003e\u003cspan class=\"ptag\"\u003eCanvas Parçacıklar\u003c/span\u003e\u003cspan class=\"ptag\"\u003eUyarlanabilir Kalite\u003c/span\u003e",
+    "tech.title":  "Doğru araçlarla inşa edildi.",
+    "t1":  "Ortak çekirdek \u0026 branş motorları",
+    "t2":  "Ortak tema",
+    "t3":  "+ postMessage \u0026 storage olayları",
+    "t4":  "Kristaller \u0026 parçacıklar",
+    "t5":  "Uyarlanabilir kalite kademeleri",
+    "results.title":  "Performansı, güvenilirliği ve gerçek zamanlı kararlılığı yansıtan rakamlar.",
+    "r1.label":  "Senkronizasyon kanalı",
+    "r1.desc":  "Ekranlar her tarayıcıda birbirini bulur",
+    "r2.label":  "Kalite kademesi",
+    "r2.desc":  "Otomatik seçilir, canlı kare hızına göre ayarlanır",
+    "r3.label":  "Durum Tutarlılığı",
+    "r3.desc":  "Sıralı güncellemeler, skor uyumsuzluğu yok",
+    "next.title":  "Başa dönüş.",
+    "next.card.title":  "Hareketle Gelişim",
+    "next.card.desc":  "Eğitim finansmanını ve toplum desteğini kolaylaştırmak için tasarlanmış, yardımın en çok ihtiyaç duyanlara ulaşmasını sağlayan entegre bir ekosistem."
+} };
+  // EN metinleri sayfanın kendisinden okunur (tek kaynak)
+  (function (en) {
+    document.querySelectorAll('[data-i18n]').forEach(function (el) { var k = el.getAttribute('data-i18n'); if (en[k] === undefined) en[k] = el.textContent; });
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) { var k = el.getAttribute('data-i18n-html'); if (en[k] === undefined) en[k] = el.innerHTML; });
+    document.querySelectorAll('[data-i18n-title]').forEach(function (el) { var k = el.getAttribute('data-i18n-title'); if (en[k] === undefined) en[k] = el.title; });
+    en['page.title'] = document.title;
+  })(T.en);
   function apply(lang) {
     lang = (lang === 'tr') ? 'tr' : 'en';
     localStorage.setItem('mt_lang', lang);
